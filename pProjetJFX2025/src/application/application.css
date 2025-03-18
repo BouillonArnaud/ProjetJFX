@@ -1,0 +1,4 @@
+.root {
+    -fx-background-image: url("application/resources/background_cyberpunk.jpg");
+    -fx-background-size: cover;
+}
