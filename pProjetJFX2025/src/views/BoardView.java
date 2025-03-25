@@ -26,8 +26,9 @@ public class BoardView extends Pane {
         
         Image backgroundImage = new Image(getClass().getResource("/resources/background_cyberpunk.jpg").toExternalForm()); // Remplace par le chemin réel de ton image
         ImageView backgroundView = new ImageView(backgroundImage);
-        backgroundView.setFitWidth(1000); // Ajuste selon la taille souhaitée
-        backgroundView.setFitHeight(800);
+        backgroundView.fitWidthProperty().bind(this.widthProperty());
+        backgroundView.fitHeightProperty().bind(this.heightProperty());
+       
         this.getChildren().add(backgroundView);
 
         // Dessiner le plateau selon le chemin avec alternance de couleurs
