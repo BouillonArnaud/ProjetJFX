@@ -7,7 +7,7 @@ public class GameBoard {
     private final List<Case> chemin; // Liste des cases en suivant le parcours du jeu de l'oie
     private Pion pion;
 
-    public GameBoard(int taille) {
+    public GameBoard() {
         this.chemin = genererChemin(); // Génère les cases selon un chemin spécifique
     }
 
@@ -28,12 +28,13 @@ public class GameBoard {
 
         // Ex : Création d'un chemin de 20 cases (à adapter pour un vrai plateau)
         int[][] cheminPositions = {
-                {50, 50}, {100, 50}, {150, 50}, {200, 50}, {250, 50}, // Ligne 1
-                {250, 100}, {250, 150}, {250, 200}, // Descente
-                {200, 200}, {150, 200}, {100, 200}, {50, 200}, // Retour ligne 2
-                {50, 250}, {50, 300}, {100, 300}, {150, 300}, // Nouvelle descente et ligne 3
-                {200, 300}, {250, 300}, {250, 350}, {250, 400},
-                {250,450}// Dernières cases
+                {50, 50}, {90, 50}, {130, 50}, {170, 50}, {210, 50},{250, 50},{290, 50},{330, 50}, // Ligne 1
+                {330, 90},{330, 130},{330, 170},{330, 210},{330, 250},{330, 290},  // Descente
+                {290, 290},{250, 290},{210, 290},{170, 290},{130, 290},{90, 290},  // Retour ligne 2
+                {90, 250},{90, 210},{90, 170},{90, 130},  // Nouvelle descente et ligne 3
+                {130, 130},{170, 130},{210, 130},{250, 130}, //Ligne
+                {250, 170},{250, 210}, //Colone
+                {210, 210},{170, 210} //Ligne
             };
 
         for (int i = 0; i < cheminPositions.length; i++) {

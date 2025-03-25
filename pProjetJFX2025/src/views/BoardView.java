@@ -18,8 +18,8 @@ public class BoardView extends Pane {
     private final Circle pionGraphique;
     private final Color[] couleurs = {Color.PURPLE, Color.ORANGE, Color.BLUE, Color.GREEN,
                                       Color.ORANGE, Color.ORANGE, Color.PURPLE, Color.GREEN};
-    private static final int RECT_WIDTH = 100; // Largeur des rectangles
-    private static final int RECT_HEIGHT = 60; // Hauteur des rectangles
+    private static final int RECT_WIDTH = 146; // Largeur des rectangles
+    private static final int RECT_HEIGHT = 90; // Hauteur des rectangles
 
     public BoardView(GameBoard board,Stage boardStage) {
         this.board = board;

@@ -9,9 +9,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         MainMenuView mainMenu = new MainMenuView(primaryStage);
-        Scene scene = new Scene(mainMenu, 1000, 800);
+        Scene scene = new Scene(mainMenu, 1920, 1080);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Menu Principal");
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
