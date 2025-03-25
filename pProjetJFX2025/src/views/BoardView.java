@@ -24,7 +24,7 @@ public class BoardView extends Pane {
     public BoardView(GameBoard board,Stage boardStage) {
         this.board = board;
         
-        Image backgroundImage = new Image(getClass().getResource("/ressources/images.jpg").toExternalForm()); // Remplace par le chemin réel de ton image
+        Image backgroundImage = new Image(getClass().getResource("/resources/background_cyberpunk.jpg").toExternalForm()); // Remplace par le chemin réel de ton image
         ImageView backgroundView = new ImageView(backgroundImage);
         backgroundView.setFitWidth(1000); // Ajuste selon la taille souhaitée
         backgroundView.setFitHeight(800);
