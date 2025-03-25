@@ -1,10 +1,14 @@
 package views;
 
+import java.io.File;
+
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -20,6 +24,8 @@ public class BoardView extends Pane {
                                       Color.ORANGE, Color.ORANGE, Color.PURPLE, Color.GREEN};
     private static final int RECT_WIDTH = 146; // Largeur des rectangles
     private static final int RECT_HEIGHT = 90; // Hauteur des rectangles
+    private MediaPlayer mediaPlayer;
+    private boolean isPlaying = false;
 
     public BoardView(GameBoard board,Stage boardStage) {
         this.board = board;
@@ -64,6 +70,16 @@ public class BoardView extends Pane {
              boardStage.close();
         });
         this.getChildren().add(btnMenu);
+        
+        StackPane btnMusic = createButton("Play/Pause Music");
+        btnMusic.setLayoutX(120);
+        this.getChildren().add(btnMusic);
+
+        btnMusic.setOnMouseClicked(event -> toggleMusic());
+
+        String musicFile = getClass().getResource("/resources/pain.mp3").toExternalForm();
+        Media sound = new Media(musicFile);
+        mediaPlayer = new MediaPlayer(sound);
     }
 
     public void updatePionPosition() {
@@ -86,5 +102,17 @@ public class BoardView extends Pane {
 
         return stack;
     }
+    
+    private void toggleMusic() {
+        if (mediaPlayer == null) return; // Sécurité : Vérifier que mediaPlayer existe
+        
+        MediaPlayer.Status status = mediaPlayer.getStatus();
+        if (status == MediaPlayer.Status.PLAYING) {
+            mediaPlayer.pause();
+        } else {
+            mediaPlayer.play();
+        }
+    }
+
 
 }
