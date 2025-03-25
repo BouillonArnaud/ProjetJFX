@@ -15,19 +15,19 @@ import model.GameBoard;
 
 public class BoardView extends Pane {
     private final GameBoard board;
-    private final Circle pionGraphique;
+    private final ImageView pionGraphique;
     private final Color[] couleurs = {Color.PURPLE, Color.ORANGE, Color.BLUE, Color.GREEN,
                                       Color.ORANGE, Color.ORANGE, Color.PURPLE, Color.GREEN};
-    private static final int RECT_WIDTH = 100; // Largeur des rectangles
-    private static final int RECT_HEIGHT = 60; // Hauteur des rectangles
+    private static final int RECT_WIDTH = 146; // Largeur des rectangles
+    private static final int RECT_HEIGHT = 90; // Hauteur des rectangles
 
     public BoardView(GameBoard board,Stage boardStage) {
         this.board = board;
         
         Image backgroundImage = new Image(getClass().getResource("/resources/background_cyberpunk.jpg").toExternalForm()); // Remplace par le chemin réel de ton image
         ImageView backgroundView = new ImageView(backgroundImage);
-        backgroundView.setFitWidth(1000); // Ajuste selon la taille souhaitée
-        backgroundView.setFitHeight(800);
+        backgroundView.fitWidthProperty().bind(this.widthProperty());
+        backgroundView.fitHeightProperty().bind(this.heightProperty());
         this.getChildren().add(backgroundView);
 
         // Dessiner le plateau selon le chemin avec alternance de couleurs
@@ -43,7 +43,10 @@ public class BoardView extends Pane {
         }
 
         // Dessiner le pion
-        pionGraphique = new Circle(RECT_HEIGHT / 2, Color.RED);
+        Image pionImage = new Image(getClass().getResource("/resources/pawns1.png").toExternalForm()); // Mets le bon chemin
+        pionGraphique = new ImageView(pionImage);
+        pionGraphique.setFitWidth(RECT_HEIGHT / 2);  // Ajuste la taille du pion
+        pionGraphique.setFitHeight(RECT_HEIGHT / 2);
         updatePionPosition();
         this.getChildren().add(pionGraphique);
         
@@ -53,9 +56,10 @@ public class BoardView extends Pane {
         btnMenu.setOnMouseClicked(event -> {
         	 Stage mainMenuStage = new Stage();
              MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
-             Scene mainMenuScene = new Scene(mainMenuView, 1000, 800);
+             Scene mainMenuScene = new Scene(mainMenuView, 1920, 1080);
              mainMenuStage.setScene(mainMenuScene);
              mainMenuStage.setTitle("Menu Principal");
+             mainMenuStage.setMaximized(true);
              mainMenuStage.show();
              boardStage.close();
         });
@@ -65,8 +69,8 @@ public class BoardView extends Pane {
     public void updatePionPosition() {
         Case currentCase = board.getChemin().get(board.getPion().getIndex());
         
-        pionGraphique.setCenterX(currentCase.getX() * RECT_WIDTH / 40 + RECT_WIDTH / 2);
-        pionGraphique.setCenterY(currentCase.getY() * RECT_HEIGHT / 40 + RECT_HEIGHT / 2);
+        pionGraphique.setX(currentCase.getX() * RECT_WIDTH / 40 + RECT_WIDTH / 8);
+        pionGraphique.setY(currentCase.getY() * RECT_HEIGHT / 40 + RECT_HEIGHT / 2);
     }
 
     public StackPane createButton(String textContent) {
