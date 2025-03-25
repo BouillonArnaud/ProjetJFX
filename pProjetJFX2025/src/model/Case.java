@@ -1,16 +1,31 @@
 package model;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
-
-public class Case extends Rectangle {
-	public Case(double x, double y, Color fillColor) {
-		super(x, y, 146, 90);
-		setFill(fillColor);
-		setArcHeight(5.0);
-		setArcWidth(5.0);
-		setStroke(Color.web("#0000001a"));
-		setStrokeType(StrokeType.INSIDE);
+public class Case {
+	
+	private final int index;
+	private final int x,y;
+	
+	public Case(int index, int x, int y) {
+		super();
+		this.index = index;
+		this.x = x;
+		this.y = y;
 	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+	
+	
+	
+	
+
 }

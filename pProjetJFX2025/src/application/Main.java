@@ -1,19 +1,17 @@
 package application;
 
 import javafx.application.Application;
-import javafx.stage.Stage;
-import model.GameBoard;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
+import views.MainMenuView;
 
 public class Main extends Application {
-	
-
-	public void start(Stage primaryStage) {
-        GameBoard gameBoard = new GameBoard();
-        Scene scene = new Scene(gameBoard);
-
-        primaryStage.setTitle("Game Board");
+    @Override
+    public void start(Stage primaryStage) {
+        MainMenuView mainMenu = new MainMenuView(primaryStage);
+        Scene scene = new Scene(mainMenu, 1000, 800);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("Menu Principal");
         primaryStage.show();
     }
 
@@ -21,4 +19,3 @@ public class Main extends Application {
         launch(args);
     }
 }
-

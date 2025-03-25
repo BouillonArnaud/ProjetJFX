@@ -1,85 +1,55 @@
 package model;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GameBoard extends Pane {
-	public GameBoard() {
-		// Set the preferred size of the game board
-		setPrefSize(1295, 727);
+public class GameBoard {
+    private final List<Case> chemin; // Liste des cases en suivant le parcours du jeu de l'oie
+    private Pion pion;
 
-		// Add the background image
-		ImageView background = new ImageView(
-				new Image(getClass().getResource("/resources/background_cyberpunk.jpg").toExternalForm()));
-		background.setFitWidth(1295);
-		background.setFitHeight(727);
-		background.setPreserveRatio(true);
-		getChildren().add(background);
+    public GameBoard(int taille) {
+        this.chemin = genererChemin(); // Génère les cases selon un chemin spécifique
+    }
 
-		// Add rectangles (cases) to the game board
-		getCaseAtPosition();
-	}
+    public void ajouterPion(Pion pion) {
+        this.pion = pion;
+    }
 
-	private void getCaseAtPosition() {
-		// Define an array of colors for cases
-		Color[] colors = { Color.web("#4000ff66"), Color.web("#0088ff66"), Color.ORANGE,
-				Color.web("#00ff0466") };
-		Color[] reversecolors = { Color.web("#00ff0466"), Color.ORANGE, Color.web("#0088ff66"),
-				Color.web("#4000ff66") };
+    public Pion getPion() {
+        return pion;
+    }
 
-		// Add cases in rows and columns
-		double startX = 44;
-		double startY = 24;
-		double caseWidth = 146;
-		double caseHeight = 90;
+    public List<Case> getChemin() {
+        return chemin;
+    }
 
-		// First-Top row
-		for (int i = 0; i < 8; i++) {
-			Case rectangle = new Case(startX + i * caseWidth, startY, colors[i % colors.length]);
-			getChildren().add(rectangle);
-		}
+    private List<Case> genererChemin() {
+        List<Case> chemin = new ArrayList<>();
 
-		// First-Right column
-		for (int i = 0; i < 6; i++) {
-			Case rectangle = new Case(startX + caseWidth * 7, startY + (i + 1) * caseHeight,
-					colors[(i + 4) % colors.length]);
-			getChildren().add(rectangle);
-		}
+        // Ex : Création d'un chemin de 20 cases (à adapter pour un vrai plateau)
+        int[][] cheminPositions = {
+                {50, 50}, {100, 50}, {150, 50}, {200, 50}, {250, 50}, // Ligne 1
+                {250, 100}, {250, 150}, {250, 200}, // Descente
+                {200, 200}, {150, 200}, {100, 200}, {50, 200}, // Retour ligne 2
+                {50, 250}, {50, 300}, {100, 300}, {150, 300}, // Nouvelle descente et ligne 3
+                {200, 300}, {250, 300}, {250, 350}, {250, 400},
+                {250,450}// Dernières cases
+            };
 
-		// First-Bottom row
-		for (int i = 5; i >= 0; i--) {
-			Case rectangle = new Case(startX + (i + 1) * caseWidth, startY + 6 * caseHeight,
-					reversecolors[(i) % reversecolors.length]);
-			getChildren().add(rectangle);
-		}
+        for (int i = 0; i < cheminPositions.length; i++) {
+            chemin.add(new Case(i, cheminPositions[i][0], cheminPositions[i][1]));
+        }
+        return chemin;
+    }
 
-		// Left column
-		for (int i = 4; i > 0; i--) {
-			Case rectangle = new Case(startX + caseWidth, startY + caseHeight + i * caseHeight,
-					reversecolors[(i + 3) % reversecolors.length]);
-			getChildren().add(rectangle);
-		}
+    public boolean deplacerPion(int deplacement) {
+        int newIndex = pion.getIndex() + deplacement;
 
-		// Second-Top row
-		for (int i = 0; i < 4; i++) {
-			Case rectangle = new Case(startX + (i + 2) * caseWidth, startY + 2 * caseHeight, colors[i % colors.length]);
-			getChildren().add(rectangle);
-		}
-
-		// Second-Right column
-		for (int i = 0; i < 2; i++) {
-			Case rectangle = new Case(startX + caseWidth * 5, startY + caseHeight + (i + 2) * caseHeight,
-					colors[(i + 4) % colors.length]);
-			getChildren().add(rectangle);
-		}
-
-		// Second-Bottom row
-		for (int i = 1; i >= 0; i--) {
-			Case rectangle = new Case(startX + (i + 3) * caseWidth, startY + 4 * caseHeight,
-					reversecolors[(i) % reversecolors.length]);
-			getChildren().add(rectangle);
-		}
-	}
+        // Vérifier que le pion ne dépasse pas les limites du plateau
+        if (newIndex >= 0 && newIndex < chemin.size()) {
+            pion.setIndex(newIndex);
+            return true;
+        }
+        return false;
+    }
 }
