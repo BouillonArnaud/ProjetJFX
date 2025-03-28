@@ -1,13 +1,8 @@
 package controllers;
 
-import com.google.gson.JsonObject;
-
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.GameBoard;
-import model.JsonUtils;
 import views.BoardView;
 
 public class BoardController {
@@ -21,17 +16,13 @@ public class BoardController {
 
     public void handleKeyPress(KeyEvent event) {
         if (event.getCode() == KeyCode.RIGHT) {
-            if (board.deplacerPion(1)) {
-                showCasePopup("Pion déplacé à droite"); // APPEL ICI
-            }
+            board.deplacerPion(1);
         } else if (event.getCode() == KeyCode.LEFT) {
-            if (board.deplacerPion(-1)) {
-                showCasePopup("Pion déplacé à gauche"); // ET ICI
-            }
+            board.deplacerPion(-1);
         }
-        boardView.updatePionPosition();
+        boardView.updatePawnPosition(); // Cette méthode déclenchera la popup colorée
     }
-    
+}
     //read the Json file 
     /*public void loadConfig() {
         try {
@@ -46,11 +37,3 @@ public class BoardController {
         }
     }*/
     
-    private void showCasePopup(String message) {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Position du pion");
-        alert.setHeaderText("Nouvelle position : Case " + board.getPion().getIndex());
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-}
