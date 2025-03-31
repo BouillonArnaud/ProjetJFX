@@ -23,6 +23,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Case;
 import model.GameBoard;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 public class BoardView extends Pane {
     private final GameBoard board;
@@ -119,17 +121,14 @@ public class BoardView extends Pane {
         content.setPadding(new Insets(20));
         content.setStyle("-fx-background-color: #" + caseColor.toString().substring(2, 8) + ";");
         
-        // Title
         Label title = new Label("Case Details");
         title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
         
-        // Information
         int caseIndex = board.getPion().getIndex();
         Label info = new Label("Case #" + caseIndex + "\nColor: " + getColorName(caseColor));
         info.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
         info.setTextAlignment(TextAlignment.CENTER);
         
-        // Close button
         Button closeButton = new Button("Close");
         closeButton.setOnAction(e -> popupStage.close());
         
@@ -137,7 +136,13 @@ public class BoardView extends Pane {
         
         Scene scene = new Scene(content, 350, 250);
         popupStage.setScene(scene);
-        popupStage.showAndWait();
+
+        // Correction : Use show() instead of showAndWait()
+        PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
+        delay.setOnFinished(event -> {
+            popupStage.show(); // Display without blocking thread
+        });
+        delay.play();
     }
 
     /**
