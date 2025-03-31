@@ -27,11 +27,12 @@ public class BoardView extends Pane {
     private static final int RECT_HEIGHT = 90; // Hauteur des rectangles
     private MediaPlayer mediaPlayer;
     private boolean isPlaying = false;
+    private ImageView imgView; // ImageView pour le bouton son
 
-    public BoardView(GameBoard board,Stage boardStage) {
+    public BoardView(GameBoard board, Stage boardStage) {
         this.board = board;
         
-        Image backgroundImage = new Image(getClass().getResource("/resources/background_cyberpunk.jpg").toExternalForm()); // Remplace par le chemin réel de ton image
+        Image backgroundImage = new Image(getClass().getResource("/resources/background_cyberpunk.jpg").toExternalForm());
         ImageView backgroundView = new ImageView(backgroundImage);
         backgroundView.fitWidthProperty().bind(this.widthProperty());
         backgroundView.fitHeightProperty().bind(this.heightProperty());
@@ -50,30 +51,29 @@ public class BoardView extends Pane {
         }
 
         // Dessiner le pion
-        Image pionImage = new Image(getClass().getResource("/resources/pawns1.png").toExternalForm()); // Mets le bon chemin
+        Image pionImage = new Image(getClass().getResource("/resources/pawns1.png").toExternalForm());
         pionGraphique = new ImageView(pionImage);
         pionGraphique.setFitWidth(RECT_HEIGHT / 2);  // Ajuste la taille du pion
         pionGraphique.setFitHeight(RECT_HEIGHT / 2);
         updatePionPosition();
         this.getChildren().add(pionGraphique);
         
-       StackPane btnMenu = createButton("Return to menu");
-       
-        
+        // Créer le bouton de retour au menu
+        StackPane btnMenu = createButton("Return to menu");
         btnMenu.setOnMouseClicked(event -> {
-        	 Stage mainMenuStage = new Stage();
-             MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
-             Scene mainMenuScene = new Scene(mainMenuView, 1920, 1080);
-             mainMenuStage.setScene(mainMenuScene);
-             mainMenuStage.setTitle("Menu Principal");
-             mainMenuStage.setMaximized(true);
-             mainMenuStage.show();
-             boardStage.close();
+            Stage mainMenuStage = new Stage();
+            MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
+            Scene mainMenuScene = new Scene(mainMenuView, 1920, 1080);
+            mainMenuStage.setScene(mainMenuScene);
+            mainMenuStage.setTitle("Menu Principal");
+            mainMenuStage.setMaximized(true);
+            mainMenuStage.show();
+            boardStage.close();
         });
         this.getChildren().add(btnMenu);
-        
-        Image img = new Image(getClass().getResource("/resources/button_son.png").toExternalForm());
-        ImageView imgView = new ImageView(img);
+
+        // Initialiser le bouton de musique
+        imgView = new ImageView(new Image(getClass().getResource("/resources/button_son_on.png").toExternalForm()));
         imgView.setFitWidth(50); // Ajuste la taille selon tes besoins
         imgView.setFitHeight(50);
 
@@ -81,28 +81,27 @@ public class BoardView extends Pane {
         btnMusic.setLayoutX(120);
         this.getChildren().add(btnMusic);
 
+        // Ajouter l'événement de clic pour alterner l'état de la musique
         btnMusic.setOnMouseClicked(event -> toggleMusic());
 
+        // Charger le fichier de musique
         String musicFile = getClass().getResource("/resources/pain.mp3").toExternalForm();
         Media sound = new Media(musicFile);
         mediaPlayer = new MediaPlayer(sound);
-
     }
     
-   
     public void updatePionPosition() {
         Case currentCase = board.getChemin().get(board.getPion().getIndex());
-        
         pionGraphique.setX(currentCase.getX() * RECT_WIDTH / 40 + RECT_WIDTH / 8);
         pionGraphique.setY(currentCase.getY() * RECT_HEIGHT / 40 + RECT_HEIGHT / 2);
     }
 
     private VBox createCyberpunkButtonGroup() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public StackPane createButton(String textContent) {
+    public StackPane createButton(String textContent) {
         Rectangle rectangle = new Rectangle(100, 50);
         rectangle.setFill(Color.YELLOW);
         rectangle.setStroke(Color.BLACK);
@@ -116,16 +115,19 @@ public class BoardView extends Pane {
         return stack;
     }
     
+    // Méthode pour alterner entre musique ON et OFF
     private void toggleMusic() {
         if (mediaPlayer == null) return; // Sécurité : Vérifier que mediaPlayer existe
         
         MediaPlayer.Status status = mediaPlayer.getStatus();
         if (status == MediaPlayer.Status.PLAYING) {
             mediaPlayer.pause();
+            // Mettre l'image en ON
+            imgView.setImage(new Image(getClass().getResource("/resources/button_son_on.png").toExternalForm()));
         } else {
             mediaPlayer.play();
+            // Mettre l'image en OFF
+            imgView.setImage(new Image(getClass().getResource("/resources/button_son_off.png").toExternalForm()));
         }
     }
-
-
 }
