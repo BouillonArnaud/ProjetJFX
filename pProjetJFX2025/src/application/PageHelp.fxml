@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/Page2.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="539.0" fitWidth="573.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/acceuil6.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="216.0" fitWidth="853.0" layoutX="790.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/Role_Game_Title.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="216.0" fitWidth="526.0" layoutX="1394.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/Image5.png" />
+         </image>
+      </ImageView>
+      <TextArea disable="true" layoutX="549.0" layoutY="213.0" prefHeight="756.0" prefWidth="1228.0" text="Le but du jeu&#10;Être la première équipe à arriver sur la dernière case du plateau, et parvenir à répondre à une dernière question.&#10;&#10;Le tour de jeu&#10;Le jeu contient 4 thèmes :&#10;&#10;Improbable, qui porte sur des thèmes loufoques (les bâillements, les galettes bretonnes…).&#10;- Plaisir, qui porte sur des thèmes axés sur les loisirs.&#10;- Mature, qui porte sur des thèmes plus difficiles à maîtriser par les plus jeunes.&#10;- Scolaire, qui porte sur le thème de la culture générale (capitale d’Amérique, les fourmis…).&#10;On y trouve aussi types de cartes spéciales :&#10;&#10;- Challenge, avec des sujets aléatoires.&#10;- Ça va pas du tout, ce sont généralement des cartes qui ont pour but de vous ralentir.&#10;- C’est superbe, des cartes qui peuvent vous permettre d’avancer plus rapidement si vous répondez correctement.&#10;Ces thèmes sont déterminés par rapport à l’endroit où se trouve votre pion.&#10;Au début de la partie, toutes les équipes commenceront avec le thème « improbable« . L’équipe adverse tire une carte du thème associé à l’endroit où se trouve le pion.&#10;&#10;Elle vous pose la fameuse phrase :&#10;&#10;&quot;Tu te mets combien en … ?&quot;&#10;&#10;À votre équipe d’évaluer ses connaissances sur le thème donné, le tout sur une échelle de difficulté allant de 1 (question facile) à 10 (question experte).&#10;&#10;Vous avez généralement 30 secondes pour répondre, mais vous pouvez très bien ajuster le temps comme bon vous semble.&#10;&#10;Si vous avez donné une bonne réponse, vous avancez du nombre de cases correspondant à votre note. Dans le cas contraire, vous restez sur votre case. Et on échange les rôles dans le sens des aiguilles d’une montre.&#10;&#10;Une fois arrivé à la dernière case, l’équipe adverse tire une carte « Hésite pas à gagner ». Si vous répondez correctement vous avez gagné la partie, sinon vous devrez retenter votre chance au prochain tour avec une nouvelle question." wrapText="true">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </TextArea>
+   </children>
+</Pane>
