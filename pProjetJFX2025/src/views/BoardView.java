@@ -33,6 +33,7 @@ public class BoardView extends Pane {
     private static final int RECT_HEIGHT = 90; // Hauteur des rectangles
     private MediaPlayer mediaPlayer;
     private boolean isPlaying = false;
+    private ImageView imgView;
 
     public BoardView(GameBoard board,Stage boardStage) {
         this.board = board;
@@ -78,7 +79,11 @@ public class BoardView extends Pane {
         });
         this.getChildren().add(btnMenu);
         
-        StackPane btnMusic = createButton("Play/Pause Music");
+        imgView = new ImageView(new Image(getClass().getResource("/resources/button_son_off.png").toExternalForm()));
+        imgView.setFitWidth(50);
+        imgView.setFitHeight(50);
+        
+        StackPane btnMusic = new StackPane(imgView);
         btnMusic.setLayoutX(120);
         this.getChildren().add(btnMusic);
 
@@ -174,8 +179,12 @@ public class BoardView extends Pane {
         MediaPlayer.Status status = mediaPlayer.getStatus();
         if (status == MediaPlayer.Status.PLAYING) {
             mediaPlayer.pause();
+            // Mettre l'image en OFF
+            imgView.setImage(new Image(getClass().getResource("/resources/button_son_off.png").toExternalForm()));
         } else {
             mediaPlayer.play();
+            // Mettre l'image en ON
+            imgView.setImage(new Image(getClass().getResource("/resources/button_son_on.png").toExternalForm()));
         }
     }
 
