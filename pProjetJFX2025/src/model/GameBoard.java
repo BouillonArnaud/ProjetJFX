@@ -53,4 +53,13 @@ public class GameBoard {
         }
         return false;
     }
+    
+    @Override
+    public boolean equals(Object o) {
+    	if (o instanceof GameBoard) {
+    		GameBoard gb = (GameBoard)o;
+    		return this.chemin.equals(gb.chemin) && this.pion.equals(gb.pion);
+    	}
+    	return false;
+    }
 }

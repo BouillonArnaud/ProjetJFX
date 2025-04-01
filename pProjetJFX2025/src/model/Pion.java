@@ -17,6 +17,13 @@ public class Pion {
 		this.index = index;
 	}
 	
-	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Pion) {
+			Pion p = (Pion)o;
+			return this.index == p.index;
+		}
+		return false;
+	}
 
 }

@@ -17,10 +17,11 @@ public class BoardController {
     public void handleKeyPress(KeyEvent event) {
         if (event.getCode() == KeyCode.RIGHT) {
             board.deplacerPion(1);
+            boardView.updatePawnPosition();
         } else if (event.getCode() == KeyCode.LEFT) {
             board.deplacerPion(-1);
+            boardView.updatePawnPosition();
         }
-        boardView.updatePawnPosition(); // Cette méthode déclenchera la popup colorée
     }
 }
     //read the Json file 

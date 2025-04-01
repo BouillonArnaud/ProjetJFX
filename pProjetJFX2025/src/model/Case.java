@@ -24,7 +24,14 @@ public class Case {
 		return y;
 	}
 	
-	
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Case) {
+			Case c = (Case)o;
+			return this.index == c.index && this.x == c.x && this.y == c.y;
+		}
+		return false;
+	}
 	
 	
 
