@@ -36,4 +36,3 @@ public class BoardController {
             System.err.println("Erreur de lecture : " + e.getMessage());
         }
     }*/
-    
