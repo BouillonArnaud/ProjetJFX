@@ -16,10 +16,23 @@ public class BoardController {
 
     public void handleKeyPress(KeyEvent event) {
         if (event.getCode() == KeyCode.RIGHT) {
-            board.deplacerPion(1); // Avancer d'une case
+            board.deplacerPion(1);
         } else if (event.getCode() == KeyCode.LEFT) {
-            board.deplacerPion(-1); // Reculer d'une case
+            board.deplacerPion(-1);
         }
-        boardView.updatePionPosition();
+        boardView.updatePawnPosition(); // Cette méthode déclenchera la popup colorée
     }
 }
+    //read the Json file 
+    /*public void loadConfig() {
+        try {
+            JsonObject config = JsonUtils.readJson("src/resources/game_config.json");
+            
+            // Exemple : Extraire une valeur
+            String boardColor = config.get("boardColor").getAsString();
+            System.out.println("Couleur du plateau : " + boardColor);
+
+        } catch (Exception e) {
+            System.err.println("Erreur de lecture : " + e.getMessage());
+        }
+    }*/
