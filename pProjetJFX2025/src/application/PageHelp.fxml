@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/Page2.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="539.0" fitWidth="540.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/acceuil6.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="216.0" fitWidth="853.0" layoutX="790.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/Role_Game_Title.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="216.0" fitWidth="526.0" layoutX="1394.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../resources/Image7.png" />
+         </image>
+      </ImageView>
+      <TextArea disable="true" layoutX="549.0" layoutY="213.0" prefHeight="756.0" prefWidth="1228.0" text="Objective of the Game Be the first team to reach the last square on the board and successfully answer a final question.&#10;&#10;Gameplay The game contains 4 themes, each associated with a color:&#10;&#10;Mauve: Improbable, which covers quirky topics (yawning, Breton pancakes…).&#10;Orange: Entertainment (divertissement), which focuses on leisure-related topics (movies, music, etc.).&#10;Blue: Informatics (informatique), in the field of OOP and analysis.&#10;Green: Education.&#10;There are also special types of cards:&#10;&#10;Challenge, with random subjects.&#10;Not at all, usually cards designed to slow you down.&#10;Superb, cards that can help you move forward faster if you answer correctly.&#10;These themes are determined by the location of your pawn.&#10;&#10;At the beginning of the game, all teams will start with the &quot;Improbable&quot; theme. The opposing team draws a card from the theme associated with the location of the pawn.&#10;&#10;They ask you the famous question:&#10;&#10;&quot;How confident are you in…?&quot;&#10;&#10;Your team evaluates its knowledge on the given theme, on a difficulty scale from 1 (easy question) to 10 (expert question).&#10;&#10;You generally have 30 seconds to answer, but you can adjust the time as you see fit.&#10;&#10;If you answer correctly, you move forward the number of squares corresponding to your score. If not, you stay on your square. Roles are exchanged clockwise.&#10;&#10;Once you reach the last square, the opposing team draws a &quot;Don't hesitate to win&quot; card. If you answer correctly, you win the game; otherwise, you will have to try again in the next round with a new question." wrapText="true">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </TextArea>
+   </children>
+</Pane>

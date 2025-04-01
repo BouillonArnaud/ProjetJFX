@@ -1,0 +1,174 @@
+{
+  "themes": {
+    "Entertainment": [
+      {
+        "card": "Card 1",
+        "author": "BOUILLON Arnaud",
+        "subject": "Football",
+        "questions": [
+          {
+            "id": 1,
+            "question": "Who is the winner of the World Cup in 2018?",
+            "answer": "The winner of the World Cup in 2018 is France."
+          },
+          {
+            "id": 2,
+            "question": "What club is Cristiano Ronaldo currently playing for?",
+            "answer": "Currently, he is playing for Al Nassr in Saudi Arabia."
+          },
+          {
+            "id": 3,
+            "question": "Who was the striker of the Belgium national team in 2012?",
+            "answer": "Christian Benteke was the striker of the Belgium national team in 2012."
+          },
+          {
+            "id": 4,
+            "question": "Which team was Bayern Munich playing against when Robert Lewandowski scored 5 goals in only 9 minutes?",
+            "answer": "They were playing against Wolfsburg."
+          }
+        ]
+      },
+      {
+        "card": "Card 2",
+        "author": "BOUILLON Arnaud",
+        "subject": "Goldorak",
+        "questions": [
+          {
+            "id": 1,
+            "question": "Who is the main pilot of Goldorak, and where does he come from?",
+            "answer": "The main pilot of Goldorak is Actarus, and he comes from the planet Fleed."
+          },
+          {
+            "id": 2,
+            "question": "What is the original Japanese name of Goldorak?",
+            "answer": "The original Japanese name of Goldorak is UFO Robo Grendizer."
+          },
+          {
+            "id": 3,
+            "question": "What is the name of the organization that invades Actarus' home planet, and who is their leader?",
+            "answer": "The organization that invades Actarus' home planet is called the Vega Empire, and its leader is Great King Vega."
+          },
+          {
+            "id": 4,
+            "question": "What is the name of the base where Goldorak is hidden and protected on Earth?",
+            "answer": "It is The White Ranch."
+          }
+        ]
+      }
+    ],
+    "Education": [
+      {
+        "card": "Card 1",
+        "author": "Boutrix Maxime",
+        "subject": "Geography of the EU",
+        "questions": [
+          {
+            "id": 1,
+            "question": "Which sea borders the EU in the north?",
+            "answer": "Baltic and North Sea."
+          },
+          {
+            "id": 2,
+            "question": "Which river in the EU exceeds 2,000 km?",
+            "answer": "The Danube, a major waterway."
+          },
+          {
+            "id": 3,
+            "question": "Which lake shared with Switzerland has undefined borders?",
+            "answer": "Lake Constance."
+          },
+          {
+            "id": 4,
+            "question": "Which country has limited access to the sea via Neum?",
+            "answer": "Bosnia-Herzegovina."
+          }
+        ]
+      },
+      {
+        "card": "Card 2",
+        "author": "Boutrix Maxime",
+        "subject": "History of the EU",
+        "questions": [
+          {
+            "id": 1,
+            "question": "Which country joined the EU in 2013, marking the last enlargement before Brexit?",
+            "answer": "Croatia."
+          },
+          {
+            "id": 2,
+            "question": "Which 1998 summit decided to launch the euro in 1999?",
+            "answer": "Brussels Summit."
+          },
+          {
+            "id": 3,
+            "question": "Which act of 1986 was aimed at completing the single market by 1992?",
+            "answer": "The Single European Act."
+          },
+          {
+            "id": 4,
+            "question": "Which decision of 1964 established the primacy of European law?",
+            "answer": "The Costa v. ENEL judgment."
+          }
+        ]
+      }
+    ],
+    "Improbable": [
+      {
+        "card": "Card 1",
+        "author": "Touré Mamadou",
+        "subject": "Unexplained Phenomena",
+        "questions": [
+          {
+            "id": 1,
+            "question": "Easy: What is the name of the triangle associated with mysterious disappearances in the Atlantic Ocean?",
+            "answer": "The Bermuda Triangle."
+          },
+          {
+            "id": 2,
+            "question": "Medium: What improbable phenomenon involves objects that seem to defy gravity, such as cars rolling uphill on their own?",
+            "answer": "Magnetic hills (or gravity hills)."
+          },
+          {
+            "id": 3,
+            "question": "Difficult: What is the name of the theory suggesting that our universe is just a computer simulation?",
+            "answer": "The simulation theory."
+          },
+          {
+            "id": 4,
+            "question": "Expert: What improbable phenomenon involves unexplained sounds heard in different parts of the world, often described as 'sky noises'?",
+            "answer": "Skyquakes or 'sky noises.'"
+          }
+        ]
+      }
+    ],
+    "Informatics": [
+      {
+        "card": "Card 1",
+        "author": "Alessio Doddis",
+        "subject": "OOP",
+        "questions": [
+          {
+            "id": 1,
+            "question": "Easy: What term refers to a blueprint or template for creating objects in OOP?",
+            "answer": "A class."
+          },
+          {
+            "id": 2,
+            "question": "Intermediate: What is the difference between 'public' and 'private' access modifiers?",
+            "answer": "Public members can be accessed from anywhere, while private members can only be accessed within the class."
+          },
+          {
+            "id": 3,
+            "question": "Pretty hard: What is an 'interface' in OOP?",
+            "answer": "A contract that defines a set of methods that a class must implement."
+          },
+          {
+            "id": 4,
+            "question": "Hard: What is an 'abstract class' in OOP?",
+            "answer": "A class that cannot be instantiated and may contain both implemented and unimplemented methods."
+          }
+        ]
+      }
+    ]
+  }
+}
