@@ -57,28 +57,28 @@
       "answer": "The White Ranch."
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "OOP languages",
       "level": 1,
       "question": "Which OOP concept allows creating multiple objects from the same model?",
       "answer": "Class"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "OOP languages",
       "level": 2,
       "question": "Which OOP principle hides the internal details of a class and only exposes what is necessary?",
       "answer": "Encapsulation"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "OOP languages",
       "level": 3,
       "question": "Which OOP principle allows a class to be used interchangeably with its parent class?",
       "answer": "Polymorphism"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "OOP languages",
       "level": 4,
       "question": "What is the name of the OOP principle that states a derived class should be usable in place of its parent class without altering the program’s correctness?",
@@ -197,28 +197,28 @@
       "answer": "Championship Trophy"
     },
     {
-      "theme": "Educational",
+      "theme": "Education",
       "subject": "Flags",
       "level": 1,
       "question": "How many stars stands on the USA flag ?",
       "answer": "50"
     },
     {
-      "theme": "Educational",
+      "theme": "Education",
       "subject": "Flags",
       "level": 2,
       "question": "How many stars stands on the European Union flag ?",
       "answer": "12"
     },
     {
-      "theme": "Educational",
+      "theme": "Education",
       "subject": "Flags",
       "level": 3,
       "question": "Which country's flag consists of a red dragon on a green and white background?",
       "answer": "Wales"
     },
     {
-      "theme": "Educational",
+      "theme": "Education",
       "subject": "Flags",
       "level": 4,
       "question": "Which country is the only one to have a firearm on its flag ?",
@@ -421,14 +421,14 @@
       "answer": "Inside out"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "Disney",
       "level": 1,
       "question": "In Phineas and Ferb, Candace is always watching her brothers and tries to alert their mom when they conduct crazy experiments. Which design pattern does this represent?",
       "answer": "Observer"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "Disney",
       "level": 2,
       "question": "In The Cheetah Girls, the girls choose different strategies to impress the judges: Dorinda dances, Galleria sings with power, Chanel uses her charisma. Which design pattern does this represent?",
@@ -491,14 +491,14 @@
       "answer": "Mercury"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "Inheritance",
       "level": 4,
       "question": "What’s polymorphism in object-oriented programming ?",
       "answer": "a programming principle which allows objects of different classes, objects, variables and methods to exist in different forms."
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "Construction Design pattern",
       "level": 3,
       "question": "What are construction design patterns used for?",
@@ -561,14 +561,14 @@
       "answer": "Ralph H. Baer"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "Jeux Video",
       "level": 1,
       "question": "Which French-speaking YouTuber, known for his videos on programming and video games, created a programming language entirely using emojis?",
       "answer": "V2F"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "Jeux Video",
       "level": 2,
       "question": "In a video game, when creating a class to represent a character, which keyword is generally used to ensure that an attribute (such as health or mana points) is only accessible within its own class?",
@@ -617,14 +617,14 @@
       "answer": "SZA"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "Analysis",
       "level": 2,
       "question": "What is a relationship between classes called?",
       "answer": "An association"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "OOP",
       "level": 4,
       "question": "Which Java functionality is used to “kill” an object?",
@@ -673,14 +673,14 @@
       "answer": "Portal 2"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "Jeux Video",
       "level": 2,
       "question": "In video game development, which OOP concept is used to allow an object to take multiple forms, such as an enemy that can be both a \"fighter\" and a \"flyer\"?",
       "answer": "Polymorphism"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "Jeux Video",
       "level": 3,
       "question": "In a video game, which design pattern is used to create complex objects (such as a game level or a character) step by step, separating construction from the final representation?",
@@ -729,14 +729,14 @@
       "answer": "Hans Zimmer"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "Analysis",
       "level": 1,
       "question": "Which of these design patterns is not part of the structural patterns? Adapter, Proxy, Iterator",
       "answer": "Iterator"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "OOP",
       "level": 2,
       "question": "Which method do you use when you want to create a clone of an object?",
@@ -785,14 +785,14 @@
       "answer": "The Weeknd"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "Analysis",
       "level": 3,
       "question": "What is represented by a continuous line with a black diamond?",
       "answer": "A composition"
     },
     {
-      "theme": "Informatics",
+      "theme": "Informatic",
       "subject": "OOP",
       "level": 3,
       "question": "How should you name a method that return the value of the boolean “open”?",
@@ -842,14 +842,14 @@
     },
 	```json
 	    {
-	      "theme": "Informatics",
+	      "theme": "Informatic",
 	      "subject": "Jeux Video",
 	      "level": 2,
 	      "question": "Which object-oriented programming concept in Java is commonly used in video games to allow different types of game objects (such as enemies, characters, and collectible items) to share common behaviors while having unique characteristics?",
 	      "answer": "Inheritance"
 	    },
 	    {
-	      "theme": "Informatics",
+	      "theme": "Informatic",
 	      "subject": "Jeux Video",
 	      "level": 3,
 	      "question": "In game development, which design pattern is commonly used to ensure that there is only one instance of a global object, such as the sound manager, save system, or scene manager?",
@@ -1052,14 +1052,14 @@
 	      "answer": "Sandro Botticelli"
 	    },
 	    {
-	      "theme": "Informatics",
+	      "theme": "Informatic",
 	      "subject": "Java",
 	      "level": 2,
 	      "question": "What does the concept of \"method overloading\" mean in Java ?",
 	      "answer": "Defining multiple methods with the same name but different parameters in the same class"
 	    },
 	    {
-	      "theme": "Informatics",
+	      "theme": "Informatic",
 	      "subject": "Design Pattern",
 	      "level": 1,
 	      "question": "Which design pattern ensures that a class has only one instance and provides a global access point to that instance?",
