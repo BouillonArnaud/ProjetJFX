@@ -2,13 +2,8 @@ package model;
 
 public class QuestionEducation extends Question {
 	
-//	Constant variable = the theme of the question
-	private static final String theme = "EDUCATION";
-
-	public QuestionEducation(int level, String questionContent, String answer) {
-		super(level, questionContent, answer);
+	public QuestionEducation(String theme,String subject ,int level, String questionContent, String answer) {
+		super(theme,subject,level,questionContent,answer);
 	}
 	
-	
-
 }

@@ -6,9 +6,18 @@ import java.util.List;
 public class GameBoard {
     private final List<Case> chemin; // Liste des cases en suivant le parcours du jeu de l'oie
     private Pion pion;
+    private List<QuestionEducation> educationQuestions;
+    private List<QuestionEntertainment> entertainmentQuestions;
+    private List<QuestionImprobable> improbableQuestions;
+    private List<QuestionInformatic> informaticQuestions;
 
     public GameBoard() {
         this.chemin = genererChemin(); // Génère les cases selon un chemin spécifique
+        this.educationQuestions = new ArrayList<QuestionEducation>();
+        this.entertainmentQuestions = new ArrayList<QuestionEntertainment>();
+        this.improbableQuestions = new ArrayList<QuestionImprobable>();
+        this.informaticQuestions = new ArrayList<QuestionInformatic>();
+        initializeQuestionLists();
     }
 
     public void ajouterPion(Pion pion) {
@@ -54,7 +63,73 @@ public class GameBoard {
         return false;
     }
     
-    @Override
+    public void initializeQuestionLists() {
+    	List<Question> jsonContent = JsonUtils.getJsonContent();
+    	
+    	if (jsonContent == null) {
+    	    System.err.println("Aucune question chargée depuis le JSON");
+    	    return;
+    	}
+    	
+    	EntertainmentQuestionBuilder enB = new EntertainmentQuestionBuilder();
+    	EducationQuestionBuilder eduB = new EducationQuestionBuilder();
+    	ImprobableQuestionBuilder impB = new ImprobableQuestionBuilder();
+    	InformaticQuestionBuilder infB = new InformaticQuestionBuilder();
+    	
+    	for (Question q : jsonContent) {
+    		switch (q.getTheme()) {
+			case "Entertainment": {
+				Question questionEn = enB.createQuestion(q.getTheme(), q.getSubject(), q.getLevel(), 
+						q.getQuestionContent(),q.getAnswer());
+				entertainmentQuestions.add((QuestionEntertainment) questionEn);
+				break;
+			}
+			case "Informatic": {
+				Question questionInf = infB.createQuestion(q.getTheme(), q.getSubject(), q.getLevel(), 
+						q.getQuestionContent(), q.getAnswer());
+				informaticQuestions.add((QuestionInformatic) questionInf);
+				break;
+			}
+			case "Education": {
+				Question questionEdu = eduB.createQuestion(q.getTheme(), q.getSubject(), q.getLevel(), 
+						q.getQuestionContent(), q.getAnswer());
+				educationQuestions.add((QuestionEducation) questionEdu);
+				break;
+			}
+			case "Improbable": {
+				Question questionImp = impB.createQuestion(q.getTheme(), q.getSubject(), q.getLevel(), 
+						q.getQuestionContent(), q.getAnswer());
+				improbableQuestions.add((QuestionImprobable) questionImp);
+				break;
+			}
+			default:
+				System.out.println("Unknown theme: " + q.getTheme());
+			}
+    	}
+    	
+//    	To debug lists content
+    	for (QuestionEducation q : educationQuestions) {
+    		System.out.println(q.getTheme());
+    	}
+    }
+    
+    public List<QuestionEducation> getEducationQuestions() {
+		return educationQuestions;
+	}
+
+	public List<QuestionEntertainment> getEntertainmentQuestions() {
+		return entertainmentQuestions;
+	}
+
+	public List<QuestionImprobable> getImprobableQuestions() {
+		return improbableQuestions;
+	}
+
+	public List<QuestionInformatic> getInformaticQuestions() {
+		return informaticQuestions;
+	}
+
+	@Override
     public boolean equals(Object o) {
     	if (o instanceof GameBoard) {
     		GameBoard gb = (GameBoard)o;

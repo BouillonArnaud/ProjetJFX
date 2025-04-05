@@ -2,13 +2,8 @@ package model;
 
 public class QuestionInformatic extends Question {
 	
-//	Constant variable = the theme of the question
-	private static final String theme = "INFORMATIC";
-
-	public QuestionInformatic(int level, String questionContent, String answer) {
-		super(level, questionContent, answer);
+	public QuestionInformatic(String theme,String subject ,int level, String questionContent, String answer) {
+		super(theme,subject,level,questionContent,answer);
 	}
-	
-	
 
 }

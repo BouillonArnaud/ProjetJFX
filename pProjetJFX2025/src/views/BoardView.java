@@ -121,7 +121,8 @@ public class BoardView extends Pane {
         content.setPadding(new Insets(20));
         content.setStyle("-fx-background-color: #" + caseColor.toString().substring(2, 8) + ";");
         
-        Label title = new Label("Case Details");
+//        Label title = new Label("Case Details");
+        Label title = new Label(board.getEntertainmentQuestions().get(0).getQuestionContent());
         title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
         
         int caseIndex = board.getPion().getIndex();
