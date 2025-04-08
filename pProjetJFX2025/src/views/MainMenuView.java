@@ -46,13 +46,18 @@ public class MainMenuView extends BorderPane {
             board.ajouterPion(pion);// Instancier le modèle du plateau (à adapter)
             Stage boardStage = new Stage();
             BoardView boardView = new BoardView(board,boardStage);
-            BoardController controller = new BoardController(board, boardView);
+            
+            
+            int nombreJoueurs = 2;
+            
+            
+            BoardController controller = new BoardController(board, boardView, nombreJoueurs);
             
             Scene boardScene = new Scene(boardView, 1920, 1080);
             boardScene.setOnKeyPressed(controller :: handleKeyPress);
             boardStage.setScene(boardScene);
             boardStage.setTitle("Board View");
-            boardStage.setMaximized(true);
+            boardStage.setMaximized(true); 
             boardStage.show();
 
             // Optionnel : Fermer le menu principal

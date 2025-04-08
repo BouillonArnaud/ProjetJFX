@@ -1,174 +1,1195 @@
 {
-  "themes": {
-    "Entertainment": [
-      {
-        "card": "Card 1",
-        "author": "BOUILLON Arnaud",
-        "subject": "Football",
-        "questions": [
-          {
-            "id": 1,
-            "question": "Who is the winner of the World Cup in 2018?",
-            "answer": "The winner of the World Cup in 2018 is France."
-          },
-          {
-            "id": 2,
-            "question": "What club is Cristiano Ronaldo currently playing for?",
-            "answer": "Currently, he is playing for Al Nassr in Saudi Arabia."
-          },
-          {
-            "id": 3,
-            "question": "Who was the striker of the Belgium national team in 2012?",
-            "answer": "Christian Benteke was the striker of the Belgium national team in 2012."
-          },
-          {
-            "id": 4,
-            "question": "Which team was Bayern Munich playing against when Robert Lewandowski scored 5 goals in only 9 minutes?",
-            "answer": "They were playing against Wolfsburg."
-          }
-        ]
-      },
-      {
-        "card": "Card 2",
-        "author": "BOUILLON Arnaud",
-        "subject": "Goldorak",
-        "questions": [
-          {
-            "id": 1,
-            "question": "Who is the main pilot of Goldorak, and where does he come from?",
-            "answer": "The main pilot of Goldorak is Actarus, and he comes from the planet Fleed."
-          },
-          {
-            "id": 2,
-            "question": "What is the original Japanese name of Goldorak?",
-            "answer": "The original Japanese name of Goldorak is UFO Robo Grendizer."
-          },
-          {
-            "id": 3,
-            "question": "What is the name of the organization that invades Actarus' home planet, and who is their leader?",
-            "answer": "The organization that invades Actarus' home planet is called the Vega Empire, and its leader is Great King Vega."
-          },
-          {
-            "id": 4,
-            "question": "What is the name of the base where Goldorak is hidden and protected on Earth?",
-            "answer": "It is The White Ranch."
-          }
-        ]
-      }
-    ],
-    "Education": [
-      {
-        "card": "Card 1",
-        "author": "Boutrix Maxime",
-        "subject": "Geography of the EU",
-        "questions": [
-          {
-            "id": 1,
-            "question": "Which sea borders the EU in the north?",
-            "answer": "Baltic and North Sea."
-          },
-          {
-            "id": 2,
-            "question": "Which river in the EU exceeds 2,000 km?",
-            "answer": "The Danube, a major waterway."
-          },
-          {
-            "id": 3,
-            "question": "Which lake shared with Switzerland has undefined borders?",
-            "answer": "Lake Constance."
-          },
-          {
-            "id": 4,
-            "question": "Which country has limited access to the sea via Neum?",
-            "answer": "Bosnia-Herzegovina."
-          }
-        ]
-      },
-      {
-        "card": "Card 2",
-        "author": "Boutrix Maxime",
-        "subject": "History of the EU",
-        "questions": [
-          {
-            "id": 1,
-            "question": "Which country joined the EU in 2013, marking the last enlargement before Brexit?",
-            "answer": "Croatia."
-          },
-          {
-            "id": 2,
-            "question": "Which 1998 summit decided to launch the euro in 1999?",
-            "answer": "Brussels Summit."
-          },
-          {
-            "id": 3,
-            "question": "Which act of 1986 was aimed at completing the single market by 1992?",
-            "answer": "The Single European Act."
-          },
-          {
-            "id": 4,
-            "question": "Which decision of 1964 established the primacy of European law?",
-            "answer": "The Costa v. ENEL judgment."
-          }
-        ]
-      }
-    ],
-    "Improbable": [
-      {
-        "card": "Card 1",
-        "author": "Touré Mamadou",
-        "subject": "Unexplained Phenomena",
-        "questions": [
-          {
-            "id": 1,
-            "question": "Easy: What is the name of the triangle associated with mysterious disappearances in the Atlantic Ocean?",
-            "answer": "The Bermuda Triangle."
-          },
-          {
-            "id": 2,
-            "question": "Medium: What improbable phenomenon involves objects that seem to defy gravity, such as cars rolling uphill on their own?",
-            "answer": "Magnetic hills (or gravity hills)."
-          },
-          {
-            "id": 3,
-            "question": "Difficult: What is the name of the theory suggesting that our universe is just a computer simulation?",
-            "answer": "The simulation theory."
-          },
-          {
-            "id": 4,
-            "question": "Expert: What improbable phenomenon involves unexplained sounds heard in different parts of the world, often described as 'sky noises'?",
-            "answer": "Skyquakes or 'sky noises.'"
-          }
-        ]
-      }
-    ],
-    "Informatics": [
-      {
-        "card": "Card 1",
-        "author": "Alessio Doddis",
-        "subject": "OOP",
-        "questions": [
-          {
-            "id": 1,
-            "question": "Easy: What term refers to a blueprint or template for creating objects in OOP?",
-            "answer": "A class."
-          },
-          {
-            "id": 2,
-            "question": "Intermediate: What is the difference between 'public' and 'private' access modifiers?",
-            "answer": "Public members can be accessed from anywhere, while private members can only be accessed within the class."
-          },
-          {
-            "id": 3,
-            "question": "Pretty hard: What is an 'interface' in OOP?",
-            "answer": "A contract that defines a set of methods that a class must implement."
-          },
-          {
-            "id": 4,
-            "question": "Hard: What is an 'abstract class' in OOP?",
-            "answer": "A class that cannot be instantiated and may contain both implemented and unimplemented methods."
-          }
-        ]
-      }
-    ]
-  }
-}
+  "questions": [
+    {
+      "theme": "Entertainment",
+      "subject": "football",
+      "level": 1,
+      "question": "Who is the winner of the World Cup in 2018 ?",
+      "answer": "France"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "football",
+      "level": 2,
+      "question": "What club is Cristiano Ronaldo currently playing for ?",
+      "answer": "Al Nassr in Saoudi Arabia"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "football",
+      "level": 3,
+      "question": "Who was the striker of the Belgium national team in 2012 ?",
+      "answer": "Christian Benteke"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "football",
+      "level": 4,
+      "question": "Which team was Bayern Munich playing against when Robert Lewandowski scored 5 goals in only 9 minutes ?",
+      "answer": "Wolfsburg."
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Goldorak",
+      "level": 1,
+      "question": "Who is the main pilot of Goldorak, and where does he come from?",
+      "answer": "The main pilot of Goldorak is Actarus , and he comes from the planet Fleed."
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Goldorak",
+      "level": 2,
+      "question": "What is the original Japanese name of Goldorak?",
+      "answer": "UFO Robo Grendizer"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Goldorak",
+      "level": 3,
+      "question": "What is the name of the organization that invades Actarus' home planet, and who is their leader?",
+      "answer": "the Vega Empire, and its leader is Great King Vega."
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Goldorak",
+      "level": 4,
+      "question": "What is the name of the base where Goldorak is hidden and protected on Earth?",
+      "answer": "The White Ranch."
+    },
+    {
+      "theme": "Informatic",
+      "subject": "OOP languages",
+      "level": 1,
+      "question": "Which OOP concept allows creating multiple objects from the same model?",
+      "answer": "Class"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "OOP languages",
+      "level": 2,
+      "question": "Which OOP principle hides the internal details of a class and only exposes what is necessary?",
+      "answer": "Encapsulation"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "OOP languages",
+      "level": 3,
+      "question": "Which OOP principle allows a class to be used interchangeably with its parent class?",
+      "answer": "Polymorphism"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "OOP languages",
+      "level": 4,
+      "question": "What is the name of the OOP principle that states a derived class should be usable in place of its parent class without altering the program’s correctness?",
+      "answer": "Liskov Substitution"
+    },
+    {
+      "theme": "Education",
+      "subject": "Cities of the world",
+      "level": 1,
+      "question": "In which country is the city of Paris located?",
+      "answer": "France"
+    },
+    {
+      "theme": "Education",
+      "subject": "Cities of the world",
+      "level": 2,
+      "question": "In which country is the city of Toronto located?",
+      "answer": "Canada"
+    },
+    {
+      "theme": "Education",
+      "subject": "Cities of the world",
+      "level": 3,
+      "question": "In which country is the city of Kyoto located?",
+      "answer": "Japan"
+    },
+    {
+      "theme": "Education",
+      "subject": "Cities of the world",
+      "level": 4,
+      "question": "In which country is the city of Valparaíso located?",
+      "answer": "Chile"
+    },
+    {
+      "theme": "Education",
+      "subject": "Geography of the EU",
+      "level": 1,
+      "question": "Which seas border the EU in the north?",
+      "answer": "Baltic and North Seas."
+    },
+    {
+      "theme": "Education",
+      "subject": "Geography of the EU",
+      "level": 2,
+      "question": "Which river in the EU exceeds 2,000 km?",
+      "answer": "The Danube, a major waterway."
+    },
+    {
+      "theme": "Education",
+      "subject": "Geography of the EU",
+      "level": 3,
+      "question": "Which lake shared with Switzerland has undefined borders?",
+      "answer": "Lake Constance."
+    },
+    {
+      "theme": "Education",
+      "subject": "Geography of the EU",
+      "level": 4,
+      "question": "Which country has limited access to the sea via Neume?",
+      "answer": "Bosnia-Herzegovina."
+    },
+    {
+      "theme": "Education",
+      "subject": "History of the UE",
+      "level": 1,
+      "question": "Which country joined the EU in 2013, marking the last enlargement before Brexit?",
+      "answer": "Croatia."
+    },
+    {
+      "theme": "Education",
+      "subject": "History of the UE",
+      "level": 2,
+      "question": "Which 1998 summit decided to launch the euro in 1999?",
+      "answer": "Brussels Summit."
+    },
+    {
+      "theme": "Education",
+      "subject": "History of the UE",
+      "level": 3,
+      "question": "Which act of 1986 was aimed at completing the single market by 1992?",
+      "answer": "the Single European Act."
+    },
+    {
+      "theme": "Education",
+      "subject": "History of the UE",
+      "level": 4,
+      "question": "Which decision of 1964 established the primacy of European law?",
+      "answer": "The Costa v. ENEL judgment."
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Rugby",
+      "level": 1,
+      "question": "Which country is known for his famous haka ?",
+      "answer": "New Zealand"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Rugby",
+      "level": 2,
+      "question": "How many players are on field each side ?",
+      "answer": "15"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Rugby",
+      "level": 3,
+      "question": "Which country has won the most World Cup?",
+      "answer": "South Africa"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Rugby",
+      "level": 4,
+      "question": "What is the name of the trophy awarded to the winner of the Six Nations Tournament?",
+      "answer": "Championship Trophy"
+    },
+    {
+      "theme": "Education",
+      "subject": "Flags",
+      "level": 1,
+      "question": "How many stars stands on the USA flag ?",
+      "answer": "50"
+    },
+    {
+      "theme": "Education",
+      "subject": "Flags",
+      "level": 2,
+      "question": "How many stars stands on the European Union flag ?",
+      "answer": "12"
+    },
+    {
+      "theme": "Education",
+      "subject": "Flags",
+      "level": 3,
+      "question": "Which country's flag consists of a red dragon on a green and white background?",
+      "answer": "Wales"
+    },
+    {
+      "theme": "Education",
+      "subject": "Flags",
+      "level": 4,
+      "question": "Which country is the only one to have a firearm on its flag ?",
+      "answer": "Mozambique"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Unexplained Phenomena",
+      "level": 1,
+      "question": "What is the name of the triangle associated with mysterious disappearances in the Atlantic Ocean?",
+      "answer": "The Bermuda Triangle"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Unexplained Phenomena",
+      "level": 2,
+      "question": "What improbable phenomenon involves objects that seem to defy gravity, such as cars rolling uphill on their own?",
+      "answer": "Magnetic hills (or gravity hills)."
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Unexplained Phenomena",
+      "level": 3,
+      "question": "What is the name of the theory suggesting that our universe is just a computer simulation?",
+      "answer": "The simulation theory."
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Unexplained Phenomena",
+      "level": 4,
+      "question": "What improbable phenomenon involves unexplained sounds heard in different parts of the world, often described as \"sky noises\"?",
+      "answer": "Skyquakes or \"sky noises.\""
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Legendary Creatures",
+      "level": 1,
+      "question": "What mythical animal is often depicted as a horse with a horn on its forehead?",
+      "answer": "The unicorn"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Legendary Creatures",
+      "level": 2,
+      "question": "What legendary sea monster is described as a giant squid capable of sinking ships?",
+      "answer": "The Kraken."
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Legendary Creatures",
+      "level": 3,
+      "question": "What mythical being is often associated with disappearances in forests and mountains?",
+      "answer": "The Yeti."
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Legendary Creatures",
+      "level": 4,
+      "question": "What mythical creature is described as a lion with an eagle's head and wings?",
+      "answer": "The Griffin"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Music",
+      "level": 1,
+      "question": "Who is the artist who released \"beat it\" in 1982 ?",
+      "answer": "Michael Jackson"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Music",
+      "level": 2,
+      "question": "What is the most listened to Beatles song ?",
+      "answer": "Here Comes the Sun"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Music",
+      "level": 3,
+      "question": ". In what year did Freddy Mercury, emblematic singer of the band Queen, die ?",
+      "answer": "1991"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Music",
+      "level": 4,
+      "question": "What was the first single by the band Nirvana to reach number one on the charts and became the anthem of grunge ?",
+      "answer": "Smells Like Teen Spirit"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Belgian beers",
+      "level": 1,
+      "question": "Which is the most exported Belgian beer in the world?",
+      "answer": "Stella Artois"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Belgian beers",
+      "level": 2,
+      "question": "Which iconic chalice-shaped glass is often used to enjoy Trappist beers?",
+      "answer": "The Trappist glass"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Belgian beers",
+      "level": 3,
+      "question": "How many Trappist breweries are still producing beer in Belgium?",
+      "answer": "Six"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Belgian beers",
+      "level": 4,
+      "question": "Which Belgian brewery produces a beer whose name means 'Devil' in Flemish?",
+      "answer": "Duvel Moortgat"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Popular Music",
+      "level": 1,
+      "question": "What is Michael Jackson’s nickname ?",
+      "answer": "The King of Pop"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Popular Music",
+      "level": 2,
+      "question": "Which instrument is primarily associated with Jimi Hendrix ?",
+      "answer": "The electric guitar"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Popular Music",
+      "level": 3,
+      "question": "Which artist composed the music for the movie Interstellar ?",
+      "answer": "Hans Zimmer"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Popular Music",
+      "level": 4,
+      "question": "Which British band released the album The Dark Side of the Moon in 1973 ?",
+      "answer": "Pink Floyd"
+    },
+    {
+      "theme": "Education",
+      "subject": "Fundamental Mathematics",
+      "level": 1,
+      "question": "How many sides does a hexagon have ?",
+      "answer": "6"
+    },
+    {
+      "theme": "Education",
+      "subject": "Fundamental Mathematics",
+      "level": 2,
+      "question": "What is the name of the constant approximately equal to 3.1416 ?",
+      "answer": "Pi (π)"
+    },
+    {
+      "theme": "Education",
+      "subject": "Fundamental Mathematics",
+      "level": 3,
+      "question": "Which theorem states that in a right triangle, the square of the hypotenuse is equal to the sum of the squares of the other two sides ?",
+      "answer": "The Pythagorean theorem"
+    },
+    {
+      "theme": "Education",
+      "subject": "Fundamental Mathematics",
+      "level": 4,
+      "question": "What is the name of the irrational number approximately equal to 2.718, used as the base of the natural logarithm ?",
+      "answer": "Euler’s number (e)"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Disney",
+      "level": 4,
+      "question": "What specie is Ravi's pet?",
+      "answer": "Reptile"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Disney",
+      "level": 3,
+      "question": "Which princess fell in love with an amphibian",
+      "answer": "Tiana"
+    },
+    {
+      "theme": "Education",
+      "subject": "Disney",
+      "level": 1,
+      "question": "Which Disney character learns that true beauty comes from within rather than appearance?",
+      "answer": "Belle"
+    },
+    {
+      "theme": "Education",
+      "subject": "Disney",
+      "level": 1,
+      "question": "Which Disney film teaches children about emotions and mental health?",
+      "answer": "Inside out"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "Disney",
+      "level": 1,
+      "question": "In Phineas and Ferb, Candace is always watching her brothers and tries to alert their mom when they conduct crazy experiments. Which design pattern does this represent?",
+      "answer": "Observer"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "Disney",
+      "level": 2,
+      "question": "In The Cheetah Girls, the girls choose different strategies to impress the judges: Dorinda dances, Galleria sings with power, Chanel uses her charisma. Which design pattern does this represent?",
+      "answer": "Strategy"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Disney",
+      "level": 1,
+      "question": "Who was afraid of grass the first time she saw it?",
+      "answer": "Rapunezl"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Disney",
+      "level": 2,
+      "question": "In “The Lion King,” what is the most absurd sound that Timon makes when trying to distract a predator?",
+      "answer": "A ridiculously high-pitched, fast-talking sound"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Disney",
+      "level": 4,
+      "question": "Who voiced Phineas in “Phineas and Ferb”?",
+      "answer": "Vincent Martella & Thomas Brodie-Sangster"
+    },
+    {
+      "theme": "Education",
+      "subject": "Disney",
+      "level": 1,
+      "question": "Which Disney film teaches the importance of honesty through the story of a young boy who can't lie?",
+      "answer": "Pinocchio"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Disney",
+      "level": 2,
+      "question": "Which wizard turned into a woman due to a bad spell?",
+      "answer": "Maw Russo"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Football",
+      "level": 2,
+      "question": "Name a well-known club.",
+      "answer": "Exemple: Real Madrid; FC Barcelone, Liverpool, …"
+    },
+    {
+      "theme": "Education",
+      "subject": "PC Building",
+      "level": 3,
+      "question": "What is the list of components that are required to build a working computer ?",
+      "answer": "Motherboard, power supply, RAM (Random Acess Memory), CPU (Processor), GPU (graphics card), Storage media (HDD, SDD, NVME)"
+    },
+    {
+      "theme": "Education",
+      "subject": "Astronomy",
+      "level": 3,
+      "question": "What is the closest planet of the Sun?",
+      "answer": "Mercury"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "Inheritance",
+      "level": 4,
+      "question": "What’s polymorphism in object-oriented programming ?",
+      "answer": "a programming principle which allows objects of different classes, objects, variables and methods to exist in different forms."
+    },
+    {
+      "theme": "Informatic",
+      "subject": "Construction Design pattern",
+      "level": 3,
+      "question": "What are construction design patterns used for?",
+      "answer": "Abstract object creation mechanisms"
+    },
+    {
+      "theme": "Education",
+      "subject": "Capital",
+      "level": 1,
+      "question": "What is the capital of Belgium ?",
+      "answer": "Brussels"
+    },
+    {
+      "theme": "Education",
+      "subject": "Litterature",
+      "level": 3,
+      "question": "What’s the name of the author of “the Odyssey” ?",
+      "answer": "Homer"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Jeux Video",
+      "level": 1,
+      "question": "Which video game, developed in 2015, requires players to control a team of cats making strategic decisions while living adventures on an alien planet?",
+      "answer": "Cat Quest"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Jeux Video",
+      "level": 2,
+      "question": "Which video game uses a \"walking simulator\" concept where the player explores a strange city filled with bizarre creatures and solves puzzles by interacting with absurd objects?",
+      "answer": "Jazzpunk"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Jeux Video",
+      "level": 1,
+      "question": "Which musical video game developed by Harmonix popularized the \"guitar hero\" concept with a plastic guitar controller?",
+      "answer": "Guitar Hero"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Jeux Video",
+      "level": 2,
+      "question": "In which rhythm game developed by Ubisoft do players press buttons in time with the music, using a controller or a dance mat?",
+      "answer": "Just Dance"
+    },
+    {
+      "theme": "Education",
+      "subject": "Jeux Video",
+      "level": 1,
+      "question": "When was the first commercial video game released?",
+      "answer": "In 1972, with the game \"Pong\""
+    },
+    {
+      "theme": "Education",
+      "subject": "Jeux Video",
+      "level": 1,
+      "question": "Who is considered the father of modern video games?",
+      "answer": "Ralph H. Baer"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "Jeux Video",
+      "level": 1,
+      "question": "Which French-speaking YouTuber, known for his videos on programming and video games, created a programming language entirely using emojis?",
+      "answer": "V2F"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "Jeux Video",
+      "level": 2,
+      "question": "In a video game, when creating a class to represent a character, which keyword is generally used to ensure that an attribute (such as health or mana points) is only accessible within its own class?",
+      "answer": "private"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Tank",
+      "level": 3,
+      "question": "Which tank was most produced by the Americans during WW2",
+      "answer": "Sherman"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Tank",
+      "level": 4,
+      "question": "Which is the most produce tank in the world",
+      "answer": "T34"
+    },
+    {
+      "theme": "Education",
+      "subject": "Biology",
+      "level": 2,
+      "question": "What is the largest organ in the human body",
+      "answer": "skin"
+    },
+    {
+      "theme": "Education",
+      "subject": "Biology",
+      "level": 3,
+      "question": "What's the name of the process bt which cells divide to produce two identical daughter cells",
+      "answer": "mitosis"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Music",
+      "level": 3,
+      "question": "Who performed in the 2025 Super Bowl the song “Not Like Us”?",
+      "answer": "Kendrick Lamar"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Music",
+      "level": 4,
+      "question": "Which female singer is always accused of lying for no reason?",
+      "answer": "SZA"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "Analysis",
+      "level": 2,
+      "question": "What is a relationship between classes called?",
+      "answer": "An association"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "OOP",
+      "level": 4,
+      "question": "Which Java functionality is used to “kill” an object?",
+      "answer": "garbage collector"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Jeux Video",
+      "level": 4,
+      "question": "Which video game holds the record for the highest number of simultaneous players on a single map, with millions of participants?",
+      "answer": "Fortnite."
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Jeux Video",
+      "level": 3,
+      "question": "Which racing game holds the record for the longest drift ever performed in-game, with over 500 kilometers of continuous drifting?",
+      "answer": "Gran Turismo 7"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Jeux Video",
+      "level": 1,
+      "question": "What is the first game developed and published by Riot Games, released in 2009, that popularized the MOBA (Multiplayer Online Battle Arena) genre?",
+      "answer": "League of Legends."
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Jeux Video",
+      "level": 2,
+      "question": "What is the name of the tactical shooter (FPS) developed by Riot Games, released in 2020?",
+      "answer": "Valorant"
+    },
+    {
+      "theme": "Education",
+      "subject": "Jeux Video",
+      "level": 2,
+      "question": "Which video game allows players to build and launch rockets while learning the basics of astronomy and physics?",
+      "answer": "Kerbal Space Program"
+    },
+    {
+      "theme": "Education",
+      "subject": "Jeux Video",
+      "level": 3,
+      "question": "Which video game, developed by Valve, uses physics-based puzzles to teach scientific concepts while telling a captivating story?",
+      "answer": "Portal 2"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "Jeux Video",
+      "level": 2,
+      "question": "In video game development, which OOP concept is used to allow an object to take multiple forms, such as an enemy that can be both a \"fighter\" and a \"flyer\"?",
+      "answer": "Polymorphism"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "Jeux Video",
+      "level": 3,
+      "question": "In a video game, which design pattern is used to create complex objects (such as a game level or a character) step by step, separating construction from the final representation?",
+      "answer": "The Builder Pattern"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Tank",
+      "level": 1,
+      "question": "Which coutrny produced the first tank in history?",
+      "answer": "United Kingdom"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Tank",
+      "level": 2,
+      "question": "Which tank had the Belgian army until 2014?",
+      "answer": "Leopard 2"
+    },
+    {
+      "theme": "Education",
+      "subject": "Biology",
+      "level": 1,
+      "question": "How many hearts do octopuses have?",
+      "answer": "3"
+    },
+    {
+      "theme": "Education",
+      "subject": "Biology",
+      "level": 4,
+      "question": "What is the name of the hormone that regulates metabolism and is produced by the thyroid gland?",
+      "answer": "Thyroxine"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Movies",
+      "level": 1,
+      "question": "n films. What’s the number used by Flash McQueen in the Piston Cup?",
+      "answer": "95"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Movies",
+      "level": 4,
+      "question": "Which famous German composer wrote the soundtrack from the movie \"Crimson Tide\"?",
+      "answer": "Hans Zimmer"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "Analysis",
+      "level": 1,
+      "question": "Which of these design patterns is not part of the structural patterns? Adapter, Proxy, Iterator",
+      "answer": "Iterator"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "OOP",
+      "level": 2,
+      "question": "Which method do you use when you want to create a clone of an object?",
+      "answer": "clone()"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Latino",
+      "level": 2,
+      "question": "What is the name of the most viewed Latino song on YouTube?",
+      "answer": "Despacito"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Latino",
+      "level": 3,
+      "question": "Who is the most streamed Latino artist?",
+      "answer": "Bad Bunny"
+    },
+    {
+      "theme": "Education",
+      "subject": "French",
+      "level": 1,
+      "question": "Which book inspired a movie starring a hunchback called Quasimodo?",
+      "answer": "Notre-Dame de Paris"
+    },
+    {
+      "theme": "Education",
+      "subject": "French",
+      "level": 2,
+      "question": "What is the name of the Belgian detective created by the English novelist Agatha Christie?",
+      "answer": "Hercule Poirot"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Music",
+      "level": 1,
+      "question": "Which famous rapper released the single “Hit Em Up” in 1996?",
+      "answer": "Tupac Shakur"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Music",
+      "level": 2,
+      "question": "In 2014, Ariana Grande released her title track “Love Me Harder”, which famous singer featured the song?",
+      "answer": "The Weeknd"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "Analysis",
+      "level": 3,
+      "question": "What is represented by a continuous line with a black diamond?",
+      "answer": "A composition"
+    },
+    {
+      "theme": "Informatic",
+      "subject": "OOP",
+      "level": 3,
+      "question": "How should you name a method that return the value of the boolean “open”?",
+      "answer": "isOpen()"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Jeux Video",
+      "level": 2,
+      "question": "Which video game allows players to control a character that is actually a bookshelf filled with objects inside a house, aiming to escape forces threatening the house's stability?",
+      "answer": "Shelfie"
+    },
+    {
+      "theme": "Improbable",
+      "subject": "Jeux Video",
+      "level": 2,
+      "question": "In which video game do players control a single pixel that moves through different colorful levels, reacting to its environment?",
+      "answer": "PixelJunk Eden."
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Jeux Video",
+      "level": 1,
+      "question": "What is the name of the main character in \"Super Mario Bros\"?",
+      "answer": "Mario"
+    },
+    {
+      "theme": "Entertainment",
+      "subject": "Jeux Video",
+      "level": 1,
+      "question": "Who is the creator of the \"The Legend of Zelda\" series?",
+      "answer": "Shigeru Miyamoto"
+    },
+    {
+      "theme": "Education",
+      "subject": "Jeux Video",
+      "level": 1,
+      "question": "Which video game allows students to learn history by recreating major historical events while exploring cities and monuments in 3D?",
+      "answer": "Assassin's Creed: Discovery Tour"
+    },
+    {
+      "theme": "Education",
+      "subject": "Jeux Video",
+      "level": 2,
+      "question": "In which simulation video game do players manage a business to learn financial management and marketing skills?",
+      "answer": "SimCity or RollerCoaster Tycoon"
+    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "Jeux Video",
+	      "level": 2,
+	      "question": "Which object-oriented programming concept in Java is commonly used in video games to allow different types of game objects (such as enemies, characters, and collectible items) to share common behaviors while having unique characteristics?",
+	      "answer": "Inheritance"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "Jeux Video",
+	      "level": 3,
+	      "question": "In game development, which design pattern is commonly used to ensure that there is only one instance of a global object, such as the sound manager, save system, or scene manager?",
+	      "answer": "Singleton"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "Inheritance and Polymorphism",
+	      "level": 1,
+	      "question": "What keyword is used for inheritance in Java ?",
+	      "answer": "Extends"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "Classes and Objects",
+	      "level": 3,
+	      "question": "What keyword is used to define a variable shared across all instances of a class ?",
+	      "answer": "static"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Rock and Metal",
+	      "level": 2,
+	      "question": "Who is the lead singer of Evanescence ?",
+	      "answer": "Amy Lee"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Video games",
+	      "level": 4,
+	      "question": "What is the term for a game where players permanently lose progress upon dying ?",
+	      "answer": "Permadeath"
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "Food Facts",
+	      "level": 4,
+	      "question": "What animal's milk is blue ?",
+	      "answer": "Seal"
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "The Human Brain",
+	      "level": 3,
+	      "question": "After the death, which part of the brain remains active the longest ?",
+	      "answer": "The brainstem"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "Mathematics",
+	      "level": 1,
+	      "question": "What is the value of pi up to two decimal places ?",
+	      "answer": "3.14"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "British Literature",
+	      "level": 2,
+	      "question": "Who wrote the novel 1984 ?",
+	      "answer": "George Orwell"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "State machine diagram",
+	      "level": 1,
+	      "question": "What is the transition between states called ?",
+	      "answer": "A transition"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "State machine diagram",
+	      "level": 2,
+	      "question": "I'm something instantaneous that happens at a given moment and triggers a transition. What am I ?",
+	      "answer": "An event"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "State machine diagram",
+	      "level": 3,
+	      "question": "I'm used when you want an event to trigger a transition regardless of the current state of the machine. What am I ?",
+	      "answer": "The Any Trigger"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "State machine diagram",
+	      "level": 4,
+	      "question": "Which symbol indicates that you want to save the component of a state that was active, whatever the depth of the history ?",
+	      "answer": "H*"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "Chemical Molecules",
+	      "level": 1,
+	      "question": "What is the chemical formula for water ?",
+	      "answer": "H2O"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "Chemical Molecules",
+	      "level": 2,
+	      "question": "Which element is always present in an organic molecule ?",
+	      "answer": "Carbon"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "Chemical Molecules",
+	      "level": 3,
+	      "question": "What chemical bond usually links 2 atoms ?",
+	      "answer": "Covalent bonds"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "Chemical Molecules",
+	      "level": 4,
+	      "question": "What type of bond is broken when water boils ?",
+	      "answer": "Hydrogen bonds"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Modern science-fiction/fantasy authors",
+	      "level": 1,
+	      "question": "Who wrote The Lord of The Rings ?",
+	      "answer": "J.R.R Tolkien or Tolkien"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Modern science-fiction/fantasy authors",
+	      "level": 2,
+	      "question": "Who wrote the ‘A Game of Thrones’ saga ?",
+	      "answer": "George R.R Martin or George Martin"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Modern science-fiction/fantasy authors",
+	      "level": 3,
+	      "question": "Who wrote the Dune series recently adapted to cinema ?",
+	      "answer": "Frank Herbert"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Modern science-fiction/fantasy authors",
+	      "level": 4,
+	      "question": "Who is the famous author of the (hopefully) upcoming book ‘The winds of Winter’ ?",
+	      "answer": "George R.R Martin or George Martin"
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "Extra terrestrial life and civilizations",
+	      "level": 1,
+	      "question": "What is the most famous alien from Hollywood ?",
+	      "answer": "E.T."
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "Extra terrestrial life and civilizations",
+	      "level": 2,
+	      "question": "What is the name of the area owned by the US Military that was long believed to hide aliens and alien spaceships ?",
+	      "answer": "Area 51"
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "Extra terrestrial life and civilizations",
+	      "level": 3,
+	      "question": "What is the name of the paradox that clashes the high likelihood of extra-terrestrial life and the lack of evidence of their existence ?",
+	      "answer": "The Fermi paradox"
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "Extra terrestrial life and civilizations",
+	      "level": 4,
+	      "question": "On the Kardashev scale, what type of civilization is able to access all the energy available on their planet and should be able to control natural events (such as earthquakes) ?",
+	      "answer": "A Type I civilization"
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "Colours",
+	      "level": 1,
+	      "question": "What color is obtained by mixing blue and yellow in paint ?",
+	      "answer": "Green"
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "Physics",
+	      "level": 4,
+	      "question": "Why is the sky blue during the day?",
+	      "answer": "Atmosphere mainly diffuses blue light"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Artists",
+	      "level": 1,
+	      "question": "Which artist sang the song \"Thriller\", released in 1982 ?",
+	      "answer": "Michael Jackson"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Painters",
+	      "level": 3,
+	      "question": "Which famous painter represented the goddess Venus in his painting \"The Birth of Venus,\" where she appears emerging from the sea?",
+	      "answer": "Sandro Botticelli"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "Java",
+	      "level": 2,
+	      "question": "What does the concept of \"method overloading\" mean in Java ?",
+	      "answer": "Defining multiple methods with the same name but different parameters in the same class"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "Design Pattern",
+	      "level": 1,
+	      "question": "Which design pattern ensures that a class has only one instance and provides a global access point to that instance?",
+	      "answer": "Singleton"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "History",
+	      "level": 1,
+	      "question": "Who was the first president of the United States?",
+	      "answer": "George Washington"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "Chemistry",
+	      "level": 4,
+	      "question": "Who proposed the first version of modern atomic theory in the early 19th century?",
+	      "answer": "John Dalton"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Music",
+	      "level": 1,
+	      "question": "What is the object used to produce music called ?",
+	      "answer": "An instrument"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Music",
+	      "level": 2,
+	      "question": "What is the “big trumpet” mostly used during orchestras called ?",
+	      "answer": "Tuba"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Music",
+	      "level": 3,
+	      "question": "The Beatles were unable to do something important in music creation, what was it ?",
+	      "answer": "Read Music Sheets/Write Music Sheets"
+	    },
+	    {
+	      "theme": "Entertainment",
+	      "subject": "Music",
+	      "level": 4,
+	      "question": "What are two opposite types of music genre that tend to have the same fans psychologically speaking ?",
+	      "answer": "Heavy metal and Classic music"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "History",
+	      "level": 1,
+	      "question": "Who was the first president of America ?",
+	      "answer": "George Washington"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "History",
+	      "level": 2,
+	      "question": "In what year did the Titanic sink ?",
+	      "answer": "1912"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "History",
+	      "level": 3,
+	      "question": "Which well-known Russian figure survived an assassination attempt with poison, a shooting, but ultimately died from drowning, and has a famous song named after him ?",
+	      "answer": "Rasputin"
+	    },
+	    {
+	      "theme": "Education",
+	      "subject": "History",
+	      "level": 4,
+	      "question": "Which ancient queen, often portrayed as a great beauty and seductress, was not particularly stunning whatsoever ?",
+	      "answer": "Cleopatra"
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "Greek Mythology",
+	      "level": 1,
+	      "question": "What is the name of the three-headed dog in Greek mythology that guards the gates of the underworld ?",
+	      "answer": "Cerberus"
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "Greek Mythology",
+	      "level": 2,
+	      "question": "Who was the Greek goddess of wisdom, courage, and warfare ?",
+	      "answer": "Athena"
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "Greek Mythology",
+	      "level": 3,
+	      "question": "What was the name of the Titan who held the sky on his shoulders ?",
+	      "answer": "Atlas"
+	    },
+	    {
+	      "theme": "Improbable",
+	      "subject": "Greek Mythology",
+	      "level": 4,
+	      "question": "Who was cursed to turn everything he touched into gold ?",
+	      "answer": "King Midas"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "Java",
+	      "level": 1,
+	      "question": "In Java, what is the name of the class that usually launches the program (or sometimes tests the program) ?",
+	      "answer": "The Main class"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "Java",
+	      "level": 2,
+	      "question": "In Java, what framework should I use to test the methods of my classes ?",
+	      "answer": "Junit"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "Java",
+	      "level": 3,
+	      "question": "In Java, what is the value of the variable ‘a’ after these operations: ‘a = 2’ then ‘a += 4’ then ‘a /= 2’ ?",
+	      "answer": "3"
+	    },
+	    {
+	      "theme": "Informatic",
+	      "subject": "Java",
+	      "level": 4,
+	      "question": "In Java, what design pattern should I use if I want only one instance of a given object at a time ?",
+	      "answer": "The singleton pattern"
+	    }
+		
+	  ]
+	}
