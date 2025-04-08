@@ -109,7 +109,7 @@ public class GameBoard {
     	
 //    	To debug lists content
     	for (QuestionEducation q : educationQuestions) {
-    		System.out.println(q.getTheme());
+    		System.out.println("Question : " + q.getQuestionContent() + " Answer : " +  q.getAnswer());
     	}
     }
     

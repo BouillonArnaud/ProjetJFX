@@ -12,7 +12,7 @@
       "subject": "football",
       "level": 2,
       "questionContent": "What club is Cristiano Ronaldo currently playing for ?",
-      "answer": "Al Nassr in Saoudi Arabia"
+      "answer": "Al Nassr"
     },
     {
       "theme": "Entertainment",
@@ -32,8 +32,8 @@
       "theme": "Entertainment",
       "subject": "Goldorak",
       "level": 1,
-      "questionContent": "Who is the main pilot of Goldorak, and where does he come from?",
-      "answer": "The main pilot of Goldorak is Actarus , and he comes from the planet Fleed."
+      "questionContent": "Who is the main pilot of Goldorak",
+      "answer": "Actarus"
     },
     {
       "theme": "Entertainment",
@@ -46,8 +46,8 @@
       "theme": "Entertainment",
       "subject": "Goldorak",
       "level": 3,
-      "questionContent": "What is the name of the organization that invades Actarus' home planet, and who is their leader?",
-      "answer": "the Vega Empire, and its leader is Great King Vega."
+      "questionContent": "What is the name of the organization that invades Actarus' home planet?",
+      "answer": "the Vega Empire"
     },
     {
       "theme": "Entertainment",

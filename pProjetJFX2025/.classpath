@@ -18,5 +18,9 @@
 	<classpathentry kind="lib" path="C:/Users/aboui/JAVATOOLS/javafx-sdk-23.0.2/lib/javafx-media-23.0.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/aboui/JAVATOOLS/gson-2.11.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="C:/Users/aboui/JAVATOOLS/mockito-core-5.16.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/aboui/JAVATOOLS/mockito-junit-jupiter-5.16.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/aboui/JAVATOOLS/byte-buddy-1.16.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/aboui/JAVATOOLS/byte-buddy-agent-1.16.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

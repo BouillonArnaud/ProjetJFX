@@ -4,16 +4,36 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.GameBoard;
 import views.BoardView;
+import model.Question;
 
 public class BoardController {
     private final GameBoard board;
     private final BoardView boardView;
+    private Question currentQuestion;
 
     public BoardController(GameBoard board, BoardView boardView) {
         this.board = board;
         this.boardView = boardView;
     }
+    
+    public void setCurrentQuestion(Question question) {
+    	this.currentQuestion = question;
+    }
+    
+//  Handle move of pawns thanks to question level
+    public void handleAnswer(String userAnswer) {
+    	if (currentQuestion != null && currentQuestion.checkAnswer(userAnswer)) {
+    		int moveBy = currentQuestion.getLevel();
+    		
+    		board.deplacerPion(moveBy);
+    		boardView.updatePawnPosition();
+    	} else {
+    		System.out.println("Wrong answer!");
+    	}
+    	currentQuestion = null;
+    }
 
+//  Handle move of pawns by pressing right or left arrows
     public void handleKeyPress(KeyEvent event) {
         if (event.getCode() == KeyCode.RIGHT) {
             board.deplacerPion(1);
@@ -24,16 +44,3 @@ public class BoardController {
         }
     }
 }
-    //read the Json file 
-    /*public void loadConfig() {
-        try {
-            JsonObject config = JsonUtils.readJson("src/resources/game_config.json");
-            
-            // Exemple : Extraire une valeur
-            String boardColor = config.get("boardColor").getAsString();
-            System.out.println("Couleur du plateau : " + boardColor);
-
-        } catch (Exception e) {
-            System.err.println("Erreur de lecture : " + e.getMessage());
-        }
-    }*/
