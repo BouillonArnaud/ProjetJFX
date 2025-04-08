@@ -4,13 +4,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.GameBoard;
 import model.Pion;
+import model.Question;
 import views.BoardView;
 
 public class BoardController {
     private final GameBoard board;
     private final BoardView boardView;
     private int currentPlayerIndex;
-
+    private Question currentQuestion;
+    
     public BoardController(GameBoard board, BoardView boardView, int nombreJoueurs) {
         this.board = board;
         this.boardView = boardView;
@@ -23,7 +25,24 @@ public class BoardController {
         }
     }
 
-
+    public void setCurrentQuestion(Question question) {
+    	this.currentQuestion = question;
+    }
+    
+//  Handle move of pawns thanks to question level
+    public void handleAnswer(String userAnswer) {
+    	if (currentQuestion != null && currentQuestion.checkAnswer(userAnswer)) {
+    		int moveBy = currentQuestion.getLevel();
+    		
+    		board.deplacerPion(board.getPions().get(currentPlayerIndex), moveBy);
+    		boardView.updatePawnPositions();
+    	} else {
+    		System.out.println("Wrong answer!");
+    	}
+    	currentQuestion = null;
+    }
+    
+    
     public void handleKeyPress(KeyEvent event) {
         Pion currentPion = board.getPions().get(currentPlayerIndex);
 
@@ -33,14 +52,10 @@ public class BoardController {
             board.deplacerPion(currentPion, -1);
         }else if (event.getCode() == KeyCode.UP) {
             board.deplacerPion(currentPion, 2);
-        }else if (event.getCode() == KeyCode.UP) {
-            board.deplacerPion(currentPion, 2);
         }
-
+        
         // Update positions and switch turn
         boardView.updatePawnPositions();
-        currentPlayerIndex = (currentPlayerIndex + 1) % board.getPions().size();
-        boardView.setCurrentPlayerIndex(currentPlayerIndex);  
     }
 
 }

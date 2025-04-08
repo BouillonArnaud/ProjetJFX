@@ -177,7 +177,12 @@ public class BoardView extends Pane {
 	    if (!isInitialized) {
 	        isInitialized = true;
 	    }
+	    
+	    currentPlayerIndex = (currentPlayerIndex + 1) % board.getPions().size();
+        setCurrentPlayerIndex(currentPlayerIndex);  
 	}
+	
+
 
 	/**
 	 * Displays a colored popup window with case information
@@ -212,7 +217,11 @@ public class BoardView extends Pane {
 
 	    // Add close button
 	    Button closeButton = new Button("Close");
-	    closeButton.setOnAction(e -> popupStage.close());
+	    closeButton.setOnAction(e -> {
+	    	this.board.deplacerPion(pion,1);
+	    	updatePawnPositions();
+	    	popupStage.close();
+	    		});
 
 	    content.getChildren().addAll(title, info, closeButton);
 
@@ -227,6 +236,7 @@ public class BoardView extends Pane {
 	    PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
 	    delay.setOnFinished(event -> popupStage.show()); // Show after delay to avoid blocking
 	    delay.play();
+
 	}
 
 	/**
