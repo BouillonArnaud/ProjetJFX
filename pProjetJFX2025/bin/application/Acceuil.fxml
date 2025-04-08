@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="674.0" minWidth="1341.0" prefHeight="674.0" prefWidth="1341.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="727.0" fitWidth="1341.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/Acceuil_Cyberpunk_2077.jpg" />
+         </image> 
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="101.0" layoutX="358.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/acceil2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="96.0" fitWidth="120.0" layoutX="207.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/acceil.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="96.0" fitWidth="120.0" layoutX="348.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/acceil.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="101.0" layoutX="73.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/acceil2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="66.0" fitWidth="101.0" layoutX="216.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/acceil2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="180.0" fitWidth="370.0" layoutX="113.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/acceil3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="96.0" fitWidth="120.0" layoutX="63.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/acceil.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="98.0" layoutY="298.0" strokeMiterLimit="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SETTINGS" />
+      <Text fill="WHITE" layoutX="253.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STAR" />
+      <Text fill="WHITE" layoutX="367.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADMIN SAPCES" textAlignment="JUSTIFY" />
+      <ImageView fitHeight="318.0" fitWidth="702.0" layoutX="48.0" layoutY="350.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@resources/Image5.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

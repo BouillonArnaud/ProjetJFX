@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-23">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/explorer.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/gson-2.11.0.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/jackson-annotations-2.18.2.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/jackson-core-2.18.2.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/jackson-databind-2.18.2.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/javafx-media-23.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/javafx-sdk-23.0.2/lib/javafx.base.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/javafx-sdk-23.0.2/lib/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/javafx-sdk-23.0.2/lib/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/javafx-sdk-23.0.2/lib/javafx.graphics.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/javafx-sdk-23.0.2/lib/javafx.media.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/javafx-sdk-23.0.2/lib/javafx.swing.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/javafx-sdk-23.0.2/lib/javafx.web.jar"/>
+	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/javafx-sdk-23.0.2/lib/javafx-swt.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
