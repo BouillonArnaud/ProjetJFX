@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameBoard {
-    private final List<Case> chemin; // Liste des cases en suivant le parcours du jeu de l'oie
+    private final List<Case> chemin;
     private Pion pion;
     private List<QuestionEducation> educationQuestions;
     private List<QuestionEntertainment> entertainmentQuestions;
@@ -12,14 +12,13 @@ public class GameBoard {
     private List<QuestionInformatic> informaticQuestions;
 
     public GameBoard() {
-        this.chemin = genererChemin(); // Génère les cases selon un chemin spécifique
-        this.educationQuestions = new ArrayList<QuestionEducation>();
-        this.entertainmentQuestions = new ArrayList<QuestionEntertainment>();
-        this.improbableQuestions = new ArrayList<QuestionImprobable>();
-        this.informaticQuestions = new ArrayList<QuestionInformatic>();
+        this.chemin = genererChemin();
+        this.educationQuestions = new ArrayList<>();
+        this.entertainmentQuestions = new ArrayList<>();
+        this.improbableQuestions = new ArrayList<>();
+        this.informaticQuestions = new ArrayList<>();
         initializeQuestionLists();
     }
-
     public void ajouterPion(Pion pion) {
         this.pion = pion;
     }
