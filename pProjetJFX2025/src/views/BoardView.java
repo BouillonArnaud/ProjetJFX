@@ -1,6 +1,9 @@
 package views;
 
 import java.io.File;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,6 +26,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Case;
 import model.GameBoard;
+import model.Question;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
@@ -30,35 +34,36 @@ public class BoardView extends Pane {
     private final GameBoard board;
     private final ImageView pawnView;
     private final Color[] colors = {Color.PURPLE, Color.ORANGE, Color.BLUE, Color.GREEN,
-                                      Color.ORANGE, Color.ORANGE, Color.PURPLE, Color.GREEN};
-    private static final int RECT_WIDTH = 146; // Largeur des rectangles
-    private static final int RECT_HEIGHT = 90; // Hauteur des rectangles
+                                   Color.ORANGE, Color.ORANGE, Color.PURPLE, Color.GREEN};
+    private static final int RECT_WIDTH = 146; // Rectangle width
+    private static final int RECT_HEIGHT = 90; // Rectangle height
     private MediaPlayer mediaPlayer;
     private boolean isPlaying = false;
     private ImageView imgView;
 
-    public BoardView(GameBoard board,Stage boardStage) {
+    public BoardView(GameBoard board, Stage boardStage) {
         this.board = board;
         
-        Image backgroundImage = new Image(getClass().getResource("/resources/background_cyberpunk.jpg").toExternalForm()); // Remplace par le chemin réel de ton image
+        // Load background image
+        Image backgroundImage = new Image(getClass().getResource("/resources/background_cyberpunk.jpg").toExternalForm());
         ImageView backgroundView = new ImageView(backgroundImage);
         backgroundView.fitWidthProperty().bind(this.widthProperty());
         backgroundView.fitHeightProperty().bind(this.heightProperty());
         this.getChildren().add(backgroundView);
 
-        // Dessiner le plateau selon le chemin avec alternance de couleurs
+        // Draw game board path with alternating colors
         int index = 0;
         for (Case c : board.getChemin()) {
             Rectangle casePlateau = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
             casePlateau.setFill(colors[index % colors.length]);
             casePlateau.setStroke(Color.BLACK);
-            casePlateau.setX(c.getX() * RECT_WIDTH / 40); // Ajustement des proportions
+            casePlateau.setX(c.getX() * RECT_WIDTH / 40); // Adjust proportions
             casePlateau.setY(c.getY() * RECT_HEIGHT / 40);
             this.getChildren().add(casePlateau);
             index++;
         }
 
-     // Draw pawn
+        // Draw pawn
         Image pawnImage = new Image(getClass().getResource("/resources/pawns1.png").toExternalForm());
         pawnView = new ImageView(pawnImage);
         pawnView.setFitWidth(RECT_HEIGHT / 2);
@@ -66,21 +71,22 @@ public class BoardView extends Pane {
         updatePawnPosition();
         this.getChildren().add(pawnView);
         
-       StackPane btnMenu = createButton("Return to menu");
-       
+        // Create menu return button
+        StackPane btnMenu = createButton("Return to menu");
         
         btnMenu.setOnMouseClicked(event -> {
-        	 Stage mainMenuStage = new Stage();
-             MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
-             Scene mainMenuScene = new Scene(mainMenuView, 1920, 1080);
-             mainMenuStage.setScene(mainMenuScene);
-             mainMenuStage.setTitle("Menu Principal");
-             mainMenuStage.setMaximized(true);
-             mainMenuStage.show();
-             boardStage.close();
+            Stage mainMenuStage = new Stage();
+            MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
+            Scene mainMenuScene = new Scene(mainMenuView, 1920, 1080);
+            mainMenuStage.setScene(mainMenuScene);
+            mainMenuStage.setTitle("Main Menu");
+            mainMenuStage.setMaximized(true);
+            mainMenuStage.show();
+            boardStage.close();
         });
         this.getChildren().add(btnMenu);
         
+        // Create music toggle button
         imgView = new ImageView(new Image(getClass().getResource("/resources/button_son_off.png").toExternalForm()));
         imgView.setFitWidth(50);
         imgView.setFitHeight(50);
@@ -91,11 +97,15 @@ public class BoardView extends Pane {
 
         btnMusic.setOnMouseClicked(event -> toggleMusic());
 
+        // Initialize music player
         String musicFile = getClass().getResource("/resources/pain.mp3").toExternalForm();
         Media sound = new Media(musicFile);
         mediaPlayer = new MediaPlayer(sound);
     }
 
+    /**
+     * Updates the pawn's position on the board
+     */
     public void updatePawnPosition() {
         Case currentCase = board.getChemin().get(board.getPion().getIndex());
         
@@ -121,12 +131,72 @@ public class BoardView extends Pane {
         content.setPadding(new Insets(20));
         content.setStyle("-fx-background-color: #" + caseColor.toString().substring(2, 8) + ";");
         
-//        Label title = new Label("Case Details");
-        Label title = new Label(board.getEntertainmentQuestions().get(0).getQuestionContent());
-        title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
+        // Add level selection
+        Label levelLabel = new Label("What level are you choosing?:");
+        levelLabel.setTextAlignment(TextAlignment.CENTER);
+        levelLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
         
+        VBox levelBox = new VBox(10);
+        levelBox.setAlignment(Pos.CENTER);
+        
+        // Create level selection buttons
+        for (int i = 1; i <= 4; i++) {
+            Button levelButton = new Button("Level " + i);
+            final int level = i;
+            levelButton.setOnAction(e -> {
+                showQuestionPopup(caseColor, level);
+                popupStage.close();
+            });
+            levelBox.getChildren().add(levelButton);
+        }
+        
+        content.getChildren().addAll(levelLabel, levelBox);
+        
+        Scene scene = new Scene(content, 400, 300);
+        popupStage.setScene(scene);
+        
+        // Add slight delay before showing
+        PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
+        delay.setOnFinished(event -> popupStage.show());
+        delay.play();
+    }
+    
+    /**
+     * Displays the question popup for the selected level
+     * @param caseColor The case color
+     * @param userLevel The selected difficulty level
+     */
+    private void showQuestionPopup(Color caseColor, int userLevel) {
+        Stage popupStage = new Stage();
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        
+        VBox content = new VBox(20);
+        content.setAlignment(Pos.CENTER);
+        content.setPadding(new Insets(20));
+        content.setStyle("-fx-background-color: #" + caseColor.toString().substring(2, 8) + ";");
+        
+        // 1. Filter questions by selected level
+        List<? extends Question> filteredQuestions = filterQuestionsByLevel(
+            selectQuestionList(caseColor), 
+            userLevel
+        );
+        
+        // 2. Randomly select a question
+        final Question randomQuestion = filteredQuestions != null && !filteredQuestions.isEmpty()
+                ? filteredQuestions.get(new Random().nextInt(filteredQuestions.size()))
+                : null;
+        
+        // 3. Display question
+        Label title = new Label(randomQuestion != null ? randomQuestion.getQuestionContent() : "No questions available for this level");
+        title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
+        title.setWrapText(true);
+        
+        // Display case information
         int caseIndex = board.getPion().getIndex();
-        Label info = new Label("Case #" + caseIndex + "\nColor: " + getColorName(caseColor));
+        Label info = new Label(String.format("Case #%d\nTheme: %s\nLevel: %s", 
+            caseIndex, 
+            randomQuestion.getTheme(), 
+            randomQuestion.getLevel()));
         info.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
         info.setTextAlignment(TextAlignment.CENTER);
         
@@ -135,17 +205,29 @@ public class BoardView extends Pane {
         
         content.getChildren().addAll(title, info, closeButton);
         
-        Scene scene = new Scene(content, 350, 250);
+        // Add answer reveal functionality
+        if (randomQuestion != null) {
+            Button answerButton = new Button("Show answer");
+            Label answerLabel = new Label();
+            answerLabel.setStyle("-fx-text-fill: white;");
+            
+            answerButton.setOnAction(e -> {
+                answerLabel.setText("Answer: " + randomQuestion.getAnswer());
+                answerButton.setDisable(true);
+            });
+            
+            content.getChildren().addAll(answerButton, answerLabel);
+        }
+        
+        Scene scene = new Scene(content, 400, 300);
         popupStage.setScene(scene);
-
-        // Correction : Use show() instead of showAndWait()
+        
+        // Add slight delay before showing
         PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
-        delay.setOnFinished(event -> {
-            popupStage.show(); // Display without blocking thread
-        });
+        delay.setOnFinished(event -> popupStage.show());
         delay.play();
     }
-
+    
     /**
      * Converts JavaFX Color to color name
      * @param color The color to convert
@@ -164,7 +246,6 @@ public class BoardView extends Pane {
      * @param textContent Button text
      * @return Configured StackPane button
      */
-
     public StackPane createButton(String textContent) {
         Rectangle rectangle = new Rectangle(100, 50);
         rectangle.setFill(Color.YELLOW);
@@ -179,20 +260,48 @@ public class BoardView extends Pane {
         return stack;
     }
     
+    /**
+     * Toggles music playback on/off
+     */
     private void toggleMusic() {
-        if (mediaPlayer == null) return; // Sécurité : Vérifier que mediaPlayer existe
+        if (mediaPlayer == null) return; // Safety check
         
         MediaPlayer.Status status = mediaPlayer.getStatus();
         if (status == MediaPlayer.Status.PLAYING) {
             mediaPlayer.pause();
-            // Mettre l'image en OFF
+            // Set image to OFF state
             imgView.setImage(new Image(getClass().getResource("/resources/button_son_off.png").toExternalForm()));
         } else {
             mediaPlayer.play();
-            // Mettre l'image en ON
+            // Set image to ON state
             imgView.setImage(new Image(getClass().getResource("/resources/button_son_on.png").toExternalForm()));
         }
     }
-
-
+    
+    /**
+     * Selects the appropriate question list based on case color
+     * @param color The case color
+     * @return The corresponding question list
+     */
+    private List<? extends Question> selectQuestionList(Color color) {
+        if (color.equals(Color.ORANGE)) return board.getEntertainmentQuestions();
+        if (color.equals(Color.GREEN)) return board.getEducationQuestions();
+        if (color.equals(Color.BLUE)) return board.getInformaticQuestions();
+        if (color.equals(Color.PURPLE)) return board.getImprobableQuestions();
+        return null;
+    }
+    
+    /**
+     * Filters questions by difficulty level
+     * @param questions The list of questions to filter
+     * @param level The difficulty level to filter by
+     * @return Filtered list of questions
+     */
+    private List<? extends Question> filterQuestionsByLevel(List<? extends Question> questions, int level) {
+        if (questions == null) return null;
+        
+        return questions.stream()
+                       .filter(q -> q.getLevel() == level)
+                       .collect(Collectors.toList());
+    }
 }
