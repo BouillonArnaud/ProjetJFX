@@ -125,10 +125,47 @@ public class BoardView extends Pane {
         int caseIndex = board.getPion().getIndex();
         showCasePopup(colors[caseIndex % colors.length], caseIndex);
     }
-    
     private void showCasePopup(Color caseColor, int caseIndex) {
         Stage popupStage = new Stage();
         popupStage.initModality(Modality.APPLICATION_MODAL);
+        
+        VBox content = new VBox(20);
+        content.setAlignment(Pos.CENTER);
+        content.setPadding(new Insets(20));
+        content.setStyle("-fx-background-color: #" + caseColor.toString().substring(2, 8) + ";");
+        
+        // Ajout de la sélection du niveau
+        Label levelLabel = new Label("What level are you choosing?:");
+   
+     // afficher le teme de la carte en dessous de Label levelLabel = new Label("What level are you choosing?:");
+        // en focntion de la couleur de la case
+        levelLabel.setTextAlignment(TextAlignment.CENTER);
+        
+        levelLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        
+        VBox levelBox = new VBox(10);
+        levelBox.setAlignment(Pos.CENTER);
+        
+        for (int i = 1; i <= 4; i++) {
+            Button levelButton = new Button("Level " + i);
+            final int level = i;
+            levelButton.setOnAction(e -> {
+                showQuestionPopup(caseColor, caseIndex, level);
+                popupStage.close();
+            });
+            levelBox.getChildren().add(levelButton);
+        }
+        
+        content.getChildren().addAll(levelLabel, levelBox);
+        
+        Scene scene = new Scene(content, 400, 300);
+        popupStage.setScene(scene);
+        popupStage.show();
+    }
+
+    private void showQuestionPopup(Color caseColor, int caseIndex, int level) {
+        Stage questionStage = new Stage();
+        questionStage.initModality(Modality.APPLICATION_MODAL);
         
         VBox content = new VBox(20);
         content.setAlignment(Pos.CENTER);
@@ -140,41 +177,41 @@ public class BoardView extends Pane {
         String answer = "Veuillez recharger le jeu.";
         String theme = colorName;
         
-        // Obtenir une question selon la couleur
+        // Obtenir une question selon la couleur et le niveau
         switch(colorName.toLowerCase()) {
-        case "purple":
-            if (!board.getImprobableQuestions().isEmpty()) {
-                QuestionImprobable question = board.getImprobableQuestions().remove(0); // <-- retire la question
-                questionContent = question.getQuestionContent();
-                answer = question.getAnswer();
-                theme = "Improbable";
-            }
-            break;
-        case "orange":
-            if (!board.getEntertainmentQuestions().isEmpty()) {
-                QuestionEntertainment question = board.getEntertainmentQuestions().remove(0); // <-- retire la question
-                questionContent = question.getQuestionContent();
-                answer = question.getAnswer();
-                theme = "Entertainment";
-            }
-            break;
-        case "blue":
-            if (!board.getInformaticQuestions().isEmpty()) {
-                QuestionInformatic question = board.getInformaticQuestions().remove(0); // <-- retire la question
-                questionContent = question.getQuestionContent();
-                answer = question.getAnswer();
-                theme = "Informatique";
-            }
-            break;
-        case "green":
-            if (!board.getEducationQuestions().isEmpty()) {
-                QuestionEducation question = board.getEducationQuestions().remove(0); // <-- retire la question
-                questionContent = question.getQuestionContent();
-                answer = question.getAnswer();
-                theme = "Education";
-            }
-            break;
-    }
+            case "purple":
+                if (!board.getImprobableQuestions().isEmpty()) {
+                    QuestionImprobable question = board.getImprobableQuestions().remove(0);
+                    questionContent = question.getQuestionContent();
+                    answer = question.getAnswer();
+                    theme = "Improbable (Level " + level + ")";
+                }
+                break;
+            case "orange":
+                if (!board.getEntertainmentQuestions().isEmpty()) {
+                    QuestionEntertainment question = board.getEntertainmentQuestions().remove(0);
+                    questionContent = question.getQuestionContent();
+                    answer = question.getAnswer();
+                    theme = "Entertainment (Level " + level + ")";
+                }
+                break;
+            case "blue":
+                if (!board.getInformaticQuestions().isEmpty()) {
+                    QuestionInformatic question = board.getInformaticQuestions().remove(0);
+                    questionContent = question.getQuestionContent();
+                    answer = question.getAnswer();
+                    theme = "Informatique (Level " + level + ")";
+                }
+                break;
+            case "green":
+                if (!board.getEducationQuestions().isEmpty()) {
+                    QuestionEducation question = board.getEducationQuestions().remove(0);
+                    questionContent = question.getQuestionContent();
+                    answer = question.getAnswer();
+                    theme = "Education (Level " + level + ")";
+                }
+                break;
+        }
 
         Label title = new Label("Case #" + caseIndex + " - " + theme);
         title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
@@ -184,24 +221,22 @@ public class BoardView extends Pane {
         questionLabel.setTextAlignment(TextAlignment.CENTER);
         questionLabel.setWrapText(true);
         
-        Label answerLabel = new Label("Réponse: " + answer);
+        Label answerLabel = new Label("Answer: " + answer);
         answerLabel.setStyle("-fx-font-size: 14; -fx-text-fill: white; -fx-font-style: italic;");
         answerLabel.setTextAlignment(TextAlignment.CENTER);
         answerLabel.setWrapText(true);
         
-        Button closeButton = new Button("Fermer");
-        closeButton.setOnAction(e -> popupStage.close());
+        Button closeButton = new Button("Close");
+        closeButton.setOnAction(e -> questionStage.close());
         
         content.getChildren().addAll(title, questionLabel, answerLabel, closeButton);
         
         Scene scene = new Scene(content, 400, 300);
-        popupStage.setScene(scene);
-
-        PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
-        delay.setOnFinished(event -> popupStage.show());
-        delay.play();
+        questionStage.setScene(scene);
+        questionStage.show();
     }
-
+   
+      
     private String getColorName(Color color) {
         if (color.equals(Color.PURPLE)) return "Purple";
         if (color.equals(Color.ORANGE)) return "Orange";
