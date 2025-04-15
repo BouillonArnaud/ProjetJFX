@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -162,7 +163,7 @@ public class BoardView extends Pane {
     }
     
     /**
-     * Displays the question popup for the selected level
+     * Displays the question popup for the selected level with user input and answer verification
      * @param caseColor The case color
      * @param userLevel The selected difficulty level
      */
@@ -195,29 +196,69 @@ public class BoardView extends Pane {
         int caseIndex = board.getPion().getIndex();
         Label info = new Label(String.format("Case #%d\nTheme: %s\nLevel: %s", 
             caseIndex, 
-            randomQuestion.getTheme(), 
-            randomQuestion.getLevel()));
+            randomQuestion != null ? randomQuestion.getTheme() : "N/A", 
+            randomQuestion != null ? randomQuestion.getLevel() : "N/A"));
         info.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
         info.setTextAlignment(TextAlignment.CENTER);
+        
+        // Add input field for user answer
+        TextField answerField = new TextField();
+        answerField.setPromptText("Entrez votre réponse...");
+        answerField.setMaxWidth(300);
+        
+        // Add submit button for answer verification
+        Button submitButton = new Button("Submit");
+        Label feedbackLabel = new Label();
+        feedbackLabel.setStyle("-fx-text-fill: white;");
+        
+        submitButton.setOnAction(e -> {
+            if (randomQuestion == null) {
+                feedbackLabel.setText("Erreur : Aucune question disponible.");
+                return;
+            }
+            
+            String userAnswer = answerField.getText();
+            String correctAnswer = randomQuestion.getAnswer();
+            
+            // Verify answer (case-insensitive comparison)
+            if (userAnswer.trim().equalsIgnoreCase(correctAnswer.trim())) {
+                feedbackLabel.setText("Good answer !");
+                // Move the pawn forward
+                board.deplacerPion(userLevel);
+            } else {
+                feedbackLabel.setText("Wrong answer the right answer was : " + correctAnswer);
+                // Move the pawn backward
+                board.deplacerPion(-1);
+            }
+            
+            submitButton.setDisable(true);
+            answerField.setDisable(true);
+            
+            // Close the current popup before opening the next one
+            PauseTransition delay = new PauseTransition(Duration.seconds(1)); // Small delay to show feedback
+            delay.setOnFinished(event -> {
+                popupStage.close(); // Close the current popup
+                updatePawnPosition(); // Open the next popup
+            });
+            delay.play();
+        });
+        
+        // Keep the "Show answer" functionality
+        Button answerButton = new Button("Show answer");
+        Label answerLabel = new Label();
+        answerLabel.setStyle("-fx-text-fill: white;");
+        
+        answerButton.setOnAction(e -> {
+            if (randomQuestion != null) {
+                answerLabel.setText("Answer: " + randomQuestion.getAnswer());
+                answerButton.setDisable(true);
+            }
+        });
         
         Button closeButton = new Button("Close");
         closeButton.setOnAction(e -> popupStage.close());
         
-        content.getChildren().addAll(title, info, closeButton);
-        
-        // Add answer reveal functionality
-        if (randomQuestion != null) {
-            Button answerButton = new Button("Show answer");
-            Label answerLabel = new Label();
-            answerLabel.setStyle("-fx-text-fill: white;");
-            
-            answerButton.setOnAction(e -> {
-                answerLabel.setText("Answer: " + randomQuestion.getAnswer());
-                answerButton.setDisable(true);
-            });
-            
-            content.getChildren().addAll(answerButton, answerLabel);
-        }
+        content.getChildren().addAll(title, info, answerField, submitButton, feedbackLabel, answerButton, answerLabel, closeButton);
         
         Scene scene = new Scene(content, 800, 600);
         popupStage.setScene(scene);
