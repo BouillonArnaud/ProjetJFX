@@ -44,10 +44,22 @@ public class BoardController {
 		currentQuestion = null;
 	}
 
+	// Handle moving the pawn and checking if the last case is reached
 	public void handleAnswerTest(int userlevel) {
 		Pion currentPion = board.getPions().get(currentPlayerIndex);
+		if (currentPion.getIndex() == board.getChemin().size() - 1) {
+			// Trigger a Level 4 question automatically when the last case is reached
+			showLevel4Question(currentPion);
+		}
 		board.deplacerPion(currentPion, userlevel);
 		transitionToNextPlayer();
+	}
+
+	// Handle the level 4 question and end the game if correct
+	public void showLevel4Question(Pion pion) {
+		// Create a popup for the question
+		boardView.showFinalQuestionPopup(pion);
+
 	}
 
 	public void transitionToNextPlayer() {

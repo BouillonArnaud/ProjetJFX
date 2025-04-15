@@ -50,7 +50,7 @@ public class MainMenuView extends BorderPane {
             Stage boardStage = new Stage();
             BoardView boardView = new BoardView(board, boardStage);
             
-            int nombreJoueurs = 3; // Assuming 2 players, adjust if needed
+            int nombreJoueurs = 1; // Assuming 2 players, adjust if needed
             BoardController controller = new BoardController(board, boardView, nombreJoueurs);
             boardView.setController(controller); // Set the controller to the board view
             

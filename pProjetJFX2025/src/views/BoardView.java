@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -46,10 +47,12 @@ public class BoardView extends Pane {
 	private Stage currentPopup = null; // Store the current popup stage
 	private int currentPlayerIndex;
 	private BoardController controller;
+	private final Stage boardStage;
 
 	public BoardView(GameBoard board, Stage boardStage) {
 		this.board = board;
 		this.currentPlayerIndex = 0;
+		this.boardStage = boardStage;
 
 		Image backgroundImage = new Image("/resources/background_cyberpunk.jpg"); // Remplace par le chemin réel de ton
 																					// image
@@ -171,13 +174,12 @@ public class BoardView extends Pane {
 			pawnView.setX(xPosition);
 			pawnView.setY(yPosition);
 
-			// Only show the popup for the current player's pawn if not initialized yet
-			if (i == currentPlayerIndex) {
+			if (i == currentPlayerIndex && !(pion.getIndex() == board.getChemin().size() - 1)) {
 				showCasePopup(pion, colors[pion.getIndex() % colors.length]);
+			} else {
+				controller.showLevel4Question(pion);
 			}
 		}
-
-		System.out.println("BoardView:Player turn transitioned to: " + currentPlayerIndex);
 
 	}
 
@@ -386,7 +388,99 @@ public class BoardView extends Pane {
 	}
 
 	public void setController(BoardController controller) {
-	    this.controller = controller;
-	    System.out.println("Controller set successfully.");
+		this.controller = controller;
+		System.out.println("Controller set successfully.");
 	}
+
+	public void showFinalQuestionPopup(Pion pion) {
+		Stage popupStage = new Stage();
+		popupStage.initModality(Modality.APPLICATION_MODAL);
+
+		VBox content = new VBox(20);
+		content.setAlignment(Pos.CENTER);
+		content.setPadding(new Insets(20));
+		content.setStyle("-fx-background-color: #4CAF50;");
+
+		// Get the Level 4 questions
+		List<? extends Question> level4Questions = filterQuestionsByLevel(
+				selectQuestionList(colors[pion.getIndex() % colors.length]), 4);
+
+		// Randomly select a Level 4 question
+		Question randomQuestion = level4Questions != null && !level4Questions.isEmpty()
+				? level4Questions.get(new Random().nextInt(level4Questions.size()))
+				: null;
+
+		// Title and question content
+		Label title = new Label("Final Question");
+		title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
+
+		Label questionLabel = new Label(randomQuestion.getQuestionContent());
+		questionLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+		questionLabel.setWrapText(true);
+
+		// Answer input
+		TextField answerField = new TextField();
+		answerField.setPromptText("Enter your answer...");
+
+		Button submitButton = new Button("Submit Answer");
+		submitButton.setOnAction(e -> {
+			if (answerField.getText().equals("A")) {
+				// Correct answer, end the game
+				showEndGamePopup();
+				popupStage.close();
+			} else {
+				// Incorrect answer, show retry message or similar
+				System.out.println("Wrong answer!");
+				popupStage.close();
+				controller.transitionToNextPlayer(); // Move to the next player
+			}
+		});
+
+		content.getChildren().addAll(title, questionLabel, answerField, submitButton);
+
+		Scene scene = new Scene(content, 400, 300);
+		popupStage.setScene(scene);
+		popupStage.show();
+	}
+
+	private void showEndGamePopup() {
+	    Stage endGameStage = new Stage();
+	    endGameStage.initModality(Modality.APPLICATION_MODAL);
+
+	    VBox content = new VBox(20);
+	    content.setAlignment(Pos.CENTER);
+	    content.setPadding(new Insets(20));
+	    content.setStyle("-fx-background-color: #FFEB3B;");
+
+	    Label title = new Label("Congratulations!");
+	    title.setStyle("-fx-font-size: 20; -fx-text-fill: black; -fx-font-weight: bold;");
+
+	    Label message = new Label("You have won the game!");
+	    message.setStyle("-fx-font-size: 16; -fx-text-fill: black;");
+
+	    Button closeButton = new Button("Return to Main Menu");
+	    closeButton.setOnAction(e -> {
+	        endGameStage.close(); // Close the end game popup
+
+	        // Close the board stage
+	        boardStage.close();
+
+	        // Open Main Menu
+	        Stage mainMenuStage = new Stage();
+	        MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
+	        Scene mainMenuScene = new Scene(mainMenuView, 1920, 1080);
+	        mainMenuStage.setScene(mainMenuScene);
+	        mainMenuStage.setTitle("Main Menu");
+	        mainMenuStage.setMaximized(true);
+	        mainMenuStage.show();
+	    });
+
+	    content.getChildren().addAll(title, message, closeButton);
+
+	    Scene scene = new Scene(content, 400, 300);
+	    endGameStage.setScene(scene);
+	    endGameStage.show();
+	}
+
+
 }
