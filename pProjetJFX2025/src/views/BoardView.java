@@ -173,11 +173,12 @@ public class BoardView extends Pane {
 			// Update the position of the pawn in the selected corner
 			pawnView.setX(xPosition);
 			pawnView.setY(yPosition);
-
-			if (i == currentPlayerIndex && !(pion.getIndex() == board.getChemin().size() - 1)) {
-				showCasePopup(pion, colors[pion.getIndex() % colors.length]);
-			} else {
-				controller.showLevel4Question(pion);
+			if (i == currentPlayerIndex) {
+				if (!(pion.getIndex() == board.getChemin().size() - 1)) {
+					showCasePopup(pion, colors[pion.getIndex() % colors.length]);
+				} else {
+					controller.showLevel4Question(pion);
+				}
 			}
 		}
 
@@ -444,43 +445,42 @@ public class BoardView extends Pane {
 	}
 
 	private void showEndGamePopup() {
-	    Stage endGameStage = new Stage();
-	    endGameStage.initModality(Modality.APPLICATION_MODAL);
+		Stage endGameStage = new Stage();
+		endGameStage.initModality(Modality.APPLICATION_MODAL);
 
-	    VBox content = new VBox(20);
-	    content.setAlignment(Pos.CENTER);
-	    content.setPadding(new Insets(20));
-	    content.setStyle("-fx-background-color: #FFEB3B;");
+		VBox content = new VBox(20);
+		content.setAlignment(Pos.CENTER);
+		content.setPadding(new Insets(20));
+		content.setStyle("-fx-background-color: #FFEB3B;");
 
-	    Label title = new Label("Congratulations!");
-	    title.setStyle("-fx-font-size: 20; -fx-text-fill: black; -fx-font-weight: bold;");
+		Label title = new Label("Congratulations!");
+		title.setStyle("-fx-font-size: 20; -fx-text-fill: black; -fx-font-weight: bold;");
 
-	    Label message = new Label("You have won the game!");
-	    message.setStyle("-fx-font-size: 16; -fx-text-fill: black;");
+		Label message = new Label("You have won the game!");
+		message.setStyle("-fx-font-size: 16; -fx-text-fill: black;");
 
-	    Button closeButton = new Button("Return to Main Menu");
-	    closeButton.setOnAction(e -> {
-	        endGameStage.close(); // Close the end game popup
+		Button closeButton = new Button("Return to Main Menu");
+		closeButton.setOnAction(e -> {
+			endGameStage.close(); // Close the end game popup
 
-	        // Close the board stage
-	        boardStage.close();
+			// Close the board stage
+			boardStage.close();
 
-	        // Open Main Menu
-	        Stage mainMenuStage = new Stage();
-	        MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
-	        Scene mainMenuScene = new Scene(mainMenuView, 1920, 1080);
-	        mainMenuStage.setScene(mainMenuScene);
-	        mainMenuStage.setTitle("Main Menu");
-	        mainMenuStage.setMaximized(true);
-	        mainMenuStage.show();
-	    });
+			// Open Main Menu
+			Stage mainMenuStage = new Stage();
+			MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
+			Scene mainMenuScene = new Scene(mainMenuView, 1920, 1080);
+			mainMenuStage.setScene(mainMenuScene);
+			mainMenuStage.setTitle("Main Menu");
+			mainMenuStage.setMaximized(true);
+			mainMenuStage.show();
+		});
 
-	    content.getChildren().addAll(title, message, closeButton);
+		content.getChildren().addAll(title, message, closeButton);
 
-	    Scene scene = new Scene(content, 400, 300);
-	    endGameStage.setScene(scene);
-	    endGameStage.show();
+		Scene scene = new Scene(content, 400, 300);
+		endGameStage.setScene(scene);
+		endGameStage.show();
 	}
-
 
 }
