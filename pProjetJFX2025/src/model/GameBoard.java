@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameBoard {
-    private final List<Case> chemin;
+    private final List<Case> chemin; // Liste des cases en suivant le parcours du jeu de l'oie
     private Pion pion;
     private List<QuestionEducation> educationQuestions;
     private List<QuestionEntertainment> entertainmentQuestions;
@@ -12,13 +12,14 @@ public class GameBoard {
     private List<QuestionInformatic> informaticQuestions;
 
     public GameBoard() {
-        this.chemin = genererChemin();
-        this.educationQuestions = new ArrayList<>();
-        this.entertainmentQuestions = new ArrayList<>();
-        this.improbableQuestions = new ArrayList<>();
-        this.informaticQuestions = new ArrayList<>();
+        this.chemin = genererChemin(); // Génère les cases selon un chemin spécifique
+        this.educationQuestions = new ArrayList<QuestionEducation>();
+        this.entertainmentQuestions = new ArrayList<QuestionEntertainment>();
+        this.improbableQuestions = new ArrayList<QuestionImprobable>();
+        this.informaticQuestions = new ArrayList<QuestionInformatic>();
         initializeQuestionLists();
     }
+
     public void ajouterPion(Pion pion) {
         this.pion = pion;
     }
@@ -108,7 +109,7 @@ public class GameBoard {
     	
 //    	To debug lists content
     	for (QuestionEducation q : educationQuestions) {
-    		System.out.println(q.getTheme());
+    		System.out.println("Question : " + q.getQuestionContent() + " Answer : " +  q.getAnswer());
     	}
     }
     
