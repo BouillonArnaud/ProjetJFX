@@ -41,28 +41,30 @@ public class MainMenuView extends BorderPane {
 
         // Gestion du clic sur le bouton
         starText.setOnMouseClicked(event -> {
+            // Initialize the Game Board
             GameBoard board = new GameBoard();
-            Pion pion = new Pion(0);
-            board.ajouterPion(pion);// Instancier le modèle du plateau (à adapter)
+            Pion pion = new Pion(0); // Create the first pawn
+            board.ajouterPion(pion); // Add the pawn to the board
+            
+            // Stage for the game board
             Stage boardStage = new Stage();
-            BoardView boardView = new BoardView(board,boardStage);
+            BoardView boardView = new BoardView(board, boardStage);
             
-            
-            int nombreJoueurs = 2;
-            
-            
+            int nombreJoueurs = 3; // Assuming 2 players, adjust if needed
             BoardController controller = new BoardController(board, boardView, nombreJoueurs);
+            boardView.setController(controller); // Set the controller to the board view
             
+            // Create scene and show game stage
             Scene boardScene = new Scene(boardView, 1920, 1080);
-            boardScene.setOnKeyPressed(controller :: handleKeyPress);
             boardStage.setScene(boardScene);
-            boardStage.setTitle("Board View");
+            boardStage.setTitle("Game Board");
             boardStage.setMaximized(true); 
             boardStage.show();
 
-            // Optionnel : Fermer le menu principal
+            // Optionally, close the main menu after starting the game
             primaryStage.close();
         });
+
         
         this.getChildren().addAll(background, icon1, icon2, icon3, icon4, icon5, icon6, title, image5, settingsText, starText, adminText);
     }

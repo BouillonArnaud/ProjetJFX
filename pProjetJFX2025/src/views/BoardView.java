@@ -3,7 +3,10 @@ package views;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
+import controllers.BoardController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,6 +29,7 @@ import javafx.stage.Stage;
 import model.Case;
 import model.GameBoard;
 import model.Pion;
+import model.Question;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
@@ -41,8 +45,7 @@ public class BoardView extends Pane {
 	private ImageView imgView;
 	private Stage currentPopup = null; // Store the current popup stage
 	private int currentPlayerIndex;
-	private boolean isInitialized = false;
-
+	private BoardController controller;
 
 	public BoardView(GameBoard board, Stage boardStage) {
 		this.board = board;
@@ -76,7 +79,7 @@ public class BoardView extends Pane {
 			MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
 			Scene mainMenuScene = new Scene(mainMenuView, 1920, 1080);
 			mainMenuStage.setScene(mainMenuScene);
-			mainMenuStage.setTitle("Menu Principal");
+			mainMenuStage.setTitle("Main Menu");
 			mainMenuStage.setMaximized(true);
 			mainMenuStage.show();
 			boardStage.close();
@@ -103,86 +106,80 @@ public class BoardView extends Pane {
 	}
 
 	public void updatePawnPositions() {
-	    List<Pion> pions = board.getPions(); // Get the list of pawns
+		List<Pion> pions = board.getPions(); // Get the list of pawns
 
-	    // Add new pawns if necessary
-	    if (pawnViews.size() < pions.size()) {
-	        for (int i = pawnViews.size(); i < pions.size(); i++) {
-	            // Create new ImageView for the new pawn
-	            String imagePath = "/resources/pawns" + (i + 1) + ".png";
-	            Image pawnImage = new Image(imagePath);
-	            ImageView pawnView = new ImageView(pawnImage);
-	            pawnView.setFitWidth(RECT_HEIGHT / 2);
-	            pawnView.setFitHeight(RECT_HEIGHT / 2);
-	            pawnViews.add(pawnView);
-	            this.getChildren().add(pawnView); // Add the pawn view to the pane
-	        }
-	    }
+		// Add new pawns if necessary
+		if (pawnViews.size() < pions.size()) {
+			for (int i = pawnViews.size(); i < pions.size(); i++) {
+				// Create new ImageView for the new pawn
+				String imagePath = "/resources/pawns" + (i + 1) + ".png";
+				Image pawnImage = new Image(imagePath);
+				ImageView pawnView = new ImageView(pawnImage);
+				pawnView.setFitWidth(RECT_HEIGHT / 2);
+				pawnView.setFitHeight(RECT_HEIGHT / 2);
+				pawnViews.add(pawnView);
+				this.getChildren().add(pawnView); // Add the pawn view to the pane
+			}
+		}
 
-	    // Update the positions of all the pawns
-	    for (int i = 0; i < pions.size(); i++) {
-	        Pion pion = pions.get(i);
+		// Update the positions of all the pawns
+		for (int i = 0; i < pions.size(); i++) {
+			Pion pion = pions.get(i);
 
-	        // Get the current case for the pawn
-	        Case currentCase = board.getChemin().get(pion.getIndex()); // Ensure the index is valid
-	        ImageView pawnView = pawnViews.get(i);
+			// Get the current case for the pawn
+			Case currentCase = board.getChemin().get(pion.getIndex()); // Ensure the index is valid
+			ImageView pawnView = pawnViews.get(i);
 
-	        System.out.println("Pawn " + i + " at Case " + pion.getIndex() + " -> X: " + currentCase.getX() + ", Y: "
-	                + currentCase.getY());
+			System.out.println("Pawn " + i + " at Case " + pion.getIndex() + " -> X: " + currentCase.getX() + ", Y: "
+					+ currentCase.getY());
 
-	        // Position the pawns in different corners (top-left, top-right, bottom-left, bottom-right)
-	        int cornerOffsetX = 0;
-	        int cornerOffsetY = 0;
+			// Position the pawns in different corners (top-left, top-right, bottom-left,
+			// bottom-right)
+			int cornerOffsetX = 0;
+			int cornerOffsetY = 0;
 
-	        switch (i) {
-	            case 0:
-	                // Top-left corner
-	                cornerOffsetX = 0;
-	                cornerOffsetY = 0;
-	                break;
-	            case 1:
-	                // Top-right corner
-	                cornerOffsetX = RECT_WIDTH / 2;
-	                cornerOffsetY = 0;
-	                break;
-	            case 2:
-	                // Bottom-left corner
-	                cornerOffsetX = 0;
-	                cornerOffsetY = RECT_HEIGHT / 2;
-	                break;
-	            case 3:
-	                // Bottom-right corner
-	                cornerOffsetX = RECT_WIDTH / 2;
-	                cornerOffsetY = RECT_HEIGHT / 2;
-	                break;
-	            default:
-	                break;
-	        }
+			switch (i) {
+			case 0:
+				// Top-left corner
+				cornerOffsetX = 0;
+				cornerOffsetY = 0;
+				break;
+			case 1:
+				// Top-right corner
+				cornerOffsetX = RECT_WIDTH / 2;
+				cornerOffsetY = 0;
+				break;
+			case 2:
+				// Bottom-left corner
+				cornerOffsetX = 0;
+				cornerOffsetY = RECT_HEIGHT / 2;
+				break;
+			case 3:
+				// Bottom-right corner
+				cornerOffsetX = RECT_WIDTH / 2;
+				cornerOffsetY = RECT_HEIGHT / 2;
+				break;
+			default:
+				break;
+			}
 
-	        // Calculate the exact position based on currentCase and corner offset
-	        double xPosition = currentCase.getX() * RECT_WIDTH / 40 + cornerOffsetX;
-	        double yPosition = currentCase.getY() * RECT_HEIGHT / 40 + cornerOffsetY;
+			// Calculate the exact position based on currentCase and corner offset
+			double xPosition = currentCase.getX() * RECT_WIDTH / 40 + cornerOffsetX;
+			double yPosition = currentCase.getY() * RECT_HEIGHT / 40 + cornerOffsetY;
 
-	        // Update the position of the pawn in the selected corner
-	        pawnView.setX(xPosition);
-	        pawnView.setY(yPosition);
+			// Update the position of the pawn in the selected corner
+			pawnView.setX(xPosition);
+			pawnView.setY(yPosition);
 
-	        // Only show the popup for the current player's pawn if not initialized yet
-	        if (i == currentPlayerIndex && isInitialized) {
-	            showCasePopup(pion, colors[pion.getIndex() % colors.length]);
-	        }
-	    }
+			// Only show the popup for the current player's pawn if not initialized yet
+			if (i == currentPlayerIndex) {
+				showCasePopup(pion, colors[pion.getIndex() % colors.length]);
+			}
+		}
 
-	    // Set initialized to true once the initial setup is done
-	    if (!isInitialized) {
-	        isInitialized = true;
-	    }
-	    
-	    currentPlayerIndex = (currentPlayerIndex + 1) % board.getPions().size();
-        setCurrentPlayerIndex(currentPlayerIndex);  
+		System.out.println("BoardView:Player turn transitioned to: " + currentPlayerIndex);
+
 	}
-	
-
 
 	/**
 	 * Displays a colored popup window with case information
@@ -190,52 +187,59 @@ public class BoardView extends Pane {
 	 * @param caseColor The background color for the popup
 	 */
 	private void showCasePopup(Pion pion, Color caseColor) {
-	    // Close the previous popup if there is one
-	    if (currentPopup != null) {
-	        currentPopup.close();
-	    }
+		// Close the previous popup if there is one
+		if (currentPopup != null) {
+			currentPopup.close();
+		}
 
-	    // Create a new popup window
-	    Stage popupStage = new Stage();
-	    popupStage.initModality(Modality.APPLICATION_MODAL);
+		// Create a new popup window
+		Stage popupStage = new Stage();
+		popupStage.initModality(Modality.APPLICATION_MODAL);
 
-	    VBox content = new VBox(20);
-	    content.setAlignment(Pos.CENTER);
-	    content.setPadding(new Insets(20));
-	    content.setStyle("-fx-background-color: #" + caseColor.toString().substring(2, 8) + ";");
+		VBox content = new VBox(20);
+		content.setAlignment(Pos.CENTER);
+		content.setPadding(new Insets(20));
+		content.setStyle("-fx-background-color: #" + caseColor.toString().substring(2, 8) + ";");
 
-	    // Add title
-	    Label title = new Label("Pawn Details");
-	    title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
+		// Add title
+		Label title = new Label("Pawn Details");
+		title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
 
-	    // Display the current position of the pawn
-	    int caseIndex = pion.getIndex();
-	    Label info = new Label("Pawn #" + pion.hashCode() + "\n" + "Position: Case #" + caseIndex + "\n" + "Color: "
-	            + getColorName(caseColor));
-	    info.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
-	    info.setTextAlignment(TextAlignment.CENTER);
+		// Display the current position of the pawn
+		int caseIndex = pion.getIndex();
+		Label info = new Label("Pawn #" + pion.hashCode() + "\n" + "Position: Case #" + caseIndex + "\n" + "Color: "
+				+ getColorName(caseColor));
+		info.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+		info.setTextAlignment(TextAlignment.CENTER);
 
-	    // Add close button
-	    Button closeButton = new Button("Close");
-	    closeButton.setOnAction(e -> {
-	    	this.board.deplacerPion(pion,1);
-	    	updatePawnPositions();
-	    	popupStage.close();
-	    		});
+		// Add level selection
+		Label levelLabel = new Label("What level are you choosing?:");
+		levelLabel.setTextAlignment(TextAlignment.CENTER);
+		levelLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
 
-	    content.getChildren().addAll(title, info, closeButton);
+		VBox levelBox = new VBox(10);
+		levelBox.setAlignment(Pos.CENTER);
 
-	    // Set up and show the scene
-	    Scene scene = new Scene(content, 350, 250);
-	    popupStage.setScene(scene);
+		// Create level selection buttons
+		for (int i = 1; i <= 4; i++) {
+			Button levelButton = new Button("Level " + i);
+			final int level = i;
+			levelButton.setOnAction(e -> {
+				showQuestionPopup(pion, caseColor, level);
+				popupStage.close();
+			});
+			levelBox.getChildren().add(levelButton);
+		}
 
-	    // Set the current popup reference
-	    currentPopup = popupStage;
+		content.getChildren().addAll(levelLabel, levelBox);
 
-	    // Display the popup with a slight delay
-	    PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
-	    delay.setOnFinished(event -> popupStage.show()); // Show after delay to avoid blocking
-	    delay.play();
+		Scene scene = new Scene(content, 400, 300);
+		popupStage.setScene(scene);
+
+		// Add slight delay before showing
+		PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
+		delay.setOnFinished(event -> popupStage.show());
+		delay.play();
 
 	}
 
@@ -278,6 +282,67 @@ public class BoardView extends Pane {
 		return stack;
 	}
 
+	private void showQuestionPopup(Pion pion, Color caseColor, int userLevel) {
+		Stage popupStage = new Stage();
+		popupStage.initModality(Modality.APPLICATION_MODAL);
+
+		VBox content = new VBox(20);
+		content.setAlignment(Pos.CENTER);
+		content.setPadding(new Insets(20));
+		content.setStyle("-fx-background-color: #" + caseColor.toString().substring(2, 8) + ";");
+
+		// 1. Filter questions by selected level
+		List<? extends Question> filteredQuestions = filterQuestionsByLevel(selectQuestionList(caseColor), userLevel);
+
+		// 2. Randomly select a question
+		final Question randomQuestion = filteredQuestions != null && !filteredQuestions.isEmpty()
+				? filteredQuestions.get(new Random().nextInt(filteredQuestions.size()))
+				: null;
+
+		// 3. Display question
+		Label title = new Label(
+				randomQuestion != null ? randomQuestion.getQuestionContent() : "No questions available for this level");
+		title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
+		title.setWrapText(true);
+
+		// Display case information
+		int caseIndex = pion.getIndex();
+		Label info = new Label(String.format("Case #%d\nTheme: %s\nLevel: %s", caseIndex, randomQuestion.getTheme(),
+				randomQuestion.getLevel()));
+		info.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+		info.setTextAlignment(TextAlignment.CENTER);
+
+		Button closeButton = new Button("Close");
+		closeButton.setOnAction(e -> {
+			controller.handleAnswerTest(randomQuestion.getLevel());
+			popupStage.close();
+		});
+
+		content.getChildren().addAll(title, info, closeButton);
+
+		// Add answer reveal functionality
+		if (randomQuestion != null) {
+			Button answerButton = new Button("Show answer");
+			Label answerLabel = new Label();
+			answerLabel.setStyle("-fx-text-fill: white;");
+
+			answerButton.setOnAction(e -> {
+				answerLabel.setText("Answer: " + randomQuestion.getAnswer());
+				answerButton.setDisable(true);
+			});
+
+			content.getChildren().addAll(answerButton, answerLabel);
+		}
+
+		Scene scene = new Scene(content, 400, 300);
+		popupStage.setScene(scene);
+
+		// Add slight delay before showing
+		PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
+		delay.setOnFinished(event -> popupStage.show());
+		delay.play();
+	}
+
 	private void toggleMusic() {
 		if (mediaPlayer == null)
 			return; // Sécurité : Vérifier que mediaPlayer existe
@@ -294,4 +359,34 @@ public class BoardView extends Pane {
 		}
 	}
 
+	private List<? extends Question> selectQuestionList(Color color) {
+		if (color.equals(Color.ORANGE))
+			return board.getEntertainmentQuestions();
+		if (color.equals(Color.GREEN))
+			return board.getEducationQuestions();
+		if (color.equals(Color.BLUE))
+			return board.getInformaticQuestions();
+		if (color.equals(Color.PURPLE))
+			return board.getImprobableQuestions();
+		return null;
+	}
+
+	/**
+	 * Filters questions by difficulty level
+	 * 
+	 * @param questions The list of questions to filter
+	 * @param level     The difficulty level to filter by
+	 * @return Filtered list of questions
+	 */
+	private List<? extends Question> filterQuestionsByLevel(List<? extends Question> questions, int level) {
+		if (questions == null)
+			return null;
+
+		return questions.stream().filter(q -> q.getLevel() == level).collect(Collectors.toList());
+	}
+
+	public void setController(BoardController controller) {
+	    this.controller = controller;
+	    System.out.println("Controller set successfully.");
+	}
 }

@@ -3,28 +3,28 @@ package model;
 import java.util.Objects;
 
 public class Question {
-	
+
 	private String theme;
 	private String subject;
 	private int level;
 	private String questionContent;
 	private String answer;
-	
+
 	public Question(String theme,String subject,int level, String questionContent, String answer) {
 		this.theme = theme;
 		this.subject = subject;
-		this.level = 2;
+		this.level = level;
 		this.questionContent = questionContent;
 		this.answer = answer;
 	}
-	
+
 //	Compare user input with the answer
 	public boolean checkAnswer(String userAnswer) {
 	    String processedReal = this.answer.toUpperCase();
 	    String processedUser = userAnswer.toUpperCase();
 	    return processedReal.equals(processedUser);
 	}
-	
+
 	public String getTheme() {
 		return theme;
 	}
@@ -32,7 +32,7 @@ public class Question {
 	public void setTheme(String theme) {
 		this.theme = theme;
 	}
-	
+
 	public String getSubject() {
 		return subject;
 	}
@@ -64,7 +64,7 @@ public class Question {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Question) {
@@ -74,11 +74,11 @@ public class Question {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {
 	    return Objects.hash(level, questionContent, answer);
 	}
-	
+
 
 }

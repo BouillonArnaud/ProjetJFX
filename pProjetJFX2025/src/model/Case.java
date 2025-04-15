@@ -1,10 +1,10 @@
 package model;
 
 public class Case {
-	
+
 	private final int index;
-	private final int x,y;
-	
+	private final int x, y;
+
 	public Case(int index, int x, int y) {
 		super();
 		this.index = index;
@@ -23,9 +23,14 @@ public class Case {
 	public int getY() {
 		return y;
 	}
-	
-	
-	
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Case) {
+			Case c = (Case) o;
+			return this.index == c.index && this.x == c.x && this.y == c.y;
+		}
+		return false;
+	}
 
 }
