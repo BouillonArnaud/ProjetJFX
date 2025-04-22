@@ -33,15 +33,24 @@ public class BoardController {
 
 //  Handle move of pawns thanks to question level
 	public void handleAnswer(String userAnswer) {
-		if (currentQuestion != null && currentQuestion.checkAnswer(userAnswer)) {
+		Pion currentPion = board.getPions().get(currentPlayerIndex);
+		// Check if there is an active question
+		if (currentQuestion != null) {
 			int moveBy = currentQuestion.getLevel();
+			// Check if the answer is correct
+			if (currentQuestion.checkAnswer(userAnswer)) {
+				System.out.println("Correct! The answer is: " + currentQuestion.getAnswer());
 
-			board.deplacerPion(board.getPions().get(currentPlayerIndex), moveBy);
-			boardView.updatePawnPositions();
-		} else {
-			System.out.println("Wrong answer!");
+				if (currentPion.getIndex() == board.getChemin().size() - 1) {
+					// Trigger a Level 4 question automatically when the last case is reached
+					showLevel4Question(currentPion);
+				}
+
+				// Reset or fetch the next question
+				board.deplacerPion(currentPion, moveBy);
+			}
+			transitionToNextPlayer();
 		}
-		currentQuestion = null;
 	}
 
 	// Handle moving the pawn and checking if the last case is reached

@@ -27,6 +27,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Case;
 import model.GameBoard;
 import model.Pion;
@@ -76,8 +77,10 @@ public class BoardView extends Pane {
 		updatePawnPositions();
 
 		StackPane btnMenu = createButton("Return to menu");
-
+		btnMenu.setLayoutX(10);
+		btnMenu.setLayoutY(10);
 		btnMenu.setOnMouseClicked(event -> {
+			
 			Stage mainMenuStage = new Stage();
 			MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
 			Scene mainMenuScene = new Scene(mainMenuView, 1920, 1080);
@@ -87,7 +90,6 @@ public class BoardView extends Pane {
 			mainMenuStage.show();
 			boardStage.close();
 		});
-		this.getChildren().add(btnMenu);
 
 		imgView = new ImageView(new Image("/resources/button_son_off.png"));
 		imgView.setFitWidth(50);
@@ -95,13 +97,25 @@ public class BoardView extends Pane {
 
 		StackPane btnMusic = new StackPane(imgView);
 		btnMusic.setLayoutX(120);
-		this.getChildren().add(btnMusic);
+		btnMusic.setLayoutY(10);
+		btnMusic.setLayoutX(120);
 
 		btnMusic.setOnMouseClicked(event -> toggleMusic());
 
 		String musicFile = getClass().getResource("/resources/pain.mp3").toExternalForm();
 		Media sound = new Media(musicFile);
 		mediaPlayer = new MediaPlayer(sound);
+		
+		StackPane showPopupQuestion = createButton("LevelPopup");
+		showPopupQuestion.setLayoutX(10);
+		showPopupQuestion.setLayoutY(70);
+		showPopupQuestion.setOnMouseClicked(event -> {
+			List<Pion> pions = board.getPions();
+			Pion pion = pions.get(currentPlayerIndex);
+			showCasePopup(pion, colors[pion.getIndex() % colors.length]);
+		});
+		
+		this.getChildren().addAll(btnMenu,btnMusic,showPopupQuestion);
 	}
 
 	public void setCurrentPlayerIndex(int currentPlayerIndex) {
@@ -239,6 +253,7 @@ public class BoardView extends Pane {
 		Scene scene = new Scene(content, 400, 300);
 		popupStage.setScene(scene);
 
+		
 		// Add slight delay before showing
 		PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
 		delay.setOnFinished(event -> popupStage.show());
@@ -288,6 +303,7 @@ public class BoardView extends Pane {
 	private void showQuestionPopup(Pion pion, Color caseColor, int userLevel) {
 		Stage popupStage = new Stage();
 		popupStage.initModality(Modality.APPLICATION_MODAL);
+		popupStage.initStyle(StageStyle.UNDECORATED);
 
 		VBox content = new VBox(20);
 		content.setAlignment(Pos.CENTER);
@@ -310,18 +326,27 @@ public class BoardView extends Pane {
 
 		// Display case information
 		int caseIndex = pion.getIndex();
-		Label info = new Label(String.format("Case #%d\nTheme: %s\nLevel: %s", caseIndex, randomQuestion.getTheme(),
-				randomQuestion.getLevel()));
+		Label info = new Label(String.format("Case #%d\nTheme: %s\nLevel: %s", caseIndex,
+				randomQuestion != null ? randomQuestion.getTheme() : "N/A",
+				randomQuestion != null ? randomQuestion.getLevel() : "N/A"));
 		info.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
 		info.setTextAlignment(TextAlignment.CENTER);
 
-		Button closeButton = new Button("Close");
-		closeButton.setOnAction(e -> {
-			controller.handleAnswerTest(randomQuestion.getLevel());
+		// Add input field for user answer
+		TextField answerField = new TextField();
+		answerField.setPromptText("Entrez votre réponse...");
+		answerField.setMaxWidth(300);
+
+		// Add submit button for answer verification
+		Button submitButton = new Button("Submit");
+		Label feedbackLabel = new Label();
+		feedbackLabel.setStyle("-fx-text-fill: white;");
+		submitButton.setOnAction(e -> {
+			String userAnswer = answerField.getText();
+			controller.setCurrentQuestion(randomQuestion);
+			controller.handleAnswer(userAnswer);
 			popupStage.close();
 		});
-
-		content.getChildren().addAll(title, info, closeButton);
 
 		// Add answer reveal functionality
 		if (randomQuestion != null) {
@@ -334,12 +359,13 @@ public class BoardView extends Pane {
 				answerButton.setDisable(true);
 			});
 
-			content.getChildren().addAll(answerButton, answerLabel);
+			content.getChildren().addAll(title, info, answerField, submitButton, feedbackLabel, answerButton,
+					answerLabel);
 		}
 
-		Scene scene = new Scene(content, 400, 300);
+		Scene scene = new Scene(content, 800, 600);
 		popupStage.setScene(scene);
-
+	
 		// Add slight delay before showing
 		PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
 		delay.setOnFinished(event -> popupStage.show());
@@ -396,6 +422,7 @@ public class BoardView extends Pane {
 	public void showFinalQuestionPopup(Pion pion) {
 		Stage popupStage = new Stage();
 		popupStage.initModality(Modality.APPLICATION_MODAL);
+		popupStage.initStyle(StageStyle.UNDECORATED);
 
 		VBox content = new VBox(20);
 		content.setAlignment(Pos.CENTER);
