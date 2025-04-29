@@ -1,39 +1,71 @@
 package controllers;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import model.GameBoard;
+import model.Pion;
+import model.Question;
 import views.BoardView;
+
+import java.util.List;
 
 public class BoardController {
     private final GameBoard board;
     private final BoardView boardView;
+    private int currentPlayerIndex;
+    private Question currentQuestion;
 
-    public BoardController(GameBoard board, BoardView boardView) {
+    public BoardController(GameBoard board, BoardView boardView, List<String> playerNames) {
         this.board = board;
         this.boardView = boardView;
+        this.currentPlayerIndex = 0;
+
+        // Ajouter les pions avec les noms des joueurs
+        for (String name : playerNames) {
+            Pion pion = new Pion(0);
+            pion.setName(name);
+            board.ajouterPion(pion);
+        }
+
+        boardView.setCurrentPlayerIndex(currentPlayerIndex);
     }
 
-    public void handleKeyPress(KeyEvent event) {
-        if (event.getCode() == KeyCode.RIGHT) {
-            board.deplacerPion(1);
-            boardView.updatePawnPosition();
-        } else if (event.getCode() == KeyCode.LEFT) {
-            board.deplacerPion(-1);
-            boardView.updatePawnPosition();
+    public void setCurrentQuestion(Question question) {
+        this.currentQuestion = question;
+    }
+
+    public void handleAnswer(String userAnswer) {
+        Pion currentPion = board.getPions().get(currentPlayerIndex);
+        if (currentQuestion != null) {
+            int moveBy = currentQuestion.getLevel();
+            if (currentQuestion.checkAnswer(userAnswer)) {
+                System.out.println("Correct! The answer is: " + currentQuestion.getAnswer());
+                currentPion.addScore(moveBy * 10); // 10 points par niveau
+
+                if (currentPion.getIndex() == board.getChemin().size() - 1) {
+                    showLevel4Question(currentPion);
+                }
+
+                board.deplacerPion(currentPion, moveBy);
+            }
+            transitionToNextPlayer();
         }
+    }
+
+    public void handleAnswerTest(int userlevel) {
+        Pion currentPion = board.getPions().get(currentPlayerIndex);
+        if (currentPion.getIndex() == board.getChemin().size() - 1) {
+            showLevel4Question(currentPion);
+        }
+        board.deplacerPion(currentPion, userlevel);
+        transitionToNextPlayer();
+    }
+
+    public void showLevel4Question(Pion pion) {
+        boardView.showFinalQuestionPopup(pion);
+    }
+
+    public void transitionToNextPlayer() {
+        currentPlayerIndex = (currentPlayerIndex + 1) % board.getPions().size();
+        boardView.setCurrentPlayerIndex(currentPlayerIndex);
+        boardView.updatePawnPositions();
     }
 }
-    //read the Json file 
-    /*public void loadConfig() {
-        try {
-            JsonObject config = JsonUtils.readJson("src/resources/game_config.json");
-            
-            // Exemple : Extraire une valeur
-            String boardColor = config.get("boardColor").getAsString();
-            System.out.println("Couleur du plateau : " + boardColor);
-
-        } catch (Exception e) {
-            System.err.println("Erreur de lecture : " + e.getMessage());
-        }
-    }*/

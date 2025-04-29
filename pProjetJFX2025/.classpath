@@ -7,7 +7,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Jackson"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/explorer.jar"/>
 	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/gson-2.11.0.jar"/>
 	<classpathentry kind="lib" path="D:/0DOSSIER_JAVA_PROJECT/jackson-annotations-2.18.2.jar"/>
