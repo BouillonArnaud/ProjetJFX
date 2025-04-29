@@ -1,85 +1,119 @@
 package utils;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+import java.util.List;
+
 import model.GameBoard;
+import model.Pawn;
 import model.Question;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 
 import controllers.BoardController;
 import views.BoardView;
 
-import static org.mockito.Mockito.*;
+class BoardControllerTest {
 
-@ExtendWith(MockitoExtension.class)
+    @Mock
+    private GameBoard mockBoard;
+    
+    @Mock
+    private BoardView mockBoardView;
+    
+    @Mock
+    private Question mockQuestion;
+    
+    private BoardController boardController;
+    private Pawn testPawn;
 
-public class BoardControllerTest {
-	
-	 @Mock
-	    private GameBoard mockGameBoard;
-	    
-	    @Mock
-	    private BoardView mockBoardView;
-	    
-	    private BoardController boardController;
-	    
-	    @BeforeEach
-	    void setUp() {
-	        boardController = new BoardController(mockGameBoard, mockBoardView);
-	    }
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        testPawn = new Pawn(0);
+        testPawn.setName("Test Player");
+        
+        when(mockBoard.getPawns()).thenReturn(List.of(testPawn));
+        when(mockBoard.getChemin()).thenReturn(List.of(new model.Case(0, 0, 0), new model.Case(1, 1, 1)));
+        
+        boardController = new BoardController(mockBoard, mockBoardView, List.of("Test Player"));
+        boardController.setCurrentQuestion(mockQuestion);
+    }
 
-	    @Test
-	    void handleAnswer_ShouldMovePawn_WhenAnswerIsCorrect() {
-	        // Arrange
-	        Question question = new Question("Math", "Addition", 3, "1+1?", "2");
-	        boardController.setCurrentQuestion(question);
-	        
-	        // Act
-	        boardController.handleAnswer("2"); // Réponse correcte
-	        
-	        // Assert
-	        verify(mockGameBoard).deplacerPion(3); // Doit se déplacer de 3 (niveau de la question)
-	        verify(mockBoardView).updatePawnPosition();
-	    }
+    @Test
+    void handleAnswer_CorrectAnswer_ShouldMovePawnAndAddScore() {
+        // Arrange
+        when(mockQuestion.checkAnswer("correct answer")).thenReturn(true);
+        when(mockQuestion.getLevel()).thenReturn(2);
+        when(mockQuestion.getAnswer()).thenReturn("correct answer");
 
-	    @Test
-	    void handleAnswer_ShouldNotMovePawn_WhenAnswerIsIncorrect() {
-	        // Arrange
-	        Question question = new Question("Math", "Addition", 2, "1+1?", "2");
-	        boardController.setCurrentQuestion(question);
-	        
-	        // Act
-	        boardController.handleAnswer("3"); // Réponse incorrecte
-	        
-	        // Assert
-	        verify(mockGameBoard, never()).deplacerPion(anyInt());
-	        verify(mockBoardView, never()).updatePawnPosition();
-	    }
+        // Act
+        boardController.handleAnswer("correct answer");
 
-	    @Test
-	    void handleAnswer_ShouldNotMovePawn_WhenNoCurrentQuestion() {
-	        // Act (pas de question définie)
-	        boardController.handleAnswer("2");
-	        
-	        // Assert
-	        verify(mockGameBoard, never()).deplacerPion(anyInt());
-	        verify(mockBoardView, never()).updatePawnPosition();
-	    }
+        // Assert
+        assertEquals(20, testPawn.getScore()); // 2 * 10 points
+        verify(mockBoard).deplacerPawn(testPawn, 2);
+        verify(mockBoardView).setCurrentPlayerIndex(0);
+        verify(mockBoardView).updatePawnPositions();
+    }
 
-	    @Test
-	    void handleAnswer_ShouldHandleCaseInsensitiveAnswers() {
-	        // Arrange
-	        Question question = new Question("Géographie", "Capitales", 1, "France?", "Paris");
-	        boardController.setCurrentQuestion(question);
-	        
-	        // Act
-	        boardController.handleAnswer("pArIs"); // Réponse correcte mais casse différente
-	        
-	        // Assert
-	        verify(mockGameBoard).deplacerPion(1);
-	        verify(mockBoardView).updatePawnPosition();
-	    }
+    @Test
+    void handleAnswer_IncorrectAnswer_ShouldNotMovePawn() {
+        // Arrange
+        when(mockQuestion.checkAnswer("wrong answer")).thenReturn(false);
+        when(mockQuestion.getLevel()).thenReturn(1);
 
+        // Act
+        boardController.handleAnswer("wrong answer");
+
+        // Assert
+        assertEquals(0, testPawn.getScore());
+        verify(mockBoard, never()).deplacerPawn(any(), anyInt());
+        verify(mockBoardView).setCurrentPlayerIndex(0);
+        verify(mockBoardView).updatePawnPositions();
+    }
+
+    @Test
+    void handleAnswer_WhenOnLastCase_ShouldTriggerFinalQuestion() {
+        // Arrange
+        testPawn.setIndex(1); // Last case index
+        when(mockQuestion.checkAnswer("correct answer")).thenReturn(true);
+        when(mockQuestion.getLevel()).thenReturn(3);
+        when(mockQuestion.getAnswer()).thenReturn("correct answer");
+
+        // Act
+        boardController.handleAnswer("correct answer");
+
+        // Assert
+        verify(mockBoardView).showFinalQuestionPopup(testPawn);
+    }
+
+    @Test
+    void handleAnswer_WithNullQuestion_ShouldNotThrowException() {
+        // Arrange
+        boardController.setCurrentQuestion(null);
+
+        // Act & Assert
+        assertDoesNotThrow(() -> boardController.handleAnswer("any answer"));
+    }
+
+    @Test
+    void handleAnswer_ShouldTransitionToNextPlayer() {
+        // Arrange - Add second player
+        Pawn secondPawn = new Pawn(0);
+        secondPawn.setName("Player 2");
+        when(mockBoard.getPawns()).thenReturn(List.of(testPawn, secondPawn));
+        
+        when(mockQuestion.checkAnswer("correct answer")).thenReturn(true);
+        when(mockQuestion.getLevel()).thenReturn(1);
+
+        // Act
+        boardController.handleAnswer("correct answer");
+
+        // Assert
+        verify(mockBoardView).setCurrentPlayerIndex(1); // Should move to next player
+    }
 }

@@ -3,28 +3,30 @@ package model;
 import java.util.Objects;
 
 public class Question {
-	
+
 	private String theme;
 	private String subject;
 	private int level;
 	private String questionContent;
 	private String answer;
-	
-	public Question(String theme,String subject,int level, String questionContent, String answer) {
+
+	public Question(String theme, String subject, int level, String questionContent, String answer) {
 		this.theme = theme;
 		this.subject = subject;
 		this.level = level;
 		this.questionContent = questionContent;
 		this.answer = answer;
 	}
-	
-//	Compare user input with the answer
+
 	public boolean checkAnswer(String userAnswer) {
-	    String processedReal = this.answer.toUpperCase();
-	    String processedUser = userAnswer.toUpperCase();
-	    return processedReal.equals(processedUser);
+		if (userAnswer == null)
+			return false;
+		String processedReal = this.answer.trim().toUpperCase();
+		String processedUser = userAnswer.trim().toUpperCase();
+
+		return processedReal.equals(processedUser);
 	}
-	
+
 	public String getTheme() {
 		return theme;
 	}
@@ -32,7 +34,7 @@ public class Question {
 	public void setTheme(String theme) {
 		this.theme = theme;
 	}
-	
+
 	public String getSubject() {
 		return subject;
 	}
@@ -64,21 +66,21 @@ public class Question {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Question) {
-			Question q = (Question)o;
-			return this.level == q.level && this.questionContent.equalsIgnoreCase(q.questionContent) && 
-					this.answer.equalsIgnoreCase(q.answer);
-		}
-		return false;
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+		Question question = (Question) o;
+		return level == question.level && Objects.equals(questionContent, question.questionContent)
+				&& Objects.equals(answer, question.answer);
 	}
-	
+
 	@Override
 	public int hashCode() {
-	    return Objects.hash(level, questionContent, answer);
+		return Objects.hash(level, questionContent, answer);
 	}
-	
 
 }

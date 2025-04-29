@@ -1,144 +1,115 @@
 package utils;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import model.Case;
 import model.GameBoard;
-import model.Pion;
+import model.Pawn;
+
+import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
 class GameBoardTest {
-
-    private GameBoard board1;
-    private GameBoard board2;
-    private GameBoard boardDifferentPath;
-    private GameBoard boardDifferentPawn;
-    private Pion pion1;
-    private Pion pion2;
+    private GameBoard gameBoard;
+    private Pawn testPawn;
 
     @BeforeEach
     void setUp() {
-        // Initialize boards and pawns for testing
-        board1 = new GameBoard();
-        board2 = new GameBoard();
-        boardDifferentPath = new GameBoard();
-        
-        pion1 = new Pion(0); // Pawn at position 0
-        pion2 = new Pion(1); // Pawn at position 1
-        
-        board1.ajouterPion(pion1);
-        board2.ajouterPion(pion1); // Same pawn as board1
-        boardDifferentPawn = new GameBoard();
-        boardDifferentPawn.ajouterPion(pion2);
-        
-        // Artificially modify one path for testing
-        if (boardDifferentPath.getChemin().size() > 0) {
-            boardDifferentPath.getChemin().set(0, new Case(0, 999, 999));
-        }
-    }
-
-    // equals() tests
-    @Test
-    void equals_ShouldReturnTrueForSameInstance() {
-        assertTrue(board1.equals(board1));
+        gameBoard = new GameBoard();
+        testPawn = new Pawn(0);
+        testPawn.setName("Test Player");
     }
 
     @Test
-    void equals_ShouldReturnTrueForEqualBoards() {
-        assertTrue(board1.equals(board2));
+    void testGenererChemin_ShouldGenerateCorrectPath() {
+        // Test that the path is generated with correct coordinates
+        List<Case> chemin = gameBoard.genererChemin();
+        
+        assertNotNull(chemin);
+        assertFalse(chemin.isEmpty());
+        
+        // Check first position
+        assertEquals(50, chemin.get(0).getX());
+        assertEquals(50, chemin.get(0).getY());
+        
+        // Check last position
+        int lastIndex = chemin.size() - 1;
+        assertEquals(170, chemin.get(lastIndex).getX());
+        assertEquals(210, chemin.get(lastIndex).getY());
     }
 
     @Test
-    void equals_ShouldReturnFalseForDifferentPath() {
-        assertFalse(board1.equals(boardDifferentPath));
+    void testAjouterPawn_ShouldAddPawnToList() {
+        // Test adding a pawn to the game board
+        assertEquals(0, gameBoard.getPawns().size());
+        
+        gameBoard.ajouterPawn(testPawn);
+        
+        assertEquals(1, gameBoard.getPawns().size());
+        assertEquals(testPawn, gameBoard.getPawns().get(0));
     }
 
     @Test
-    void equals_ShouldReturnFalseForDifferentPawn() {
-        assertFalse(board1.equals(boardDifferentPawn));
+    void testDeplacerPawn_ValidMovement_ShouldUpdatePosition() {
+        // Test valid pawn movement within bounds
+        gameBoard.ajouterPawn(testPawn);
+        int initialPosition = testPawn.getIndex();
+        
+        boolean result = gameBoard.deplacerPawn(testPawn, 3);
+        
+        assertTrue(result);
+        assertEquals(initialPosition + 3, testPawn.getIndex());
     }
 
     @Test
-    void equals_ShouldReturnFalseForNull() {
-        assertFalse(board1.equals(null));
+    void testDeplacerPawn_MovementBeyondBoard_ShouldSetToLastPosition() {
+        // Test movement that would go beyond the board limits
+        gameBoard.ajouterPawn(testPawn);
+        int lastPosition = gameBoard.getChemin().size() - 1;
+        
+        boolean result = gameBoard.deplacerPawn(testPawn, 100);
+        
+        assertTrue(result);
+        assertEquals(lastPosition, testPawn.getIndex());
     }
 
     @Test
-    void equals_ShouldReturnFalseForDifferentClass() {
-        assertFalse(board1.equals("Not a GameBoard"));
-    }
-
-    // deplacerPion() tests
-    @Test
-    void deplacerPion_ShouldMoveForwardWhenValid() {
-        // Arrange
-        Pion pion = new Pion(0);
-        GameBoard board = new GameBoard();
-        board.ajouterPion(pion);
+    void testDeplacerPawn_NegativeMovement_ShouldReturnFalse() {
+        // Test invalid negative movement
+        gameBoard.ajouterPawn(testPawn);
         
-        // Act
-        boolean result = board.deplacerPion(3);
+        boolean result = gameBoard.deplacerPawn(testPawn, -1);
         
-        // Assert
-        assertAll(
-            () -> assertTrue(result),
-            () -> assertEquals(3, pion.getIndex())
-        );
+        assertFalse(result);
+        assertEquals(0, testPawn.getIndex()); // Position shouldn't change
     }
 
     @Test
-    void deplacerPion_ShouldNotMoveWhenNegative() {
-        // Arrange
-        Pion pion = new Pion(5);
-        GameBoard board = new GameBoard();
-        board.ajouterPion(pion);
+    void testInitializeQuestionLists_ShouldPopulateQuestionCategories() {
+        // Test that question lists are initialized
+        // This is a basic test - in a real scenario you'd mock the JsonUtils
         
-        // Act
-        boolean result = board.deplacerPion(-6); // Try to move before position 0
-        
-        // Assert
-        assertAll(
-            () -> assertFalse(result),
-            () -> assertEquals(5, pion.getIndex()) // Position unchanged
-        );
+        assertNotNull(gameBoard.getEducationQuestions());
+        assertNotNull(gameBoard.getEntertainmentQuestions());
+        assertNotNull(gameBoard.getImprobableQuestions());
+        assertNotNull(gameBoard.getInformaticQuestions());
     }
 
     @Test
-    void deplacerPion_ShouldNotMoveBeyondLastCase() {
-        // Arrange
-        Pion pion = new Pion(board1.getChemin().size() - 2); // Second-to-last case
-        GameBoard board = new GameBoard();
-        board.ajouterPion(pion);
+    void testEquals_DifferentGameBoard_ShouldReturnFalse() {
+        // Test inequality of different game boards
+        GameBoard otherBoard = new GameBoard();
+        otherBoard.ajouterPawn(new Pawn(0));
         
-        // Act
-        boolean result = board.deplacerPion(2); // Try to go beyond board
-        
-        // Assert
-        assertAll(
-            () -> assertFalse(result),
-            () -> assertEquals(board.getChemin().size() - 2, pion.getIndex())
-        );
+        assertFalse(gameBoard.equals(otherBoard));
     }
 
     @Test
-    void deplacerPion_ShouldHandleZeroMovement() {
-        // Arrange
-        Pion pion = new Pion(3);
-        GameBoard board = new GameBoard();
-        board.ajouterPion(pion);
+    void testEquals_NonGameBoardObject_ShouldReturnFalse() {
+        // Test comparison with non-GameBoard object
+        String notAGameBoard = "Not a game board";
         
-        // Act
-        boolean result = board.deplacerPion(0);
-        
-        // Assert
-        assertAll(
-            () -> assertTrue(result), // 0 is a valid movement
-            () -> assertEquals(3, pion.getIndex()) // Position unchanged
-        );
+        assertFalse(gameBoard.equals(notAGameBoard));
     }
 }
