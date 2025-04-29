@@ -6,15 +6,20 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import controllers.BoardController;
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
+import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -24,7 +29,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Modality;
@@ -38,82 +46,132 @@ import model.Question;
 
 public class BoardView extends Pane {
     private final GameBoard board;
-    private final List<ImageView> pawnViews = new ArrayList<>(); // For visual pawns
-    private final Color[] colors = { 
-        Color.web("#D7BDE2"), // Pastel Purple
-        Color.web("#FAD7A0"), // Pastel Orange
-        Color.web("#AED6F1"), // Pastel Blue
-        Color.web("#A9DFBF"), // Pastel Green
+    private final List<ImageView> pawnViews = new ArrayList<>();
+    private final Color[] colors = {
+        Color.web("#C3B1E1"), // Pastel Lavender (Improbable)
+        Color.web("#FFD1A3"), // Pastel Peach (Entertainment)
+        Color.web("#A3BFFA"), // Pastel Blue (Informatics)
+        Color.web("#A7EBC6"), // Pastel Mint (Education)
     };
-    private static final int RECT_WIDTH = 146; // Largeur des rectangles
-    private static final int RECT_HEIGHT = 90; // Hauteur des rectangles
+    private static final int RECT_WIDTH = 160;
+    private static final int RECT_HEIGHT = 100;
     private MediaPlayer mediaPlayer;
     private ImageView imgView;
-    private Stage currentPopup = null; // Store the current popup stage
+    private Stage currentPopup = null;
     private int currentPlayerIndex;
     private BoardController controller;
     private final Stage boardStage;
-    private HBox navBar; // Barre de navigation
-    private Label currentPlayerLabel; // Label pour le joueur actuel
-    private ImageView currentPlayerPawn; // Pion du joueur actuel
-    private VBox scoresBox; // Conteneur pour les scores
+    private HBox navBar;
+    private Label currentPlayerLabel;
+    private ImageView currentPlayerPawn;
+    private VBox scoresBox;
 
     public BoardView(GameBoard board, Stage boardStage) {
         this.board = board;
         this.currentPlayerIndex = 0;
         this.boardStage = boardStage;
 
+        // Background with animated overlay
         Image backgroundImage = new Image("/resources/background_cyberpunk.jpg");
         ImageView backgroundView = new ImageView(backgroundImage);
         backgroundView.fitWidthProperty().bind(this.widthProperty());
         backgroundView.fitHeightProperty().bind(this.heightProperty());
         this.getChildren().add(backgroundView);
 
-        // Draw the board with alternating colors
+        // Animated overlay for dynamic effect
+        Rectangle overlay = new Rectangle();
+        overlay.widthProperty().bind(this.widthProperty());
+        overlay.heightProperty().bind(this.heightProperty());
+        overlay.setFill(new LinearGradient(0, 0, 1, 1, true, null,
+                new Stop(0, Color.rgb(0, 0, 0, 0.2)),
+                new Stop(1, Color.rgb(0, 0, 0, 0.4))));
+        FadeTransition fade = new FadeTransition(Duration.seconds(5), overlay);
+        fade.setFromValue(0.3);
+        fade.setToValue(0.6);
+        fade.setAutoReverse(true);
+        fade.setCycleCount(Timeline.INDEFINITE);
+        fade.play();
+        this.getChildren().add(overlay);
+
+        // Draw the board with glowing cases
         int index = 0;
         for (Case c : board.getChemin()) {
-            Rectangle casePlateau = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
-            casePlateau.setFill(colors[index % colors.length]);
-            casePlateau.setStroke(Color.BLACK);
-            casePlateau.setX(c.getX() * RECT_WIDTH / 40);
-            casePlateau.setY(c.getY() * RECT_HEIGHT / 40);
-            this.getChildren().add(casePlateau);
+            Rectangle boardCase = new Rectangle(RECT_WIDTH, RECT_HEIGHT);
+            boardCase.setFill(colors[index % colors.length]);
+            boardCase.setStroke(Color.BLACK);
+            boardCase.setArcWidth(20);
+            boardCase.setArcHeight(20);
+            boardCase.setX(c.getX() * RECT_WIDTH / 40);
+            boardCase.setY(c.getY() * RECT_HEIGHT / 40);
+            boardCase.setEffect(new DropShadow(10, Color.BLACK));
+            this.getChildren().add(boardCase);
             index++;
         }
 
-        // Créer la barre de navigation
-        navBar = new HBox(20);
+        // Navigation bar
+        navBar = new HBox(30);
         navBar.setAlignment(Pos.CENTER);
-        navBar.setPadding(new Insets(10));
-        navBar.setStyle("-fx-background-color: rgba(0, 0, 0, 0.7);");
-        navBar.setPrefHeight(60);
-        navBar.setMinWidth(1920); // Largeur pleine
+        navBar.setPadding(new Insets(10, 20, 10, 20));
+        navBar.setStyle("-fx-background-color: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(30, 30, 30, 0.85)); -fx-background-radius: 15; -fx-border-color: #10B981; -fx-border-width: 2; -fx-border-radius: 15;");
+        navBar.setPrefHeight(100);
+        navBar.setMaxWidth(1400);
+        navBar.setEffect(new DropShadow(15, Color.BLACK));
 
-        // Section joueur actuel
+        // Current player section
         HBox currentPlayerBox = new HBox(10);
         currentPlayerBox.setAlignment(Pos.CENTER);
-        currentPlayerLabel = new Label("Joueur actuel : En attente...");
-        currentPlayerLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-font-weight: bold;");
+        currentPlayerLabel = new Label("Current Player: Waiting...");
+        currentPlayerLabel.setStyle("-fx-font-size: 20; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-font-family: 'Arial';");
         currentPlayerPawn = new ImageView();
-        currentPlayerPawn.setFitWidth(30);
-        currentPlayerPawn.setFitHeight(30);
+        currentPlayerPawn.setFitWidth(50);
+        currentPlayerPawn.setFitHeight(50);
+        currentPlayerPawn.setEffect(new Glow(0.4));
         currentPlayerBox.getChildren().addAll(currentPlayerPawn, currentPlayerLabel);
 
-        // Section scores
+        // Scores section
         scoresBox = new VBox(5);
         scoresBox.setAlignment(Pos.CENTER);
-        updateScoresDisplay(); // Initialiser les scores
+        updateScoresDisplay();
 
         navBar.getChildren().addAll(currentPlayerBox, scoresBox);
         navBar.setLayoutX(0);
         navBar.setLayoutY(0);
+        navBar.layoutXProperty().bind(this.widthProperty().subtract(navBar.widthProperty()).divide(2)); // Center horizontally
         this.getChildren().add(navBar);
+
+        // Color legend
+        HBox legendHBox = new HBox(20);
+        legendHBox.setAlignment(Pos.CENTER);
+        legendHBox.setPadding(new Insets(10, 20, 10, 20));
+        legendHBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.85); -fx-background-radius: 10; -fx-border-color: #10B981; -fx-border-width: 2; -fx-border-radius: 10;");
+        legendHBox.setEffect(new DropShadow(10, Color.BLACK));
+
+        for (Color color : colors) {
+            Rectangle colorRect = new Rectangle(20, 20);
+            colorRect.setFill(color);
+            colorRect.setStroke(Color.BLACK);
+            colorRect.setArcWidth(5);
+            colorRect.setArcHeight(5);
+
+            Label colorLabel = new Label(getThemeName(color));
+            colorLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white; -fx-font-family: 'Arial';");
+
+            HBox colorBox = new HBox(5);
+            colorBox.setAlignment(Pos.CENTER);
+            colorBox.getChildren().addAll(colorRect, colorLabel);
+            legendHBox.getChildren().add(colorBox);
+        }
+
+        legendHBox.layoutXProperty().bind(this.widthProperty().subtract(legendHBox.widthProperty()).divide(2));
+        legendHBox.setLayoutY(1000); // Position at bottom
+        this.getChildren().add(legendHBox);
 
         updatePawnPositions();
 
-        StackPane btnMenu = createButton("Return to menu");
-        btnMenu.setLayoutX(10);
-        btnMenu.setLayoutY(70); // Décalé pour éviter la barre
+        // Menu button
+        StackPane btnMenu = createButton("Back to Menu", Color.web("#EF4444"));
+        btnMenu.setLayoutX(20);
+        btnMenu.setLayoutY(100);
         btnMenu.setOnMouseClicked(event -> {
             Stage mainMenuStage = new Stage();
             MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
@@ -125,22 +183,25 @@ public class BoardView extends Pane {
             boardStage.close();
         });
 
+        // Music toggle button
         imgView = new ImageView(new Image("/resources/button_son_off.png"));
-        imgView.setFitWidth(50);
-        imgView.setFitHeight(50);
-
+        imgView.setFitWidth(60);
+        imgView.setFitHeight(60);
         StackPane btnMusic = new StackPane(imgView);
-        btnMusic.setLayoutX(120);
-        btnMusic.setLayoutY(70); // Décalé
+        btnMusic.setLayoutX(150);
+        btnMusic.setLayoutY(100);
         btnMusic.setOnMouseClicked(event -> toggleMusic());
+        addHoverEffect(btnMusic);
 
         String musicFile = getClass().getResource("/resources/pain.mp3").toExternalForm();
         Media sound = new Media(musicFile);
         mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 
-        StackPane showPopupQuestion = createButton("LevelPopup");
-        showPopupQuestion.setLayoutX(10);
-        showPopupQuestion.setLayoutY(130); // Décalé
+        // Question popup button
+        StackPane showPopupQuestion = createButton("Launch Question", Color.web("#10B981"));
+        showPopupQuestion.setLayoutX(20);
+        showPopupQuestion.setLayoutY(180);
         showPopupQuestion.setOnMouseClicked(event -> {
             List<Pion> pions = board.getPions();
             Pion pion = pions.get(currentPlayerIndex);
@@ -159,11 +220,11 @@ public class BoardView extends Pane {
         List<Pion> pions = board.getPions();
         if (!pions.isEmpty()) {
             Pion currentPion = pions.get(currentPlayerIndex);
-            currentPlayerLabel.setText("Joueur actuel : " + currentPion.getName());
+            currentPlayerLabel.setText("Current Player: " + currentPion.getName());
             String pawnImagePath = "/resources/pawns" + (currentPlayerIndex + 1) + ".png";
             currentPlayerPawn.setImage(new Image(pawnImagePath));
         } else {
-            currentPlayerLabel.setText("Joueur actuel : Aucun joueur");
+            currentPlayerLabel.setText("Current Player: No Player");
             currentPlayerPawn.setImage(null);
         }
         updateScoresDisplay();
@@ -172,7 +233,6 @@ public class BoardView extends Pane {
     public void updatePawnPositions() {
         List<Pion> pions = board.getPions();
 
-        // Add new pawns if necessary
         if (pawnViews.size() < pions.size()) {
             for (int i = pawnViews.size(); i < pions.size(); i++) {
                 String imagePath = "/resources/pawns" + (i + 1) + ".png";
@@ -180,48 +240,35 @@ public class BoardView extends Pane {
                 ImageView pawnView = new ImageView(pawnImage);
                 pawnView.setFitWidth(RECT_HEIGHT / 2);
                 pawnView.setFitHeight(RECT_HEIGHT / 2);
+                pawnView.setEffect(new Glow(0.3));
                 pawnViews.add(pawnView);
                 this.getChildren().add(pawnView);
             }
         }
 
-        // Update pawn positions
         for (int i = 0; i < pions.size(); i++) {
             Pion pion = pions.get(i);
             Case currentCase = board.getChemin().get(pion.getIndex());
             ImageView pawnView = pawnViews.get(i);
 
-            System.out.println("Pawn " + i + " -> Case " + pion.getIndex() + " -> X: " + currentCase.getX() + ", Y: " + currentCase.getY());
-
             int cornerOffsetX = 0;
             int cornerOffsetY = 0;
-
             switch (i) {
-                case 0:
-                    cornerOffsetX = 0;
-                    cornerOffsetY = 0;
-                    break;
-                case 1:
-                    cornerOffsetX = RECT_WIDTH / 2;
-                    cornerOffsetY = 0;
-                    break;
-                case 2:
-                    cornerOffsetX = 0;
-                    cornerOffsetY = RECT_HEIGHT / 2;
-                    break;
-                case 3:
-                    cornerOffsetX = RECT_WIDTH / 2;
-                    cornerOffsetY = RECT_HEIGHT / 2;
-                    break;
-                default:
-                    break;
+                case 0: cornerOffsetX = 0; cornerOffsetY = 0; break;
+                case 1: cornerOffsetX = RECT_WIDTH / 2; cornerOffsetY = 0; break;
+                case 2: cornerOffsetX = 0; cornerOffsetY = RECT_HEIGHT / 2; break;
+                case 3: cornerOffsetX = RECT_WIDTH / 2; cornerOffsetY = RECT_HEIGHT / 2; break;
             }
 
             double xPosition = currentCase.getX() * RECT_WIDTH / 40 + cornerOffsetX;
             double yPosition = currentCase.getY() * RECT_HEIGHT / 40 + cornerOffsetY;
 
-            pawnView.setX(xPosition);
-            pawnView.setY(yPosition);
+            // Animate pawn movement
+            TranslateTransition transition = new TranslateTransition(Duration.millis(500), pawnView);
+            transition.setToX(xPosition);
+            transition.setToY(yPosition);
+            transition.play();
+
             if (i == currentPlayerIndex) {
                 if (!(pion.getIndex() == board.getChemin().size() - 1)) {
                     showCasePopup(pion, colors[pion.getIndex() % colors.length]);
@@ -239,124 +286,165 @@ public class BoardView extends Pane {
 
         Stage popupStage = new Stage();
         popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.initStyle(StageStyle.TRANSPARENT);
 
         VBox content = new VBox(20);
         content.setAlignment(Pos.CENTER);
-        content.setPadding(new Insets(20));
-        content.setStyle("-fx-background-color: #" + caseColor.toString().substring(2, 8) + ";");
+        content.setPadding(new Insets(30));
+        content.setStyle("-fx-background-color: rgba(0, 0, 0, 0.9); -fx-background-radius: 20; -fx-border-color: " + toHex(caseColor) + "; -fx-border-width: 2; -fx-border-radius: 20;");
+        content.setEffect(new DropShadow(20, Color.BLACK));
 
-        Label title = new Label("Détails de la case");
-        title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
+        Label title = new Label("Choose Your Challenge");
+        title.setStyle("-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Arial';");
 
         int caseIndex = pion.getIndex();
-        Label info = new Label("Position : Case #" + caseIndex + "\nCouleur : " + getColorName(caseColor));
-        info.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        Label info = new Label("Case #" + caseIndex + "\nTheme: " + getColorDisplayName(caseColor));
+        info.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-font-family: 'Arial';");
         info.setTextAlignment(TextAlignment.CENTER);
 
-        Label levelLabel = new Label("Quel niveau choisissez-vous ? :");
-        levelLabel.setTextAlignment(TextAlignment.CENTER);
-        levelLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        Label levelLabel = new Label("Select a Level:");
+        levelLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-font-family: 'Arial';");
 
-        VBox levelBox = new VBox(10);
+        HBox levelBox = new HBox(10);
         levelBox.setAlignment(Pos.CENTER);
-
         for (int i = 1; i <= 4; i++) {
-            Button levelButton = new Button("Niveau " + i);
+            Button levelButton = new Button("Level " + i);
+            levelButton.setStyle("-fx-background-color: " + toHex(caseColor) + "; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 10; -fx-padding: 10 20;");
             final int level = i;
             levelButton.setOnAction(e -> {
                 showQuestionPopup(pion, caseColor, level);
                 popupStage.close();
             });
+            addHoverEffect(levelButton);
             levelBox.getChildren().add(levelButton);
         }
 
-        content.getChildren().addAll(title, info, levelLabel, levelBox);
+        // Add Close button
+        Button closeButton = new Button("Close");
+        closeButton.setStyle("-fx-background-color: #6B7280; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 10; -fx-padding: 10 20;");
+        closeButton.setOnAction(e -> popupStage.close());
+        addHoverEffect(closeButton);
 
-        Scene scene = new Scene(content, 400, 300);
+        content.getChildren().addAll(title, info, levelLabel, levelBox, closeButton);
+
+        Scene scene = new Scene(content, 500, 400);
+        scene.setFill(Color.TRANSPARENT);
         popupStage.setScene(scene);
+
+        // Fade-in animation
+        content.setOpacity(0);
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(300), content);
+        fadeIn.setToValue(1);
+        fadeIn.play();
 
         PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
         delay.setOnFinished(event -> popupStage.show());
         delay.play();
+        currentPopup = popupStage;
     }
 
-    private String getColorName(Color color) {
-        if (color.equals(Color.web("#D7BDE2")))
-            return "Violet Pastel";
-        if (color.equals(Color.web("#FAD7A0")))
-            return "Orange Pastel";
-        if (color.equals(Color.web("#AED6F1")))
-            return "Bleu Pastel";
-        if (color.equals(Color.web("#A9DFBF")))
-            return "Vert Pastel";
-        return "Inconnu";
+    private String getColorDisplayName(Color color) {
+        if (color.equals(Color.web("#C3B1E1"))) return "Pastel Lavender";
+        if (color.equals(Color.web("#FFD1A3"))) return "Pastel Peach";
+        if (color.equals(Color.web("#A3BFFA"))) return "Pastel Blue";
+        if (color.equals(Color.web("#A7EBC6"))) return "Pastel Mint";
+        return "Unknown";
     }
 
-    public StackPane createButton(String textContent) {
-        Rectangle rectangle = new Rectangle(100, 50);
-        rectangle.setFill(Color.web("#F5B7B1")); // Pastel Pink for buttons
+    private String getThemeName(Color color) {
+        if (color.equals(Color.web("#C3B1E1"))) return "Improbable";
+        if (color.equals(Color.web("#FFD1A3"))) return "Entertainment";
+        if (color.equals(Color.web("#A3BFFA"))) return "Informatics";
+        if (color.equals(Color.web("#A7EBC6"))) return "Education";
+        return "Unknown";
+    }
+
+    private String toHex(Color color) {
+        return String.format("#%02X%02X%02X",
+                (int) (color.getRed() * 255),
+                (int) (color.getGreen() * 255),
+                (int) (color.getBlue() * 255));
+    }
+
+    private StackPane createButton(String textContent, Color bgColor) {
+        Rectangle rectangle = new Rectangle(140, 60);
+        rectangle.setFill(bgColor);
         rectangle.setStroke(Color.BLACK);
+        rectangle.setArcWidth(15);
+        rectangle.setArcHeight(15);
+        rectangle.setEffect(new DropShadow(10, Color.BLACK));
 
         Text text = new Text(textContent);
-        text.setFill(Color.BLACK);
+        text.setFill(Color.WHITE);
+        text.setFont(Font.font("Arial", 16));
 
         StackPane stack = new StackPane();
         stack.getChildren().addAll(rectangle, text);
+        addHoverEffect(stack);
 
         return stack;
+    }
+
+    private void addHoverEffect(javafx.scene.Node node) {
+        ScaleTransition scale = new ScaleTransition(Duration.millis(200), node);
+        scale.setToX(1.1);
+        scale.setToY(1.1);
+        node.setOnMouseEntered(e -> scale.playFromStart());
+        node.setOnMouseExited(e -> {
+            ScaleTransition reverse = new ScaleTransition(Duration.millis(200), node);
+            reverse.setToX(1);
+            reverse.setToY(1);
+            reverse.play();
+        });
     }
 
     private void showQuestionPopup(Pion pion, Color caseColor, int userLevel) {
         Stage popupStage = new Stage();
         popupStage.initModality(Modality.APPLICATION_MODAL);
-        popupStage.initStyle(StageStyle.UNDECORATED);
+        popupStage.initStyle(StageStyle.TRANSPARENT);
 
         VBox content = new VBox(20);
         content.setAlignment(Pos.CENTER);
-        content.setPadding(new Insets(20));
-        content.setStyle("-fx-background-color: #" + caseColor.toString().substring(2, 8) + ";");
+        content.setPadding(new Insets(30));
+        content.setStyle("-fx-background-color: rgba(0, 0, 0, 0.9); -fx-background-radius: 20; -fx-border-color: " + toHex(caseColor) + "; -fx-border-width: 2; -fx-border-radius: 20;");
+        content.setEffect(new DropShadow(20, Color.BLACK));
 
-        // Filtrer les questions par niveau
         List<? extends Question> filteredQuestions = filterQuestionsByLevel(selectQuestionList(caseColor), userLevel);
-
-        // Sélectionner une question aléatoire
         final Question randomQuestion = filteredQuestions != null && !filteredQuestions.isEmpty()
                 ? filteredQuestions.get(new Random().nextInt(filteredQuestions.size()))
                 : null;
 
-        // Afficher la question
-        Label title = new Label(
-                randomQuestion != null ? randomQuestion.getQuestionContent() : "Aucune question disponible pour ce niveau");
-        title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
+        Label title = new Label(randomQuestion != null ? randomQuestion.getQuestionContent() : "No Question Available");
+        title.setStyle("-fx-font-size: 22; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Arial';");
         title.setWrapText(true);
+        title.setMaxWidth(600);
 
-        // Afficher les informations de la case
         int caseIndex = pion.getIndex();
-        Label info = new Label(String.format("Case #%d\nThème : %s\nNiveau : %s", caseIndex,
+        Label info = new Label(String.format("Case #%d\nTheme: %s\nLevel: %s", caseIndex,
                 randomQuestion != null ? randomQuestion.getTheme() : "N/A",
                 randomQuestion != null ? randomQuestion.getLevel() : "N/A"));
-        info.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        info.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-font-family: 'Arial';");
         info.setTextAlignment(TextAlignment.CENTER);
 
-        // Champ de saisie pour la réponse
         TextField answerField = new TextField();
-        answerField.setPromptText("Entrez votre réponse...");
-        answerField.setMaxWidth(300);
+        answerField.setPromptText("Enter your answer...");
+        answerField.setMaxWidth(400);
+        answerField.setStyle("-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;");
 
-        // Étiquette du minuteur
-        Label timerLabel = new Label("Temps restant : 30");
-        timerLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        Label timerLabel = new Label("Time Remaining: 30");
+        timerLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-font-family: 'Arial';");
 
-        // Bouton de soumission
-        Button submitButton = new Button("Soumettre");
+        Button submitButton = new Button("Submit");
+        submitButton.setStyle("-fx-background-color: " + toHex(caseColor) + "; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 10; -fx-padding: 10 20;");
+        addHoverEffect(submitButton);
+
         Label feedbackLabel = new Label();
-        feedbackLabel.setStyle("-fx-text-fill: white;");
+        feedbackLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16;");
 
-        // Configuration du minuteur
         final int[] timeLeft = {30};
         Timeline timer = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             timeLeft[0]--;
-            timerLabel.setText("Temps restant : " + timeLeft[0]);
+            timerLabel.setText("Time Remaining: " + timeLeft[0]);
             if (timeLeft[0] <= 0) {
                 controller.transitionToNextPlayer();
                 popupStage.close();
@@ -373,36 +461,42 @@ public class BoardView extends Pane {
             popupStage.close();
         });
 
-        // Fonctionnalité pour révéler la réponse
         if (randomQuestion != null) {
-            Button answerButton = new Button("Montrer la réponse");
+            Button answerButton = new Button("Show Answer");
+            answerButton.setStyle("-fx-background-color: #6B7280; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 10; -fx-padding: 10 20;");
+            addHoverEffect(answerButton);
             Label answerLabel = new Label();
-            answerLabel.setStyle("-fx-text-fill: white;");
+            answerLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16;");
 
             answerButton.setOnAction(e -> {
-                answerLabel.setText("Réponse : " + randomQuestion.getAnswer());
+                answerLabel.setText("Answer: " + randomQuestion.getAnswer());
                 answerButton.setDisable(true);
             });
 
-            content.getChildren().addAll(title, info, timerLabel, answerField, submitButton, feedbackLabel, answerButton,
-                    answerLabel);
+            content.getChildren().addAll(title, info, timerLabel, answerField, submitButton, feedbackLabel, answerButton, answerLabel);
+        } else {
+            content.getChildren().addAll(title, info, timerLabel, answerField, submitButton, feedbackLabel);
         }
 
         Scene scene = new Scene(content, 800, 600);
+        scene.setFill(Color.TRANSPARENT);
         popupStage.setScene(scene);
+
+        content.setOpacity(0);
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(300), content);
+        fadeIn.setToValue(1);
+        fadeIn.play();
 
         PauseTransition delay = new PauseTransition(Duration.seconds(0.3));
         delay.setOnFinished(event -> popupStage.show());
         delay.play();
 
-        // Arrêter le minuteur si la popup est fermée manuellement
         popupStage.setOnCloseRequest(e -> timer.stop());
+        currentPopup = popupStage;
     }
 
     private void toggleMusic() {
-        if (mediaPlayer == null)
-            return;
-
+        if (mediaPlayer == null) return;
         MediaPlayer.Status status = mediaPlayer.getStatus();
         if (status == MediaPlayer.Status.PLAYING) {
             mediaPlayer.pause();
@@ -414,21 +508,15 @@ public class BoardView extends Pane {
     }
 
     private List<? extends Question> selectQuestionList(Color color) {
-        if (color.equals(Color.web("#FAD7A0")))
-            return board.getEntertainmentQuestions();
-        if (color.equals(Color.web("#A9DFBF")))
-            return board.getEducationQuestions();
-        if (color.equals(Color.web("#AED6F1")))
-            return board.getInformaticQuestions();
-        if (color.equals(Color.web("#D7BDE2")))
-            return board.getImprobableQuestions();
+        if (color.equals(Color.web("#FFD1A3"))) return board.getEntertainmentQuestions();
+        if (color.equals(Color.web("#A7EBC6"))) return board.getEducationQuestions();
+        if (color.equals(Color.web("#A3BFFA"))) return board.getInformaticQuestions();
+        if (color.equals(Color.web("#C3B1E1"))) return board.getImprobableQuestions();
         return null;
     }
 
     private List<? extends Question> filterQuestionsByLevel(List<? extends Question> questions, int level) {
-        if (questions == null)
-            return null;
-
+        if (questions == null) return null;
         return questions.stream().filter(q -> q.getLevel() == level).collect(Collectors.toList());
     }
 
@@ -440,37 +528,42 @@ public class BoardView extends Pane {
     public void showFinalQuestionPopup(Pion pion) {
         Stage popupStage = new Stage();
         popupStage.initModality(Modality.APPLICATION_MODAL);
-        popupStage.initStyle(StageStyle.UNDECORATED);
+        popupStage.initStyle(StageStyle.TRANSPARENT);
 
         VBox content = new VBox(20);
         content.setAlignment(Pos.CENTER);
-        content.setPadding(new Insets(20));
-        content.setStyle("-fx-background-color: #A9DFBF;"); // Pastel Green for final question
+        content.setPadding(new Insets(30));
+        content.setStyle("-fx-background-color: rgba(0, 0, 0, 0.9); -fx-background-radius: 20; -fx-border-color: #10B981; -fx-border-width: 2; -fx-border-radius: 20;");
+        content.setEffect(new DropShadow(20, Color.BLACK));
 
         List<? extends Question> level4Questions = filterQuestionsByLevel(
                 selectQuestionList(colors[pion.getIndex() % colors.length]), 4);
-
         Question randomQuestion = level4Questions != null && !level4Questions.isEmpty()
                 ? level4Questions.get(new Random().nextInt(level4Questions.size()))
                 : null;
 
-        Label title = new Label("Question finale");
-        title.setStyle("-fx-font-size: 20; -fx-text-fill: white; -fx-font-weight: bold;");
+        Label title = new Label("Final Question");
+        title.setStyle("-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Arial';");
 
-        Label questionLabel = new Label(randomQuestion.getQuestionContent());
-        questionLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+        Label questionLabel = new Label(randomQuestion != null ? randomQuestion.getQuestionContent() : "Question Unavailable");
+        questionLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-font-family: 'Arial';");
         questionLabel.setWrapText(true);
+        questionLabel.setMaxWidth(600);
 
         TextField answerField = new TextField();
-        answerField.setPromptText("Entrez votre réponse...");
+        answerField.setPromptText("Enter your answer...");
+        answerField.setMaxWidth(400);
+        answerField.setStyle("-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10;");
 
-        Button submitButton = new Button("Soumettre la réponse");
+        Button submitButton = new Button("Submit Answer");
+        submitButton.setStyle("-fx-background-color: #10B981; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 10; -fx-padding: 10 20;");
+        addHoverEffect(submitButton);
         submitButton.setOnAction(e -> {
-            if (answerField.getText().equals("A")) {
+            if (answerField.getText().equalsIgnoreCase(randomQuestion.getAnswer())) {
                 showEndGamePopup();
                 popupStage.close();
             } else {
-                System.out.println("Mauvaise réponse !");
+                System.out.println("Incorrect answer!");
                 popupStage.close();
                 controller.transitionToNextPlayer();
             }
@@ -478,52 +571,70 @@ public class BoardView extends Pane {
 
         content.getChildren().addAll(title, questionLabel, answerField, submitButton);
 
-        Scene scene = new Scene(content, 400, 300);
+        Scene scene = new Scene(content, 500, 400);
+        scene.setFill(Color.TRANSPARENT);
         popupStage.setScene(scene);
+
+        content.setOpacity(0);
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(300), content);
+        fadeIn.setToValue(1);
+        fadeIn.play();
+
         popupStage.show();
+        currentPopup = popupStage;
     }
 
     private void showEndGamePopup() {
         Stage endGameStage = new Stage();
         endGameStage.initModality(Modality.APPLICATION_MODAL);
+        endGameStage.initStyle(StageStyle.TRANSPARENT);
 
         VBox content = new VBox(20);
         content.setAlignment(Pos.CENTER);
-        content.setPadding(new Insets(20));
-        content.setStyle("-fx-background-color: #F5B7B1;"); // Pastel Pink for end game
+        content.setPadding(new Insets(30));
+        content.setStyle("-fx-background-color: rgba(0, 0, 0, 0.9); -fx-background-radius: 20; -fx-border-color: #: -fx-border-color: #EF4444; -fx-border-width: 2; -fx-border-radius: 20;");
+        content.setEffect(new DropShadow(20, Color.BLACK));
 
-        Label title = new Label("Félicitations !");
-        title.setStyle("-fx-font-size: 20; -fx-text-fill: black; -fx-font-weight: bold;");
+        Label title = new Label("Congratulations!");
+        title.setStyle("-fx-font-size: 24; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-family: 'Arial';");
 
-        Label message = new Label("Vous avez gagné le jeu !");
-        message.setStyle("-fx-font-size: 16; -fx-text-fill: black;");
+        Label message = new Label("You Have Won!");
+        message.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-font-family: 'Arial';");
 
-        Button closeButton = new Button("Retour au menu principal");
+        Button closeButton = new Button("Back to Main Menu");
+        closeButton.setStyle("-fx-background-color: #EF4444; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 10; -fx-padding: 10 20;");
+        addHoverEffect(closeButton);
         closeButton.setOnAction(e -> {
             endGameStage.close();
             boardStage.close();
-
             Stage mainMenuStage = new Stage();
             MainMenuView mainMenuView = new MainMenuView(mainMenuStage);
             Scene mainMenuScene = new Scene(mainMenuView, 1920, 1080);
             mainMenuStage.setScene(mainMenuScene);
-            mainMenuStage.setTitle("Menu principal");
+            mainMenuStage.setTitle("Main Menu");
             mainMenuStage.setMaximized(true);
             mainMenuStage.show();
         });
 
         content.getChildren().addAll(title, message, closeButton);
 
-        Scene scene = new Scene(content, 400, 300);
+        Scene scene = new Scene(content, 500, 400);
+        scene.setFill(Color.TRANSPARENT);
         endGameStage.setScene(scene);
+
+        content.setOpacity(0);
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(300), content);
+        fadeIn.setToValue(1);
+        fadeIn.play();
+
         endGameStage.show();
     }
 
     private void updateScoresDisplay() {
         scoresBox.getChildren().clear();
         for (Pion pion : board.getPions()) {
-            Label scoreLabel = new Label(pion.getName() + " : " + pion.getScore() + " points");
-            scoreLabel.setStyle("-fx-font-size: 16; -fx-text-fill: white;");
+            Label scoreLabel = new Label(pion.getName() + ": " + pion.getScore() + " points");
+            scoreLabel.setStyle("-fx-font-size: 18; -fx-text-fill: white; -fx-font-family: 'Arial';");
             scoresBox.getChildren().add(scoreLabel);
         }
     }
