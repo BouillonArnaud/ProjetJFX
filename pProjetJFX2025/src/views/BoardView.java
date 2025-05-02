@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import controllers.BoardController;
+import controllers.HelpPageController;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
@@ -18,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -76,6 +78,7 @@ public class BoardView extends Pane {
         ImageView backgroundView = new ImageView(backgroundImage);
         backgroundView.fitWidthProperty().bind(this.widthProperty());
         backgroundView.fitHeightProperty().bind(this.heightProperty());
+        backgroundView.setOpacity(10); // Set opacity for a dimming effect
         this.getChildren().add(backgroundView);
 
         // Animated overlay for dynamic effect
@@ -83,9 +86,9 @@ public class BoardView extends Pane {
         overlay.widthProperty().bind(this.widthProperty());
         overlay.heightProperty().bind(this.heightProperty());
         overlay.setFill(new LinearGradient(0, 0, 1, 1, true, null,
-                new Stop(0, Color.rgb(0, 0, 0, 0.2)),
-                new Stop(1, Color.rgb(0, 0, 0, 0.4))));
-        FadeTransition fade = new FadeTransition(Duration.seconds(5), overlay);
+                new Stop(0, Color.rgb(0, 0, 0, 0.2)),// Gradient effect
+                new Stop(1, Color.rgb(0, 0, 0, 0.4)))); // Gradient effect
+        FadeTransition fade = new FadeTransition(Duration.seconds(5), overlay);// Fade effect , fade in and out 
         fade.setFromValue(0.3);
         fade.setToValue(0.6);
         fade.setAutoReverse(true);
@@ -188,8 +191,8 @@ public class BoardView extends Pane {
         imgView.setFitWidth(60);
         imgView.setFitHeight(60);
         StackPane btnMusic = new StackPane(imgView);
-        btnMusic.setLayoutX(150);
-        btnMusic.setLayoutY(100);
+        btnMusic.setLayoutX(20);
+        btnMusic.setLayoutY(20);
         btnMusic.setOnMouseClicked(event -> toggleMusic());
         addHoverEffect(btnMusic);
 
@@ -208,7 +211,23 @@ public class BoardView extends Pane {
             showCasePopup(pion, colors[pion.getIndex() % colors.length]);
         });
 
-        this.getChildren().addAll(btnMenu, btnMusic, showPopupQuestion);
+        // Help button
+        ImageView helpIcon = new ImageView(new Image("/resources/help_icon.png"));
+        helpIcon.setFitWidth(60);
+        helpIcon.setFitHeight(60);
+        StackPane btnHelp = new StackPane(helpIcon);
+        btnHelp.setLayoutX(1850); // Position in top-right corner
+        btnHelp.setLayoutY(20);
+        btnHelp.setOnMouseClicked(event -> {
+            Stage helpStage = new Stage();
+            new HelpPageController(helpStage);
+        });
+        Tooltip helpTooltip = new Tooltip("View Game Rules");
+        helpTooltip.setStyle("-fx-font-size: 14; -fx-background-color: rgba(0, 0, 0, 0.85); -fx-text-fill: white;");
+        Tooltip.install(btnHelp, helpTooltip);
+        addHoverEffect(btnHelp);
+
+        this.getChildren().addAll(btnMenu, btnMusic, showPopupQuestion, btnHelp);
     }
 
     public Color[] getColors() {
@@ -592,7 +611,7 @@ public class BoardView extends Pane {
         VBox content = new VBox(20);
         content.setAlignment(Pos.CENTER);
         content.setPadding(new Insets(30));
-        content.setStyle("-fx-background-color: rgba(0, 0, 0, 0.9); -fx-background-radius: 20; -fx-border-color: #: -fx-border-color: #EF4444; -fx-border-width: 2; -fx-border-radius: 20;");
+        content.setStyle("-fx-background-color: rgba(0, 0, 0, 0.9); -fx-background-radius: 20; -fx-border-color: #EF4444; -fx-border-width: 2; -fx-border-radius: 20;");
         content.setEffect(new DropShadow(20, Color.BLACK));
 
         Label title = new Label("Congratulations!");
