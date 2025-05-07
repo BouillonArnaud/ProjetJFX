@@ -96,7 +96,7 @@ public class MainMenuView extends BorderPane {
             cancelButton.setOnAction(e -> popupStage.close());
             addHoverEffect(cancelButton);
 
-            numberField.textProperty().addListener((obs, oldValue, newValue) -> {
+            numberField.textProperty().addListener((obs, oldValue, newValue) -> { // explique : 
                 nameFields.getChildren().clear();
                 nameInputs.clear();
                 try {
@@ -189,7 +189,7 @@ public class MainMenuView extends BorderPane {
                 startText, adminText);
     }
 
-    public StackPane createButton(String textContent) {
+    public StackPane createButton(String textContent) { // 
         Rectangle rectangle = new Rectangle(100, 50);
         rectangle.setFill(Color.BLACK);
         rectangle.setStroke(Color.BLACK);
