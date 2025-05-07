@@ -22,7 +22,7 @@ public class BoardController {
         for (String name : playerNames) {
             Pawn Pawn = new Pawn(0);
             Pawn.setName(name);
-            board.ajouterPawn(Pawn);
+            board.addPawn(Pawn);
         }
 
         boardView.setCurrentPlayerIndex(currentPlayerIndex);
@@ -40,11 +40,11 @@ public class BoardController {
                 System.out.println("Correct! The answer is: " + currentQuestion.getAnswer());
                 currentPawn.addScore(moveBy * 10); // 10 points per level
 
-                if (currentPawn.getIndex() == board.getChemin().size() - 1) {
+                if (currentPawn.getIndex() == board.getPath().size() - 1) {
                     showLevel4Question(currentPawn);
                 }
 
-                board.deplacerPawn(currentPawn, moveBy);
+                board.movePawn(currentPawn, moveBy);
             }
             transitionToNextPlayer();
         }
@@ -52,10 +52,10 @@ public class BoardController {
 
     public void handleAnswerTest(int userlevel) {
         Pawn currentPawn = board.getPawns().get(currentPlayerIndex);
-        if (currentPawn.getIndex() == board.getChemin().size() - 1) {
+        if (currentPawn.getIndex() == board.getPath().size() - 1) {
             showLevel4Question(currentPawn);
         }
-        board.deplacerPawn(currentPawn, userlevel);
+        board.movePawn(currentPawn, userlevel);
         transitionToNextPlayer();
     }
 

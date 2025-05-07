@@ -1,7 +1,6 @@
 package model;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -83,11 +82,5 @@ public class JsonUtils {
             alert.setContentText(message);
             alert.showAndWait();
         });
-    }
-
-    // Méthode originale conservée pour compatibilité
-    public static JsonObject readJson(String filePath) throws Exception {
-        String content = new String(Files.readAllBytes(Paths.get(filePath)));
-        return new Gson().fromJson(content, JsonObject.class);
     }
 }

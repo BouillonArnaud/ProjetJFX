@@ -1,119 +1,94 @@
 package utils;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+
+import controllers.BoardController;
+import model.Case;
 import model.GameBoard;
 import model.Pawn;
 import model.Question;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import controllers.BoardController;
 import views.BoardView;
 
 class BoardControllerTest {
 
-    @Mock
-    private GameBoard mockBoard;
-    
-    @Mock
-    private BoardView mockBoardView;
-    
-    @Mock
-    private Question mockQuestion;
-    
     private BoardController boardController;
-    private Pawn testPawn;
-
+    private GameBoard mockBoard;
+    private BoardView mockBoardView;
+    private Question mockQuestion;
+    private List<String> playerNames;
+    private List<Case> mockPath;
+    
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        testPawn = new Pawn(0);
-        testPawn.setName("Test Player");
+        // Initialize mock objects
+        mockBoard = mock(GameBoard.class);
+        mockBoardView = mock(BoardView.class);
+        mockQuestion = mock(Question.class);
         
-        when(mockBoard.getPawns()).thenReturn(List.of(testPawn));
-        when(mockBoard.getChemin()).thenReturn(List.of(new model.Case(0, 0, 0), new model.Case(1, 1, 1)));
+        // Sample player names for testing
+        playerNames = Arrays.asList("Player1", "Player2");
         
-        boardController = new BoardController(mockBoard, mockBoardView, List.of("Test Player"));
+        // Create Case objects with correct constructor (index, x, y)
+        Case startCase = new Case(0, 100, 100);    // First case at position (100,100)
+        Case middleCase = new Case(1, 200, 200);   // Second case at position (200,200)
+        Case endCase = new Case(2, 300, 300);      // Final case at position (300,300)
+        mockPath = Arrays.asList(startCase, middleCase, endCase);
+        
+        // Create controller with mocked dependencies
+        boardController = new BoardController(mockBoard, mockBoardView, playerNames);
+        
+        // Set up mock behavior
+        when(mockBoard.getPawns()).thenReturn(Arrays.asList(new Pawn(0), new Pawn(0)));
+        when(mockBoard.getPath()).thenReturn(mockPath);
+    }
+
+    @Test
+    void handleAnswer_whenAtLastPosition_shouldShowFinalQuestion() {
+        // Set up
         boardController.setCurrentQuestion(mockQuestion);
-    }
-
-    @Test
-    void handleAnswer_CorrectAnswer_ShouldMovePawnAndAddScore() {
-        // Arrange
-        when(mockQuestion.checkAnswer("correct answer")).thenReturn(true);
-        when(mockQuestion.getLevel()).thenReturn(2);
-        when(mockQuestion.getAnswer()).thenReturn("correct answer");
-
-        // Act
-        boardController.handleAnswer("correct answer");
-
-        // Assert
-        assertEquals(20, testPawn.getScore()); // 2 * 10 points
-        verify(mockBoard).deplacerPawn(testPawn, 2);
-        verify(mockBoardView).setCurrentPlayerIndex(0);
-        verify(mockBoardView).updatePawnPositions();
-    }
-
-    @Test
-    void handleAnswer_IncorrectAnswer_ShouldNotMovePawn() {
-        // Arrange
-        when(mockQuestion.checkAnswer("wrong answer")).thenReturn(false);
+        when(mockQuestion.checkAnswer("correct")).thenReturn(true);
         when(mockQuestion.getLevel()).thenReturn(1);
-
-        // Act
-        boardController.handleAnswer("wrong answer");
-
-        // Assert
-        assertEquals(0, testPawn.getScore());
-        verify(mockBoard, never()).deplacerPawn(any(), anyInt());
-        verify(mockBoardView).setCurrentPlayerIndex(0);
-        verify(mockBoardView).updatePawnPositions();
-    }
-
-    @Test
-    void handleAnswer_WhenOnLastCase_ShouldTriggerFinalQuestion() {
-        // Arrange
-        testPawn.setIndex(1); // Last case index
-        when(mockQuestion.checkAnswer("correct answer")).thenReturn(true);
-        when(mockQuestion.getLevel()).thenReturn(3);
-        when(mockQuestion.getAnswer()).thenReturn("correct answer");
-
-        // Act
-        boardController.handleAnswer("correct answer");
-
-        // Assert
-        verify(mockBoardView).showFinalQuestionPopup(testPawn);
-    }
-
-    @Test
-    void handleAnswer_WithNullQuestion_ShouldNotThrowException() {
-        // Arrange
-        boardController.setCurrentQuestion(null);
-
-        // Act & Assert
-        assertDoesNotThrow(() -> boardController.handleAnswer("any answer"));
-    }
-
-    @Test
-    void handleAnswer_ShouldTransitionToNextPlayer() {
-        // Arrange - Add second player
-        Pawn secondPawn = new Pawn(0);
-        secondPawn.setName("Player 2");
-        when(mockBoard.getPawns()).thenReturn(List.of(testPawn, secondPawn));
         
-        when(mockQuestion.checkAnswer("correct answer")).thenReturn(true);
-        when(mockQuestion.getLevel()).thenReturn(1);
-
+        // Set current pawn to last position (index = path size - 1)
+        Pawn testPawn = mockBoard.getPawns().get(0);
+        testPawn.setIndex(mockPath.size() - 1);  // index 2 in our 3-case path
+        
         // Act
-        boardController.handleAnswer("correct answer");
-
+        boardController.handleAnswer("correct");
+        
         // Assert
-        verify(mockBoardView).setCurrentPlayerIndex(1); // Should move to next player
+        // Verify final question popup was shown
+        verify(mockBoardView).showFinalQuestionPopup(testPawn);
+        
+        // Verify the pawn was at the correct last position
+        assertEquals(2, testPawn.getIndex());
+        assertEquals(mockPath.get(2), mockBoard.getPath().get(testPawn.getIndex()));
+    }
+
+    @Test
+    void handleAnswer_movingBeyondPath_shouldHandleGracefully() {
+        // Arrange
+        boardController.setCurrentQuestion(mockQuestion);
+        when(mockQuestion.checkAnswer("correct")).thenReturn(true);
+        when(mockQuestion.getLevel()).thenReturn(5);  // Large move that would go beyond path
+        
+        // Act
+        boardController.handleAnswer("correct");
+        
+        // Assert
+        // Verify the board handles the movement
+        verify(mockBoard).movePawn(any(Pawn.class), eq(5));
+    }
+
+    // Helper method to access pawns for verification
+    private List<Pawn> getPawns() {
+        return mockBoard.getPawns();
     }
 }

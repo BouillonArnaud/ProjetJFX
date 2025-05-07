@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameBoard {
-    private final List<Case> chemin;
+    private final List<Case> path;
     private final List<Pawn> Pawns;
     private List<QuestionEducation> educationQuestions;
     private List<QuestionEntertainment> entertainmentQuestions;
@@ -12,7 +12,7 @@ public class GameBoard {
     private List<QuestionInformatic> informaticQuestions;
 
     public GameBoard() {
-        this.chemin = genererChemin();
+        this.path = generatePath();
         this.Pawns = new ArrayList<>();
         this.educationQuestions = new ArrayList<QuestionEducation>();
         this.entertainmentQuestions = new ArrayList<QuestionEntertainment>();
@@ -21,7 +21,7 @@ public class GameBoard {
         initializeQuestionLists();
     }
 
-    public void ajouterPawn(Pawn Pawn) {
+    public void addPawn(Pawn Pawn) {
         this.Pawns.add(Pawn);
     }
 
@@ -29,14 +29,14 @@ public class GameBoard {
         return Pawns;
     }
 
-    public List<Case> getChemin() {
-        return chemin;
+    public List<Case> getPath() {
+        return path;
     }
 
-    public List<Case> genererChemin() {
-        List<Case> chemin = new ArrayList<>();
+    public List<Case> generatePath() {
+        List<Case> path = new ArrayList<>();
 
-        int[][] cheminPositions = { { 50, 50 }, { 90, 50 }, { 130, 50 }, { 170, 50 }, { 210, 50 }, { 250, 50 },
+        int[][] pathPositions = { { 50, 50 }, { 90, 50 }, { 130, 50 }, { 170, 50 }, { 210, 50 }, { 250, 50 },
                 { 290, 50 }, { 330, 50 }, // Ligne 1
                 { 330, 90 }, { 330, 130 }, { 330, 170 }, { 330, 210 }, { 330, 250 }, { 330, 290 }, // Descente
                 { 290, 290 }, { 250, 290 }, { 210, 290 }, { 170, 290 }, { 130, 290 }, { 90, 290 }, // Retour ligne 2
@@ -46,39 +46,42 @@ public class GameBoard {
                 { 210, 210 }, { 170, 210 } // Ligne
         };
 
-        for (int i = 0; i < cheminPositions.length; i++) {
-            chemin.add(new Case(i, cheminPositions[i][0], cheminPositions[i][1]));
+        for (int i = 0; i < pathPositions.length; i++) {
+            path.add(new Case(i, pathPositions[i][0], pathPositions[i][1]));
         }
-        return chemin;
+        return path;
     }
 
-    public boolean deplacerPawn(Pawn Pawn, int deplacement) {
-        int newIndex = Pawn.getIndex() + deplacement;
+    public boolean movePawn(Pawn Pawn, int move) {
+        int newIndex = Pawn.getIndex() + move;
 
-        if (newIndex >= 0 && newIndex < chemin.size()) {
+        if (newIndex >= 0 && newIndex < path.size()) {
             Pawn.setIndex(newIndex);
             return true;
-        } else if (newIndex >= chemin.size()) {
-            Pawn.setIndex((chemin.size() - 1));
+        } else if (newIndex >= path.size()) {
+            Pawn.setIndex((path.size() - 1));
             return true;
         }
         return false;
     }
 
+//  Use to create questions lists thanks to their theme
     public void initializeQuestionLists() {
+//    	Load questions form JSON file
         List<Question> jsonContent = JsonUtils.getJsonContent();
 
         if (jsonContent == null) {
-            System.err.println("Aucune question chargée depuis le JSON");
+            System.err.println("No question load from JSON file");
             return;
         }
-
+//		Instanciation of builders to create the right question
         EntertainmentQuestionBuilder enB = new EntertainmentQuestionBuilder();
         EducationQuestionBuilder eduB = new EducationQuestionBuilder();
         ImprobableQuestionBuilder impB = new ImprobableQuestionBuilder();
         InformaticQuestionBuilder infB = new InformaticQuestionBuilder();
-
+//		Loop into questions load from JSON file
         for (Question q : jsonContent) {
+//        	Check theme of question and call method createQuestion with the right builder
             switch (q.getTheme()) {
                 case "Entertainment": {
                     Question questionEn = enB.createQuestion(q.getTheme(), q.getSubject(), q.getLevel(),
@@ -108,7 +111,7 @@ public class GameBoard {
                     System.out.println("Unknown theme: " + q.getTheme());
             }
         }
-
+//		Log to check the validity of the lists
         for (QuestionEducation q : educationQuestions) {
             System.out.println("Question : " + q.getQuestionContent() + " Answer : " + q.getAnswer());
         }
@@ -134,7 +137,7 @@ public class GameBoard {
     public boolean equals(Object o) {
         if (o instanceof GameBoard) {
             GameBoard gb = (GameBoard) o;
-            return this.chemin.equals(gb.chemin) && this.Pawns.equals(gb.Pawns);
+            return this.path.equals(gb.path) && this.Pawns.equals(gb.Pawns);
         }
         return false;
     }

@@ -26,7 +26,7 @@
       "subject": "football",
       "level": 4,
       "questionContent": "Which team was Bayern Munich playing against when Robert Lewandowski scored 5 goals in only 9 minutes ?",
-      "answer": "Wolfsburg."
+      "answer": "Wolfsburg"
     },
     {
       "theme": "Entertainment",
@@ -54,7 +54,7 @@
       "subject": "Goldorak",
       "level": 4,
       "questionContent": "What is the name of the base where Goldorak is hidden and protected on Earth?",
-      "answer": "The White Ranch."
+      "answer": "The White Ranch"
     },
     {
       "theme": "Informatic",
@@ -117,56 +117,56 @@
       "subject": "Geography of the EU",
       "level": 1,
       "questionContent": "Which seas border the EU in the north?",
-      "answer": "Baltic and North Seas."
+      "answer": "Baltic and North Seas"
     },
     {
       "theme": "Education",
       "subject": "Geography of the EU",
       "level": 2,
       "questionContent": "Which river in the EU exceeds 2,000 km?",
-      "answer": "The Danube, a major waterway."
+      "answer": "The Danube"
     },
     {
       "theme": "Education",
       "subject": "Geography of the EU",
       "level": 3,
       "questionContent": "Which lake shared with Switzerland has undefined borders?",
-      "answer": "Lake Constance."
+      "answer": "Lake Constance"
     },
     {
       "theme": "Education",
       "subject": "Geography of the EU",
       "level": 4,
       "questionContent": "Which country has limited access to the sea via Neume?",
-      "answer": "Bosnia-Herzegovina."
+      "answer": "Bosnia-Herzegovina"
     },
     {
       "theme": "Education",
       "subject": "History of the UE",
       "level": 1,
       "questionContent": "Which country joined the EU in 2013, marking the last enlargement before Brexit?",
-      "answer": "Croatia."
+      "answer": "Croatia"
     },
     {
       "theme": "Education",
       "subject": "History of the UE",
       "level": 2,
       "questionContent": "Which 1998 summit decided to launch the euro in 1999?",
-      "answer": "Brussels Summit."
+      "answer": "Brussels Summit"
     },
     {
       "theme": "Education",
       "subject": "History of the UE",
       "level": 3,
       "questionContent": "Which act of 1986 was aimed at completing the single market by 1992?",
-      "answer": "the Single European Act."
+      "answer": "the Single European Act"
     },
     {
       "theme": "Education",
       "subject": "History of the UE",
       "level": 4,
       "questionContent": "Which decision of 1964 established the primacy of European law?",
-      "answer": "The Costa v. ENEL judgment."
+      "answer": "The Costa v ENEL judgment"
     },
     {
       "theme": "Entertainment",
@@ -236,21 +236,21 @@
       "subject": "Unexplained Phenomena",
       "level": 2,
       "questionContent": "What improbable phenomenon involves objects that seem to defy gravity, such as cars rolling uphill on their own?",
-      "answer": "Magnetic hills (or gravity hills)."
+      "answer": "Magnetic hills"
     },
     {
       "theme": "Improbable",
       "subject": "Unexplained Phenomena",
       "level": 3,
       "questionContent": "What is the name of the theory suggesting that our universe is just a computer simulation?",
-      "answer": "The simulation theory."
+      "answer": "The simulation theory"
     },
     {
       "theme": "Improbable",
       "subject": "Unexplained Phenomena",
       "level": 4,
       "questionContent": "What improbable phenomenon involves unexplained sounds heard in different parts of the world, often described as \"sky noises\"?",
-      "answer": "Skyquakes or \"sky noises.\""
+      "answer": "Skyquakes"
     },
     {
       "theme": "Improbable",
@@ -264,14 +264,14 @@
       "subject": "Legendary Creatures",
       "level": 2,
       "questionContent": "What legendary sea monster is described as a giant squid capable of sinking ships?",
-      "answer": "The Kraken."
+      "answer": "The Kraken"
     },
     {
       "theme": "Improbable",
       "subject": "Legendary Creatures",
       "level": 3,
       "questionContent": "What mythical being is often associated with disappearances in forests and mountains?",
-      "answer": "The Yeti."
+      "answer": "The Yeti"
     },
     {
       "theme": "Improbable",
@@ -298,7 +298,7 @@
       "theme": "Entertainment",
       "subject": "Music",
       "level": 3,
-      "questionContent": ". In what year did Freddy Mercury, emblematic singer of the band Queen, die ?",
+      "questionContent": " In what year did Freddy Mercury, emblematic singer of the band Queen, die ?",
       "answer": "1991"
     },
     {
@@ -376,7 +376,7 @@
       "subject": "Fundamental Mathematics",
       "level": 2,
       "questionContent": "What is the name of the constant approximately equal to 3.1416 ?",
-      "answer": "Pi (π)"
+      "answer": "Pi"
     },
     {
       "theme": "Education",
@@ -390,7 +390,7 @@
       "subject": "Fundamental Mathematics",
       "level": 4,
       "questionContent": "What is the name of the irrational number approximately equal to 2.718, used as the base of the natural logarithm ?",
-      "answer": "Euler’s number (e)"
+      "answer": "Euler’s number"
     },
     {
       "theme": "Entertainment",
@@ -424,14 +424,14 @@
       "theme": "Informatic",
       "subject": "Disney",
       "level": 1,
-      "questionContent": "In Phineas and Ferb, Candace is always watching her brothers and tries to alert their mom when they conduct crazy experiments. Which design pattern does this represent?",
+      "questionContent": "In Phineas and Ferb, Candace is always watching her brothers and tries to alert their mom when they conduct crazy experiments Which design pattern does this represent?",
       "answer": "Observer"
     },
     {
       "theme": "Informatic",
       "subject": "Disney",
       "level": 2,
-      "questionContent": "In The Cheetah Girls, the girls choose different strategies to impress the judges: Dorinda dances, Galleria sings with power, Chanel uses her charisma. Which design pattern does this represent?",
+      "questionContent": "In The Cheetah Girls, the girls choose different strategies to impress the judges: Dorinda dances, Galleria sings with power, Chanel uses her charisma Which design pattern does this represent?",
       "answer": "Strategy"
     },
     {
@@ -473,8 +473,8 @@
       "theme": "Entertainment",
       "subject": "Football",
       "level": 2,
-      "questionContent": "Name a well-known club.",
-      "answer": "Exemple: Real Madrid; FC Barcelone, Liverpool, …"
+      "questionContent": "Which club is the rival of FC Barcelona ?",
+      "answer": "Real Madrid"
     },
     {
       "theme": "Education",
@@ -495,7 +495,7 @@
       "subject": "Inheritance",
       "level": 4,
       "questionContent": "What’s polymorphism in object-oriented programming ?",
-      "answer": "a programming principle which allows objects of different classes, objects, variables and methods to exist in different forms."
+      "answer": "a programming principle which allows objects of different classes, objects, variables and methods to exist in different forms"
     },
     {
       "theme": "Informatic",
@@ -551,7 +551,7 @@
       "subject": "Jeux Video",
       "level": 1,
       "questionContent": "When was the first commercial video game released?",
-      "answer": "In 1972, with the game \"Pong\""
+      "answer": "1972"
     },
     {
       "theme": "Education",
@@ -635,7 +635,7 @@
       "subject": "Jeux Video",
       "level": 4,
       "questionContent": "Which video game holds the record for the highest number of simultaneous players on a single map, with millions of participants?",
-      "answer": "Fortnite."
+      "answer": "Fortnite"
     },
     {
       "theme": "Improbable",
@@ -649,7 +649,7 @@
       "subject": "Jeux Video",
       "level": 1,
       "questionContent": "What is the first game developed and published by Riot Games, released in 2009, that popularized the MOBA (Multiplayer Online Battle Arena) genre?",
-      "answer": "League of Legends."
+      "answer": "League of Legends"
     },
     {
       "theme": "Entertainment",
@@ -810,7 +810,7 @@
       "subject": "Jeux Video",
       "level": 2,
       "questionContent": "In which video game do players control a single pixel that moves through different colorful levels, reacting to its environment?",
-      "answer": "PixelJunk Eden."
+      "answer": "PixelJunk Eden"
     },
     {
       "theme": "Entertainment",
@@ -838,7 +838,7 @@
       "subject": "Jeux Video",
       "level": 2,
       "questionContent": "In which simulation video game do players manage a business to learn financial management and marketing skills?",
-      "answer": "SimCity or RollerCoaster Tycoon"
+      "answer": "SimCity"
     },
 
     {
@@ -922,14 +922,14 @@
       "theme": "Informatic",
       "subject": "State machine diagram",
       "level": 2,
-      "questionContent": "I'm something instantaneous that happens at a given moment and triggers a transition. What am I ?",
+      "questionContent": "I'm something instantaneous that happens at a given moment and triggers a transition What am I ?",
       "answer": "An event"
     },
     {
       "theme": "Informatic",
       "subject": "State machine diagram",
       "level": 3,
-      "questionContent": "I'm used when you want an event to trigger a transition regardless of the current state of the machine. What am I ?",
+      "questionContent": "I'm used when you want an event to trigger a transition regardless of the current state of the machine What am I ?",
       "answer": "The Any Trigger"
     },
     {
@@ -972,14 +972,14 @@
       "subject": "Modern science-fiction/fantasy authors",
       "level": 1,
       "questionContent": "Who wrote The Lord of The Rings ?",
-      "answer": "J.R.R Tolkien or Tolkien"
+      "answer": "Tolkien"
     },
     {
       "theme": "Entertainment",
       "subject": "Modern science-fiction/fantasy authors",
       "level": 2,
       "questionContent": "Who wrote the ‘A Game of Thrones’ saga ?",
-      "answer": "George R.R Martin or George Martin"
+      "answer": "George Martin"
     },
     {
       "theme": "Entertainment",
@@ -993,14 +993,14 @@
       "subject": "Modern science-fiction/fantasy authors",
       "level": 4,
       "questionContent": "Who is the famous author of the (hopefully) upcoming book ‘The winds of Winter’ ?",
-      "answer": "George R.R Martin or George Martin"
+      "answer": "George Martin"
     },
     {
       "theme": "Improbable",
       "subject": "Extra terrestrial life and civilizations",
       "level": 1,
       "questionContent": "What is the most famous alien from Hollywood ?",
-      "answer": "E.T."
+      "answer": "E.T"
     },
     {
       "theme": "Improbable",

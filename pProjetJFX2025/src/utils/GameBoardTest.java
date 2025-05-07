@@ -22,9 +22,9 @@ class GameBoardTest {
     }
 
     @Test
-    void testGenererChemin_ShouldGenerateCorrectPath() {
+    void testGeneratePath_ShouldGenerateCorrectPath() {
         // Test that the path is generated with correct coordinates
-        List<Case> chemin = gameBoard.genererChemin();
+        List<Case> chemin = gameBoard.generatePath();
         
         assertNotNull(chemin);
         assertFalse(chemin.isEmpty());
@@ -40,46 +40,46 @@ class GameBoardTest {
     }
 
     @Test
-    void testAjouterPawn_ShouldAddPawnToList() {
+    void testAddPawn_ShouldAddPawnToList() {
         // Test adding a pawn to the game board
         assertEquals(0, gameBoard.getPawns().size());
         
-        gameBoard.ajouterPawn(testPawn);
+        gameBoard.addPawn(testPawn);
         
         assertEquals(1, gameBoard.getPawns().size());
         assertEquals(testPawn, gameBoard.getPawns().get(0));
     }
 
     @Test
-    void testDeplacerPawn_ValidMovement_ShouldUpdatePosition() {
+    void testmovePawn_ValidMovement_ShouldUpdatePosition() {
         // Test valid pawn movement within bounds
-        gameBoard.ajouterPawn(testPawn);
+        gameBoard.addPawn(testPawn);
         int initialPosition = testPawn.getIndex();
         
-        boolean result = gameBoard.deplacerPawn(testPawn, 3);
+        boolean result = gameBoard.movePawn(testPawn, 3);
         
         assertTrue(result);
         assertEquals(initialPosition + 3, testPawn.getIndex());
     }
 
     @Test
-    void testDeplacerPawn_MovementBeyondBoard_ShouldSetToLastPosition() {
+    void testmovePawn_MovementBeyondBoard_ShouldSetToLastPosition() {
         // Test movement that would go beyond the board limits
-        gameBoard.ajouterPawn(testPawn);
-        int lastPosition = gameBoard.getChemin().size() - 1;
+        gameBoard.addPawn(testPawn);
+        int lastPosition = gameBoard.getPath().size() - 1;
         
-        boolean result = gameBoard.deplacerPawn(testPawn, 100);
+        boolean result = gameBoard.movePawn(testPawn, 100);
         
         assertTrue(result);
         assertEquals(lastPosition, testPawn.getIndex());
     }
 
     @Test
-    void testDeplacerPawn_NegativeMovement_ShouldReturnFalse() {
+    void testmovePawn_NegativeMovement_ShouldReturnFalse() {
         // Test invalid negative movement
-        gameBoard.ajouterPawn(testPawn);
+        gameBoard.addPawn(testPawn);
         
-        boolean result = gameBoard.deplacerPawn(testPawn, -1);
+        boolean result = gameBoard.movePawn(testPawn, -1);
         
         assertFalse(result);
         assertEquals(0, testPawn.getIndex()); // Position shouldn't change
@@ -100,7 +100,7 @@ class GameBoardTest {
     void testEquals_DifferentGameBoard_ShouldReturnFalse() {
         // Test inequality of different game boards
         GameBoard otherBoard = new GameBoard();
-        otherBoard.ajouterPawn(new Pawn(0));
+        otherBoard.addPawn(new Pawn(0));
         
         assertFalse(gameBoard.equals(otherBoard));
     }
