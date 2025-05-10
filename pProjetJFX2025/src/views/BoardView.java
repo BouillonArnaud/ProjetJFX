@@ -633,8 +633,23 @@ public class BoardView extends Pane {
                 controller.transitionToNextPlayer();
             }
         });
+        
+        if (randomQuestion != null) {
+            Button answerButton = new Button("Show Answer");
+            answerButton.setStyle("-fx-background-color: #6B7280; -fx-text-fill: white; -fx-font-size: 16; -fx-background-radius: 10; -fx-padding: 10 20;");
+            addHoverEffect(answerButton);
+            Label answerLabel = new Label();
+            answerLabel.setStyle("-fx-text-fill: white; -fx-font-size: 16;");
 
-        content.getChildren().addAll(title, info, questionLabel, timerLabel, answerField, submitButton);
+            answerButton.setOnAction(e -> {
+                answerLabel.setText("Answer: " + randomQuestion.getAnswer());
+                answerButton.setDisable(true);
+            });
+            
+            content.getChildren().addAll(title, info, questionLabel, timerLabel, answerField, submitButton,answerButton,answerLabel);
+        } else {
+        	content.getChildren().addAll(title, info, questionLabel, timerLabel, answerField, submitButton);
+        }
 
         Scene scene = new Scene(content, 1000, 800);
         scene.setFill(Color.TRANSPARENT);

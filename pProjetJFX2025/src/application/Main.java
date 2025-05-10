@@ -11,7 +11,7 @@ public class Main extends Application {
         MainMenuView mainMenu = new MainMenuView(primaryStage);
         Scene scene = new Scene(mainMenu, 1920, 1080);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Menu Principal");
+        primaryStage.setTitle("Main Menu");
         primaryStage.setMaximized(true);
         primaryStage.show();
     }

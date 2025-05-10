@@ -13,23 +13,23 @@ public class JsonUtils {
     private static final String JSON_FILENAME = "questions (1).json";
 
     /**
-     * Charge les questions depuis le fichier JSON (version compatible JavaFX)
+     * Load questions form Json files 
      */
     public static List<Question> getJsonContent() {
         try {
-            // Solution 1: Chargement depuis les ressources (pour le JAR)
+            // Solution 1: Load from ressources
             InputStream is = JsonUtils.class.getResourceAsStream("/" + JSON_FILENAME);
             if (is != null) {
                 return loadFromStream(is);
             }
 
-            // Solution 2: Chargement depuis le répertoire d'exécution
+            // Solution 2: Load from execution directory
             Path filePath = Paths.get(JSON_FILENAME).toAbsolutePath();
             if (Files.exists(filePath)) {
                 return loadFromFile(filePath);
             }
 
-            // Solution 3: Recherche alternative dans le dossier 'resources'
+            // Solution 3: Load from "ressources" directory
             Path resourcesPath = Paths.get("src/main/resources/" + JSON_FILENAME);
             if (Files.exists(resourcesPath)) {
                 return loadFromFile(resourcesPath);
